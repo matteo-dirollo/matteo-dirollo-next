@@ -1,5 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { useMemo } from "react";
+import { createWrapper, HYDRATE } from "next-redux-wrapper";
 import {
   persistStore,
   persistReducer,
@@ -28,16 +28,23 @@ const rootReducer = combineReducers({
   storage: storageReducer,
 });
 
+const combinedReducer = (state, action) => {
+  if (action.type === HYDRATE) {
+    return { ...state, ...action.payload };
+  }
+  return rootReducer(state, action);
+};
+
 const persistConfig = {
   key: "root",
   storage: storage,
   stateReconciler: autoMergeLevel1,
-  blacklist: ["posts", "async", "storage"],
+  blacklist: ["posts","async", "storage"],
 };
 
-const persistedReducer = persistReducer(persistConfig, rootReducer);
+const persistedReducer = persistReducer(persistConfig, combinedReducer);
 
-export function makeStore(initialState) {
+const makeStore = (context) => {
   const store = configureStore({
     reducer: persistedReducer,
     middleware: (getDefaultMiddleware) =>  getDefaultMiddleware({
@@ -49,28 +56,15 @@ export function makeStore(initialState) {
   });
 
   store.__persistor = persistStore(store);
+
   return store;
 };
 
-let store;
-let persistor;
+export const store = makeStore()
+export const wrapper = createWrapper(makeStore, { debug: false });
+export const persistor = makeStore().__persistor;
 
-export function initializeStore(initialState) {
-  const _store = store ?? makeStore(initialState);
 
-  // For SSG and SSR always create a new store
-  if (typeof window === 'undefined') return _store;
 
-  // Create the store once in the client
-  if (!store) store = _store;
-  if (!persistor) persistor = store.__persistor;
 
-  return _store;
-}
 
-export function useStore(initialState) {
-  const _store = useMemo(() => initializeStore(initialState), [initialState]);
-  return _store;
-}
-
-export { persistor };
