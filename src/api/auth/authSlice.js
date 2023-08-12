@@ -10,9 +10,8 @@ import {
   signOut,
 } from "firebase/auth";
 import { auth, db } from "../firebase-config";
-import { appLoaded, asyncActionError } from "../asyncSlice";
-import { onSnapshot, doc, setDoc, getDoc } from "firebase/firestore";
-import { HYDRATE } from "next-redux-wrapper";
+import { appLoaded } from "../asyncSlice";
+import { doc, setDoc, getDoc } from "firebase/firestore";
 
 const initialState = {
   authenticated: false,
@@ -221,7 +220,7 @@ export const fetchFirestoreUserById = createAsyncThunk(
       const userDocRef = doc(db, "users", uid);
       const userDocSnapshot = await getDoc(userDocRef);
 
-      console.log(userDocSnapshot);
+      // console.log(userDocSnapshot);
 
       return userDocSnapshot.data();
     } catch (error) {

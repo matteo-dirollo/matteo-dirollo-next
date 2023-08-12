@@ -1,5 +1,5 @@
+"use client"
 import React, { useState } from 'react';
-
 import { LexicalComposer } from '@lexical/react/LexicalComposer';
 import { ContentEditable } from '@lexical/react/LexicalContentEditable';
 import { RichTextPlugin } from '@lexical/react/LexicalRichTextPlugin';
