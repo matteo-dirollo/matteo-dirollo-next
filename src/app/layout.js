@@ -1,4 +1,3 @@
-"use client";
 import ReduxProvider from "@/lib/ReduxProvider";
 import "./globals.css";
 import theme from "@/styles/theme";
@@ -22,6 +21,7 @@ import { useRouter } from "next/navigation";
 import Navbar from "@/components/layout/Navbar/Navbar";
 import ModalManager from "@/components/ui/modals/ModalManager";
 import FooterNewsletter from "@/components/layout/Footer/FooterNewsletter";
+import { Providers } from "./providers";
 
 export default function RootLayout({ children }) {
   const router = useRouter();
@@ -29,12 +29,12 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={inter.className}>
         <ReduxProvider>
-          <ChakraProvider theme={theme}>
+          <Providers>
             {router.pathname !== "/admin" && <Navbar />}
             <ModalManager />
             {children}
             <FooterNewsletter />
-          </ChakraProvider>
+          </Providers>
         </ReduxProvider>
       </body>
     </html>

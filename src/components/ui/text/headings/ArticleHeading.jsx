@@ -2,11 +2,13 @@
 import { Heading, useColorModeValue } from "@chakra-ui/react";
 import React from "react";
 
-export default function ArticleHeading(title) {
+const ArticleHeading = (title) => {
   const textColor = useColorModeValue("gray.700", "gray.100");
   return (
     <Heading my={2} color={textColor} as="h1" size="2xl" lineHeight="120%">
       {title}
     </Heading>
   );
-}
+};
+
+export default ArticleHeading;

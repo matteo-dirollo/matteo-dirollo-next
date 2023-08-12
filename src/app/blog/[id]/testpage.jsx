@@ -72,7 +72,7 @@ export default function PostId() {
         {/* <Comments articleId={article.id} comments={comments} /> */}
         <br />
 
-        <MorePosts article={""} />
+        {/* <MorePosts article={""} /> */}
       </Container>
     </div>
   );

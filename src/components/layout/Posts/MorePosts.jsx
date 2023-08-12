@@ -2,7 +2,7 @@ import { Box, HStack, Heading, Text, VStack } from "@chakra-ui/react";
 import Link from "next/link";
 import React from "react";
 
-function MorePosts({ article }) {
+const MorePosts =({ article }) => {
   const posts = useSelector(selectAllPosts);
   const cards = useMemo(
     () => _.filter(posts, (post) => post !== article),
