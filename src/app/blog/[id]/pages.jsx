@@ -1,3 +1,4 @@
+"use client"
 import React, { useEffect, useState, useMemo, useCallback } from "react";
 import {
   Box,
@@ -22,7 +23,7 @@ import {
 import { GoShare } from "react-icons/go";
 import PlainEditor from "@/components/ui/lexicalEditor/PlainEditor";
 import Link from "next/link";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { LoadingSpinner } from "@/components/ui/loaders/LoadingSpinner";
 import _ from "lodash";
 import Comments from "@/components/ui/comments/Comments";
