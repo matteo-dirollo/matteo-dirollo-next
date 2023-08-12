@@ -1,8 +1,4 @@
 import { configureStore } from "@reduxjs/toolkit";
-<<<<<<< HEAD
-import { createWrapper, HYDRATE } from "next-redux-wrapper";
-=======
->>>>>>> redux
 import {
   persistReducer,
   persistStore,
@@ -31,15 +27,6 @@ const rootReducer = combineReducers({
   storage: storageReducer,
 });
 
-<<<<<<< HEAD
-const combinedReducer = (state, action) => {
-  if (action.type === HYDRATE) {
-    return { ...state, ...action.payload };
-  }
-  return rootReducer(state, action);
-};
-
-=======
 const createNoopStorage = () => {
   return {
     getItem(_key) {
@@ -58,7 +45,6 @@ const storage = typeof window !== "undefined" ? createWebStorage("local") : crea
 
 export default storage;
 
->>>>>>> redux
 const persistConfig = {
   key: "root",
   storage,
@@ -68,17 +54,10 @@ const persistConfig = {
 
 const persistedReducer = persistReducer(persistConfig, combinedReducer);
 
-<<<<<<< HEAD
-const makeStore = (context) => {
-  const store = configureStore({
-    reducer: persistedReducer,
-    middleware: (getDefaultMiddleware) =>  getDefaultMiddleware({
-=======
 export const store = configureStore({
   reducer: persistedReducer,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
->>>>>>> redux
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
@@ -86,22 +65,6 @@ export const store = configureStore({
   devTools: process.env.NODE_ENV !== "production",
 });
 
-<<<<<<< HEAD
-  store.__persistor = persistStore(store);
-
-  return store;
-};
-
-export const store = makeStore()
-export const wrapper = createWrapper(makeStore, { debug: false });
-export const persistor = makeStore().__persistor;
-
-
-
-
-
-=======
 store.dispatch(verifyAuth());
 
 export const persistor = persistStore(store);
->>>>>>> redux
