@@ -1,5 +1,4 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { useMemo } from "react";
 import {
   persistReducer,
   persistStore,
@@ -11,15 +10,14 @@ import {
   REGISTER,
 } from "redux-persist";
 import {verifyAuth} from "@/api/auth/authSlice"
-import storage from "redux-persist/lib/storage";
 import autoMergeLevel1 from "redux-persist/lib/stateReconciler/autoMergeLevel1";
 import { combineReducers } from "redux";
+import createWebStorage from "redux-persist/lib/storage/createWebStorage";
 import modalReducer from "@/components/ui/modals/modalSlice";
 import asyncReducer from "@/api/asyncSlice";
 import authReducer from "@/api/auth/authSlice";
 import postsReducer from "@/app/blog/postsSlice";
 import storageReducer from "@/api/firestore/storageSlice";
-import thunk from "redux-thunk";
 
 const rootReducer = combineReducers({
   async: asyncReducer,
@@ -29,9 +27,27 @@ const rootReducer = combineReducers({
   storage: storageReducer,
 });
 
+const createNoopStorage = () => {
+  return {
+    getItem(_key) {
+      return Promise.resolve(null);
+    },
+    setItem(_key, value) {
+      return Promise.resolve(value);
+    },
+    removeItem(_key) {
+      return Promise.resolve();
+    },
+  };
+};
+
+const storage = typeof window !== "undefined" ? createWebStorage("local") : createNoopStorage();
+
+export default storage;
+
 const persistConfig = {
   key: "root",
-  storage: storage,
+  storage,
   stateReconciler: autoMergeLevel1,
   blacklist: ["posts", "async", "storage"],
 };

@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import CommentItem from './CommentItem';
 import CommentForm from './CommentForm';
 import _ from 'lodash';
-import { deleteComment } from '../../../pages/Blog/postsSlice';
+import { deleteComment } from '@/app/blog/postsSlice';
 
 const Comments = ({ articleId, comments }) => {
   const dispatch = useDispatch();
