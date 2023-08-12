@@ -3,7 +3,7 @@ import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 
 import { useDispatch } from 'react-redux';
-import { addComment, fetchComments } from '../../../pages/blog/postsSlice.js';
+import { addComment, fetchComments } from '@/app/blog/postsSlice';
 import {
   appLoaded,
   asyncActionError,

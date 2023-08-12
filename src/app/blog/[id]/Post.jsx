@@ -1,3 +1,4 @@
+"use client";
 import React, { useEffect, useState, useMemo, useCallback } from "react";
 import {
   Box,
@@ -22,20 +23,17 @@ import {
 import { GoShare } from "react-icons/go";
 import PlainEditor from "@/components/ui/lexicalEditor/PlainEditor";
 import Link from "next/link";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { LoadingSpinner } from "@/components/ui/loaders/LoadingSpinner";
 import _ from "lodash";
 import Comments from "@/components/ui/comments/Comments";
 import { openModal } from "@/components/ui/modals/modalSlice";
-import { wrapper } from "@/lib";
 
 const Post = () => {
-  
   const dispatch = useDispatch();
   const posts = useSelector(selectAllPosts);
   const postsStatus = useSelector(getPostsStatus);
   const textColor = useColorModeValue("gray.700", "gray.100");
-  const [isLoaded, setIsLoaded] = useState(false);
 
   const router = useRouter();
 
@@ -82,16 +80,12 @@ const Post = () => {
       dispatch(fetchComments(article.id));
       const parsedBody = JSON.parse(article.body);
       setArticleDescription(extractPlainText(parsedBody.root));
-      setIsLoaded(true);
     }
   }, [postsStatus, dispatch, article, extractPlainText, router]);
 
   const renderPosts = _.slice(cards, 0, 3).map((card) => (
     <React.Fragment key={card.id}>
-      <VStack
-        className={`react-snap ${isLoaded ? "loaded" : ""}`}
-        justify="start"
-      >
+      <VStack justify="start">
         <Link
           href={`/blog/${card.id}`}
           sx={{ "a:hover": { textDecoration: "none" } }}
@@ -132,7 +126,6 @@ const Post = () => {
           align="stretch"
           maxW={["fit-content", "80%"]}
           style={{ overflowX: "hidden" }}
-          className={`react-snap ${isLoaded ? "loaded" : ""}`}
         >
           <Box as="article" key={article.id}>
             <Heading
@@ -207,18 +200,17 @@ const Post = () => {
 
 export default Post;
 
-const getServerSideProps = wrapper.getServerSideProps(
-  async ({ store, req, res, query }) => {
-    const { id } = query; // Use query directly, not context.query
-    console.log("Data fetched:", id); // Log the data
+// const getServerSideProps = getServerSideProps(
+//   async ({ store, req, res, query }) => {
+//     const { id } = query; // Use query directly, not context.query
+//     console.log("Data fetched:", id); // Log the data
 
-    await store.dispatch(fetchPosts());
-    console.log("Store state after dispatch:", store.getState());
-    return {
-      props: {
-        posts,
-      },
-    };
-  }
-);
-
+//     await store.dispatch(fetchPosts());
+//     console.log("Store state after dispatch:", store.getState());
+//     return {
+//       props: {
+//         posts,
+//       },
+//     };
+//   }
+// );
