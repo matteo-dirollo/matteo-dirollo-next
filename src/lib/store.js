@@ -52,7 +52,7 @@ const persistConfig = {
   blacklist: ["posts","async", "storage"],
 };
 
-const persistedReducer = persistReducer(persistConfig, combinedReducer);
+const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 export const store = configureStore({
   reducer: persistedReducer,
