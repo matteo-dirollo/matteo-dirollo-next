@@ -1,11 +1,9 @@
-// 'use client'
 import "./globals.css";
-import { Inter } from "next/font/google";
 import "@fontsource/epilogue"; // Defaults to weight 400
 import "@fontsource/epilogue/400.css"; // Specify weight
 import "@fontsource/epilogue/400-italic.css";
 
-const inter = Inter({ subsets: ["latin"] });
+
 
 // LEXICAL STYLES
 import "@/components/ui/lexicalEditor/ui/Button.css";
@@ -25,7 +23,7 @@ export default function RootLayout({ children }) {
   
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body>
         <Providers>
           <PublicNav />
           <ModalManager />

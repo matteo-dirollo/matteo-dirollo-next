@@ -1,3 +1,4 @@
+'use client'
 import {
   Box,
   HStack,
@@ -5,18 +6,18 @@ import {
   useColorModeValue,
 } from '@chakra-ui/react';
 import React from 'react';
-import ModalWindow from '../modal/ModalWindow';
+import ModalWindow from '../modals/ModalWindow';
 import { MdFacebook } from 'react-icons/md';
 import { AiFillLinkedin, AiFillTwitterCircle } from 'react-icons/ai';
 import { BsMastodon } from 'react-icons/bs';
-import { useSelector } from 'react-redux';
-import ReadOnlyInputWithCopyButton from '../Input/ReadOnlyInputWithCopyButton';
+import { usePathname } from 'next/navigation';
+import ReadOnlyInputWithCopyButton from '../inputs/ReadOnlyInputWithCopyButton';
 
 const ShareOnSocials = () => {
+  const slug = usePathname();
   const buttonColor = useColorModeValue('teal.500', 'teal.300');
   const buttonHoverColor = useColorModeValue('teal.600', 'teal.400');
-  const articleUrl = useSelector(state => state.location);
-  const copyURL = `https://matteo-dirollo.com/${articleUrl}`;
+  const copyURL = `https://matteo-dirollo.com${slug}`;
 
 
   const handleFacebookShare = () => {

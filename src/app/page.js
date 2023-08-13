@@ -1,9 +1,9 @@
-"use client"
+"use client";
 import React from "react";
 import { fetchUsers } from "@/api/auth/authSlice";
 import BackgroundVideo from "@/components/layout/BackgroundVideo/BackgroundVideo";
 import Services from "@/components/layout/Services/Services";
-import { Box, VStack } from "@chakra-ui/react";
+import { Box, VStack } from "@/styles/ChakraImports";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 

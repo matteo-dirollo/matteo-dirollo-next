@@ -1,35 +1,30 @@
-'use client'
+"use client";
 import React, { useEffect, useState, useMemo, useCallback } from "react";
 import {
   Box,
+  Center,
   Container,
   Divider,
   Heading,
   HStack,
-  IconButton,
   Spacer,
   Tag,
   Text,
   useColorModeValue,
   VStack,
 } from "@chakra-ui/react";
+import IconButton from "@/styles/ChakraImports";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  fetchComments,
-  fetchPosts,
-  getPostsStatus,
-  selectAllPosts,
-} from "../postsSlice";
+import { fetchComments, getPostsStatus, selectAllPosts } from "../postsSlice";
 import { GoShare } from "react-icons/go";
 import PlainEditor from "@/components/ui/lexicalEditor/PlainEditor";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { LoadingSpinner } from "@/components/ui/loaders/LoadingSpinner";
 import _ from "lodash";
 import Comments from "@/components/ui/comments/Comments";
 import { openModal } from "@/components/ui/modals/modalSlice";
 
-const Post = ({article}) => {
+const Post = ({ article }) => {
   const dispatch = useDispatch();
   const posts = useSelector(selectAllPosts);
   const postsStatus = useSelector(getPostsStatus);
@@ -118,7 +113,7 @@ const Post = ({article}) => {
           maxW={["fit-content", "80%"]}
           style={{ overflowX: "hidden" }}
         >
-          <Box as="article" key={article.id}>
+          <Box as="article" key={article.id} maxW={"1000px"} margin={"auto"}>
             <Heading
               my={2}
               color={textColor}
@@ -134,17 +129,21 @@ const Post = ({article}) => {
                 article.date.seconds * 1000 + article.date.nanoseconds / 1000000
               ).toLocaleDateString()}
             </Text>
-            <Box
-              w="100%"
-              minH={"500"}
-              sx={{
-                backgroundImage: `url(${article.imageUrl})`,
-                backgroundPosition: "center",
-                backgroundSize: "cover",
-              }}
-              mt={5}
-              mb={5}
-            />
+            <Center>
+              <Box
+                w="100%"
+                maxW={"1000px"}
+                minH={"500"}
+                sx={{
+                  backgroundImage: `url(${article.imageUrl})`,
+                  backgroundPosition: "center",
+                  backgroundSize: "cover",
+                }}
+                mt={5}
+                mb={5}
+              />
+            </Center>
+
             <PlainEditor stateInstance={article.body} />
           </Box>
 
@@ -155,7 +154,7 @@ const Post = ({article}) => {
               borderRadius={"50%"}
               fontSize={"1.3em"}
               color={"white"}
-              bg={"teal.400"}
+              bg="teal.400"
               size="lg"
               icon={<GoShare />}
               onClick={() => {
@@ -190,5 +189,3 @@ const Post = ({article}) => {
 };
 
 export default Post;
-
-

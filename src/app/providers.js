@@ -5,6 +5,7 @@ import { ChakraProvider } from "@chakra-ui/react";
 import { CacheProvider } from "@chakra-ui/next-js";
 import ReduxProvider from "@/lib/ReduxProvider";
 
+
 export function Providers({ children }) {
   return (
     <ReduxProvider>

@@ -1,23 +1,23 @@
-'use client'
-import React from 'react';
-import { useSelector } from 'react-redux';
-import SignUp from '@/components/layout/LogModals/SignUp';
-import SignIn from '@/components/layout/LogModals/SignIn';
-
+"use client";
+import React from "react";
+import { useSelector } from "react-redux";
+import SignUp from "@/components/layout/LogModals/SignUp";
+import SignIn from "@/components/layout/LogModals/SignIn";
+import ShareOnSocials from './../buttons/ShareOnSocials';
 
 export default function ModalManager() {
-    const modalLookup = {
-      SignIn,
-      SignUp,
-      // ShareOnSocials
-    };
-    const currentModal = useSelector((state) => state.modals);
-    let renderedModal;
-    if (currentModal) {
-      const { modalType, modalProps } = currentModal;
-      const ModalComponent = modalLookup[modalType];
-      renderedModal = <ModalComponent {...modalProps} />;
-    }
-  
-    return <span>{renderedModal}</span>;
+  const modalLookup = {
+    SignIn,
+    SignUp,
+    ShareOnSocials,
+  };
+  const currentModal = useSelector((state) => state.modals);
+  let renderedModal;
+  if (currentModal) {
+    const { modalType, modalProps } = currentModal;
+    const ModalComponent = modalLookup[modalType];
+    renderedModal = <ModalComponent {...modalProps} />;
   }
+
+  return <span>{renderedModal}</span>;
+}
