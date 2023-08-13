@@ -4,7 +4,6 @@ import ArticleHeading from "./../../../components/ui/text/headings/ArticleHeadin
 import {
   Container,
   Box,
-  Text,
   Center,
   Divider,
   Spacer,
@@ -17,9 +16,34 @@ import MorePosts from "./../../../components/layout/Posts/MorePosts";
 import Comments from "@/components/ui/comments/Comments";
 import Head from "next/head";
 
+function extractTextNodes(content) {
+  let texts = [];
+
+  function traverse(node) {
+      if (node.type === 'text') {
+          texts.push(node.text);
+      } else if (node.children) {
+          for (const child of node.children) {
+              traverse(child);
+          }
+      }
+  }
+
+  traverse(content);
+
+  return texts;
+}
+
 export default async function Article({ params }) {
   await store.dispatch(fetchSinglePost(params.id));
   const article = store.getState().posts.currentPost;
+  const parsedBody = JSON.parse(article.body);
+  const articleBody = extractTextNodes(parsedBody.root);
+  const truncatedArticleDescription = _.truncate(articleBody, {
+    length: 150,
+    omission: "...",
+  });
+
   return (
     <div>
       <Head>
@@ -31,24 +55,24 @@ export default async function Article({ params }) {
         <meta property="og:title" content={article.id} />
         <meta
           property="og:description"
-          content="Description of your content."
+          content={truncatedArticleDescription}
         />
-        <meta property="og:image" content="URL_TO_YOUR_IMAGE" />
+        <meta property="og:image" content={article.imageUrl} />
         <meta property="og:type" content="article" />
-        <meta property="og:url" content="URL_OF_YOUR_CONTENT" />
-        <meta property="og:site_name" content="My Website" />
+        <meta property="og:url" content={`https:matteo-dirollo/blog/${article.id}`} />
+        <meta property="og:site_name" content="mdr" />
 
         {/* <!-- Twitter Card Tags --> */}
         <meta name="twitter:card" content="summary" />
-        <meta name="twitter:site" content="@YourTwitterHandle" />
-        <meta name="twitter:title" content="Title of Your Content" />
+        <meta name="twitter:site" content="@matteodirollo" />
+        <meta name="twitter:title" content={article.title} />
         <meta
           name="twitter:description"
-          content="Description of your content."
+          content={truncatedArticleDescription}
         />
-        <meta name="twitter:image" content="URL_TO_YOUR_IMAGE" />
+        <meta name="twitter:image" content={article.imageUrl} />
 
-        <title>Your Page Title</title>
+        <title>{article.title}</title>
       </Head>
       <Container
         my={10}
@@ -74,6 +98,7 @@ export default async function Article({ params }) {
             />
           </Center>
           <PlainEditor stateInstance={article.body} />
+         
         </Box>
         <Divider my={10} />
         <HStack>
