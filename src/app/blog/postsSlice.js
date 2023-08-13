@@ -36,6 +36,26 @@ export const fetchPosts = createAsyncThunk("posts/fetchPosts", async () => {
   }
 });
 
+export const fetchSinglePost = createAsyncThunk(
+  "posts/fetchSinglePost",
+  async (postId) => {
+    try {
+      const postDocRef = doc(db, "Posts", postId); // Use the doc method with the collection name and the document ID
+      const postSnapshot = await getDoc(postDocRef); // Fetch the document
+
+      if (!postSnapshot.exists()) {
+        throw new Error("Document does not exist");
+      }
+
+      return { id: postSnapshot.id, ...postSnapshot.data() };
+    } catch (err) {
+      console.error("Error fetching post:", err.message);
+      throw err;
+    }
+  }
+);
+
+
 export const addNewPost = createAsyncThunk(
   "posts/addNewPost",
   async (post, { getState }) => {
@@ -224,6 +244,17 @@ const postsSlice = createSlice({
       })
       .addCase(fetchPosts.rejected, (state, action) => {
         state.status = "failed";
+        state.error = action.error.message;
+      })
+      .addCase(fetchSinglePost.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(fetchSinglePost.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        state.currentPost = action.payload; // Store the fetched post in currentPost
+      })
+      .addCase(fetchSinglePost.rejected, (state, action) => {
+        state.status = 'failed';
         state.error = action.error.message;
       })
       .addCase(addNewPost.pending, (state, action) => {

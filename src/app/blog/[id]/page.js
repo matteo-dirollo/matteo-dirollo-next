@@ -1,5 +1,6 @@
 import { store } from "@/lib/store";
-import { fetchPosts } from "../postsSlice";
+import { fetchSinglePost } from "../postsSlice";
+import Post from './Post';
 import { Box,
   Container,
   Divider,
@@ -12,11 +13,12 @@ import { Box,
   useColorModeValue,
   VStack, } from "@/components/ChakraImports";
 
-export default async function Post() {
-  await store.dispatch(fetchPosts());
+export default async function Article({ params }) {
+  await store.dispatch(fetchSinglePost(params.id));
+  console.log(params);
   return (
     <div>
-      <Container minH='100vh'>Hello world</Container>
+      <Post article={store.getState().posts.currentPost}/>
     </div>
   );
 }
