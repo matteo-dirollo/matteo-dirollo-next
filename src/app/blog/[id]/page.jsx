@@ -34,19 +34,7 @@ function extractTextNodes(content) {
   return texts;
 }
 
-export async function getStaticPaths() {
-  // Call an external API endpoint to get posts
-  await store.dispatch(fetchPosts());
-  const posts = store.posts.posts;
 
-  // Get the paths we want to pre-render based on posts
-  const paths = posts.map((post) => ({
-    params: { slug: post.id },
-  }));
-  // Set fallback to blocking. Now any new post added post build will SSR
-  // to ensure SEO. It will then be static for all subsequent requests
-  return { paths, fallback: 'blocking' };
-}
 
 export default async function Article({ params }) {
   await store.dispatch(fetchSinglePost(params.id));
@@ -61,9 +49,6 @@ export default async function Article({ params }) {
   return (
     <div>
       <Head>
-        {/* <!-- Standard Meta Tags --> */}
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
         {/* <!-- Open Graph Tags --> */}
         <meta property="og:title" content={article.id} />
