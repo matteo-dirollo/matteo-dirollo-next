@@ -1,5 +1,5 @@
 import { store } from "@/lib/store";
-import { fetchSinglePost } from "../postsSlice";
+import { fetchSinglePost, fetchPosts } from "../postsSlice";
 import ArticleHeading from "./../../../components/ui/text/headings/ArticleHeading";
 import {
   Container,
@@ -32,6 +32,20 @@ function extractTextNodes(content) {
   traverse(content);
 
   return texts;
+}
+
+export async function getStaticPaths() {
+  // Call an external API endpoint to get posts
+  await store.dispatch(fetchPosts());
+  const posts = store.posts.posts;
+
+  // Get the paths we want to pre-render based on posts
+  const paths = posts.map((post) => ({
+    params: { slug: post.id },
+  }));
+  // Set fallback to blocking. Now any new post added post build will SSR
+  // to ensure SEO. It will then be static for all subsequent requests
+  return { paths, fallback: 'blocking' };
 }
 
 export default async function Article({ params }) {
