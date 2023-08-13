@@ -1,3 +1,4 @@
+'use client'
 import {
   Box,
   Link as CharkaLink,
@@ -9,9 +10,8 @@ import {
 } from "@chakra-ui/react";
 import React from "react";
 import { navItems } from "./NavItem";
-import { Link as ReactRouterLink } from "next/link";
 import DesktopSubNav from "./DesktopSubNav";
-import Link from 'next/Link';
+import Link from "next/link";
 const DesktopNav = () => {
   const linkColor = useColorModeValue("gray.600", "gray.200");
   const linkHoverColor = useColorModeValue("gray.800", "white");

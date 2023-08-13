@@ -1,3 +1,4 @@
+'use client'
 import React from 'react';
 import { Form, Formik } from 'formik';
 import * as Yup from 'yup';

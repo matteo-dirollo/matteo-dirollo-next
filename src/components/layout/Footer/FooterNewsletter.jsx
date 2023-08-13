@@ -1,4 +1,4 @@
-/* eslint-disable react/jsx-no-target-blank */
+'use client';
 import React from "react";
 import {
   Box,

@@ -1,3 +1,4 @@
+'use client'
 import React from 'react';
 import { navItems } from './NavItem';
 import MobileNavItem from './MobileNavItem'

@@ -1,12 +1,22 @@
 import { store } from "@/lib/store";
 import { fetchPosts } from "../postsSlice";
-import { Container } from "@chakra-ui/react";
+import { Box,
+  Container,
+  Divider,
+  Heading,
+  HStack,
+  IconButton,
+  Spacer,
+  Tag,
+  Text,
+  useColorModeValue,
+  VStack, } from "@/components/ChakraImports";
 
 export default async function Post() {
   await store.dispatch(fetchPosts());
   return (
     <div>
-      <Container></Container>
+      <Container minH='100vh'>Hello world</Container>
     </div>
   );
 }
