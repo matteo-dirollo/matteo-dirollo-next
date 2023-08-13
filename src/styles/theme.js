@@ -34,7 +34,7 @@ const theme = extendTheme({
         borderWidth: '2px',
         borderColor: 'gray.300',
         _focus: {
-          borderColor: 'teal.500',
+          borderColor: 'teal.200',
           borderWidth: '4px', // Change the border weight for the :focus state
           boxShadow: 'outline',
         },

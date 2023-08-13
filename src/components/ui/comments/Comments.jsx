@@ -1,25 +1,30 @@
-"use client"
-import React from 'react';
-import { Box, Heading } from '@chakra-ui/react';
-import { useDispatch, useSelector } from 'react-redux';
-import CommentItem from './CommentItem';
-import CommentForm from './CommentForm';
-import _ from 'lodash';
-import { deleteComment } from '@/app/blog/postsSlice';
+"use client";
+import React, { useEffect } from "react";
+import { Box, Heading } from "@chakra-ui/react";
+import { useDispatch, useSelector } from "react-redux";
+import CommentItem from "./CommentItem";
+import CommentForm from "./CommentForm";
+import _ from "lodash";
+import { deleteComment, fetchComments } from "@/app/blog/postsSlice";
 
-const Comments = ({ articleId, comments }) => {
+const Comments = ({ article }) => {
+  const comments = article.comments ? Object.values(article.comments) : [];
   const dispatch = useDispatch();
-  const { authenticated } = useSelector(state => state.auth);
+  const { authenticated } = useSelector((state) => state.auth);
 
-  const handleDelete = commentId => {
+  useEffect(() => {
+    dispatch(fetchComments(article.id));
+  }, [dispatch, article]);
+
+  const handleDelete = (commentId) => {
     try {
-      dispatch(deleteComment({ postId: articleId, commentId }));
+      dispatch(deleteComment({ postId: article.id, commentId }));
     } catch (error) {
       console.log(error);
     }
   };
 
-  const sortedComments = _.orderBy(comments, 'timestamp', 'desc');
+  const sortedComments = _.orderBy(comments, "timestamp", "desc");
 
   const renderComments = sortedComments.map((comment, index) => {
     return (
@@ -37,7 +42,7 @@ const Comments = ({ articleId, comments }) => {
         </Heading>
       )}
 
-      {authenticated && <CommentForm articleId={articleId} />}
+      {authenticated && <CommentForm articleId={article.id} />}
       {comments.length > 0 ? renderComments : null}
     </Box>
   );

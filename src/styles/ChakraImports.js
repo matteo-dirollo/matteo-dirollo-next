@@ -2,6 +2,7 @@
 
 export { Box,
     Container,
+    Center,
     Divider,
     Heading,
     HStack,

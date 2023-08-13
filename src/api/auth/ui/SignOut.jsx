@@ -1,10 +1,11 @@
+'use client'
 import React from "react";
-import { Button } from "@chakra-ui/react";
+import { Button, useColorModeValue } from "@chakra-ui/react";
 import { signOutFirebase } from "../authSlice";
 import { useDispatch } from "react-redux";
 import {useRouter} from "next/navigation";
 
-const SignOut = ({ setAuthenticated }) => {
+const SignOut = () => {
   const router = useRouter()
   const dispatch = useDispatch();
   async function handleSignOut() {
@@ -19,9 +20,11 @@ const SignOut = ({ setAuthenticated }) => {
   return (
     <Button
       size={["sm", "md"]}
+      fontSize={"sm"}
       fontWeight={400}
-      colorScheme="teal"
-      onClick={handleSignOut}
+      colorScheme={'teal'}
+      variant={"solid"}
+      onClick={handleSignOut}   
     >
       Sign Out
     </Button>

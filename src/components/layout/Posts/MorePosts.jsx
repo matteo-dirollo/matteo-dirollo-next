@@ -1,9 +1,14 @@
-import { Box, HStack, Heading, Text, VStack } from "@chakra-ui/react";
+"use client";
+import { Box, HStack, Heading, Text, VStack, useColorModeValue } from "@chakra-ui/react";
 import Link from "next/link";
-import React from "react";
+import React, { useMemo } from "react";
+import { useSelector } from "react-redux";
+import { selectAllPosts } from "@/app/blog/postsSlice";
+import _ from "lodash";
 
-const MorePosts =({ article }) => {
+const MorePosts = ({ article }) => {
   const posts = useSelector(selectAllPosts);
+  const textColor = useColorModeValue("gray.700", "gray.100");
   const cards = useMemo(
     () => _.filter(posts, (post) => post !== article),
     [posts, article]
@@ -47,6 +52,6 @@ const MorePosts =({ article }) => {
       )}
     </div>
   );
-}
+};
 
 export default MorePosts;

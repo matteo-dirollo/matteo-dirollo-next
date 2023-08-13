@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import React from "react";
 import {
   Box,
@@ -66,7 +66,7 @@ const Navbar = () => {
           >
             <Link href="/">
               <Box>
-                <EmmeLogo width={'30'} height={'30'} />
+                <EmmeLogo width={"30"} height={"30"} />
               </Box>
             </Link>
           </Text>
@@ -101,10 +101,11 @@ const Navbar = () => {
           {authenticated ? null : (
             <Button
               fontSize={"sm"}
-              fontWeight={600}
+              fontWeight={400}
               color={"white"}
-              bg={"pink.400"}
+              sx={{ bg: "pink.400" }}
               size={["sm", "md"]}
+              variant="solid"
               onClick={() => {
                 dispatch(openModal({ modalType: "SignUp" }));
               }}

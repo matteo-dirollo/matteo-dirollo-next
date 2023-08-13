@@ -19,7 +19,7 @@ import SocialLogin from '@/components/ui/socialLogin/SocialLogin';
 import ModalWindow from '@/components/ui/modals/ModalWindow';
 import { signInWithEmail } from '@/api/auth/authSlice';
 
-export default function SignIn({ onClose }) {
+export default function SignIn() {
   const dispatch = useDispatch();
 
   const initialValues = {

@@ -12,8 +12,8 @@ import {
   Text,
   useColorModeValue,
   VStack,
-} from "@chakra-ui/react";
-import IconButton from "@/styles/ChakraImports";
+  IconButton
+} from "@/styles/ChakraImports";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchComments, getPostsStatus, selectAllPosts } from "../postsSlice";
 import { GoShare } from "react-icons/go";
