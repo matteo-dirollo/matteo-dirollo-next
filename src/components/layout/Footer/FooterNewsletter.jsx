@@ -3,7 +3,6 @@ import React from "react";
 import {
   Box,
   Container,
-  Link as ChakraLink,
   SimpleGrid,
   Stack,
   Text,
@@ -142,9 +141,9 @@ const FooterNewsletter = () => {
             <Link fontSize={"0.8em"} href={"#"}>
               Blog
             </Link>
-            <ChakraLink fontSize={"0.8em"} href={"#"}>
+            <Link fontSize={"0.8em"} href={"#"}>
               Contact
-            </ChakraLink>
+            </Link>
             {/* <Link fontSize={'0.8em'} href={'#'}>
               Pricing
             </Link> */}
@@ -157,16 +156,16 @@ const FooterNewsletter = () => {
             {/* <Link fontSize={'0.8em'} href={'#'}>
               Help Center
             </Link> */}
-            <Link href="/terms-and-conditions">
-              <ChakraLink fontSize={"0.8em"}>Terms of Service</ChakraLink>
+            <Link href="/terms-and-conditions" fontSize={"0.8em"}>
+              Terms of Service
             </Link>
-            <Link href={"#"}>
-              <ChakraLink fontSize={"0.8em"}>Legal</ChakraLink>
+            <Link href={"#"} fontSize={"0.8em"}>
+              Legal
             </Link>
-            <Link href="/privacy-policy">
-              <ChakraLink fontSize={"0.8em"} >
+            <Link href="/privacy-policy" fontSize={"0.8em"}>
+              
                 Privacy Policy
-              </ChakraLink>
+              
             </Link>
           </Stack>
           <Stack align={"flex-start"}>

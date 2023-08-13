@@ -77,7 +77,7 @@ import Link from 'next/link';
     ));
   
     return (
-      <Box w="80%" marginX="auto" my={10} as="section">
+      <Box w="80%" marginX="auto" my={10} minH={'100vh'} as="section">
         <Heading my={10} color={textColor}>
           Latest Projects
         </Heading>

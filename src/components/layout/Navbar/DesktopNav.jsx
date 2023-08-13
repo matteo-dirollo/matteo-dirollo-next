@@ -1,7 +1,6 @@
 'use client'
 import {
   Box,
-  Link as CharkaLink,
   Popover,
   PopoverContent,
   PopoverTrigger,
@@ -23,19 +22,17 @@ const DesktopNav = () => {
       <Box key={navItem.label}>
         <Popover trigger={"hover"} placement={"bottom-start"}>
           <PopoverTrigger>
-            <Link href={navItem.href ?? "#"} passHref>
-              <CharkaLink
-                p={2}
+            <Link href={navItem.href ?? "#"} p={2}
                 fontSize={"sm"}
                 fontWeight={500}
                 color={linkColor}
                 _hover={{
                   textDecoration: "none",
                   color: linkHoverColor,
-                }}
-              >
+                }} passHref>
+            
                 {navItem.label}
-              </CharkaLink>
+              
             </Link>
           </PopoverTrigger>
 

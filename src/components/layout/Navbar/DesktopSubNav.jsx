@@ -1,6 +1,5 @@
 'use client'
 import {
-  Link,
   Stack,
   Box,
   Text,
@@ -9,19 +8,17 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import React from "react";
-import NextLink from "next/link";
+import Link from "next/link";
 import { ChevronRightIcon } from "@chakra-ui/icons";
 
 const DesktopSubNav = ({ label, href, subLabel }) => {
   return (
-    <NextLink href={href} passHref>
-      <Link
-        role={"group"}
-        display={"block"}
-        p={2}
-        rounded={"md"}
-        _hover={{ bg: useColorModeValue("pink.50", "gray.900") }}
-      >
+    <Link role={"group"}
+    display={"block"}
+    p={2}
+    rounded={"md"}
+    _hover={{ bg: useColorModeValue("pink.50", "gray.900") }} href={href} passHref>
+     
         <Stack direction={"row"} align={"center"}>
           <Box>
             <Text
@@ -45,8 +42,8 @@ const DesktopSubNav = ({ label, href, subLabel }) => {
             <Icon color={"pink.400"} w={5} h={5} as={ChevronRightIcon} />
           </Flex>
         </Stack>
-      </Link>
-    </NextLink>
+      
+    </Link>
   );
 };
 

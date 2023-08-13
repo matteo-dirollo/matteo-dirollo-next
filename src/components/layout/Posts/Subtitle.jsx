@@ -8,9 +8,7 @@ export default function Subtitle({ article }) {
   return (
     <Text color={textColor} fontSize="xs">
       {article.author} | {_.first(article.category)} |{" "}
-      {new Date(
-        article.date.seconds * 1000 + article.date.nanoseconds / 1000000
-      ).toLocaleDateString()}
+      {article.date}
     </Text>
   );
 }

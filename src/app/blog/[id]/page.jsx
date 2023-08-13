@@ -20,21 +20,19 @@ function extractTextNodes(content) {
   let texts = [];
 
   function traverse(node) {
-      if (node.type === 'text') {
-          texts.push(node.text);
-      } else if (node.children) {
-          for (const child of node.children) {
-              traverse(child);
-          }
+    if (node.type === "text") {
+      texts.push(node.text);
+    } else if (node.children) {
+      for (const child of node.children) {
+        traverse(child);
       }
+    }
   }
 
   traverse(content);
 
   return texts;
 }
-
-
 
 export default async function Article({ params }) {
   await store.dispatch(fetchSinglePost(params.id));
@@ -46,32 +44,37 @@ export default async function Article({ params }) {
     omission: "...",
   });
 
+  let modifiedArticle = { ...article };
+  
+  modifiedArticle.date = new Date(article.date.seconds * 1000 + article.date.nanoseconds / 1000000
+  ).toLocaleDateString();
+  modifiedArticle.body = JSON.parse(article.body);
+
   return (
     <div>
       <Head>
-
         {/* <!-- Open Graph Tags --> */}
-        <meta property="og:title" content={article.id} />
-        <meta
-          property="og:description"
-          content={truncatedArticleDescription}
-        />
-        <meta property="og:image" content={article.imageUrl} />
+        <meta property="og:title" content={modifiedArticle.id} />
+        <meta property="og:description" content={truncatedArticleDescription} />
+        <meta property="og:image" content={modifiedArticle.imageUrl} />
         <meta property="og:type" content="article" />
-        <meta property="og:url" content={`https:matteo-dirollo/blog/${article.id}`} />
+        <meta
+          property="og:url"
+          content={`https:matteo-dirollo/blog/${modifiedArticle.id}`}
+        />
         <meta property="og:site_name" content="mdr" />
 
         {/* <!-- Twitter Card Tags --> */}
         <meta name="twitter:card" content="summary" />
         <meta name="twitter:site" content="@matteodirollo" />
-        <meta name="twitter:title" content={article.title} />
+        <meta name="twitter:title" content={modifiedArticle.title} />
         <meta
           name="twitter:description"
           content={truncatedArticleDescription}
         />
-        <meta name="twitter:image" content={article.imageUrl} />
+        <meta name="twitter:image" content={modifiedArticle.imageUrl} />
 
-        <title>{article.title}</title>
+        <title>{modifiedArticle.title}</title>
       </Head>
       <Container
         my={10}
@@ -79,16 +82,16 @@ export default async function Article({ params }) {
         maxW={["fit-content", "80%"]}
         style={{ overflowX: "hidden" }}
       >
-        <Box as="article" key={article.id} maxW={"1000px"} margin={"auto"}>
-          <ArticleHeading title={article.title} />
-          <Subtitle article={article} />
+        <Box as="article" key={modifiedArticle.id} maxW={"1000px"} margin={"auto"}>
+          <ArticleHeading title={modifiedArticle.title} />
+          <Subtitle article={modifiedArticle} />
           <Center>
             <Box
               w="100%"
               maxW={"1000px"}
               minH={"500"}
               sx={{
-                backgroundImage: `url(${article.imageUrl})`,
+                backgroundImage: `url(${modifiedArticle.imageUrl})`,
                 backgroundPosition: "center",
                 backgroundSize: "cover",
               }}
@@ -97,17 +100,16 @@ export default async function Article({ params }) {
             />
           </Center>
           <PlainEditor stateInstance={article.body} />
-         
         </Box>
         <Divider my={10} />
         <HStack>
           {/* Share button */}
           <Spacer />
-          <Tags article={article} />
+          <Tags article={modifiedArticle} />
         </HStack>
-        <Comments article={article} />
+        <Comments article={modifiedArticle} />
         <br />
-        <MorePosts article={article} />
+        <MorePosts article={modifiedArticle} />
       </Container>
     </div>
   );
