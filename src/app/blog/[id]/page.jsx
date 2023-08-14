@@ -49,7 +49,6 @@ export async function generateMetadata({ params }) {
     article.date.seconds * 1000 + article.date.nanoseconds / 1000000
   ).toLocaleDateString();
   modifiedArticle.body = JSON.parse(article.body);
-
   return {
     title: article.title,
     description: truncatedArticleDescription,
@@ -57,6 +56,7 @@ export async function generateMetadata({ params }) {
       title: article.title,
       description: truncatedArticleDescription,
       type: "article",
+      keywords: article.category,
       publishedTime: modifiedArticle.date,
       authors: modifiedArticle.author,
       url: `https:/matteo-dirollo.com/blog/${params.id}`,
@@ -78,13 +78,26 @@ export async function generateMetadata({ params }) {
       type: "website",
     },
     twitter: {
-      card: 'summary_large_image',
-      title: 'Next.js',
-      description: 'The React Framework for the Web',
-      siteId: '1467726470533754880',
-      creator: '@nextjs',
-      creatorId: '1467726470533754880',
-      images: ['https://nextjs.org/og.png'],
+      card: article.imageUrl,
+      title: article.title,
+      description: truncatedArticleDescription,
+      creator: "@matteodirollo",
+    },
+    robots: {
+      index: true,
+      follow: true,
+      nocache: true,
+      googleBot: {
+        index: true,
+        follow: false,
+        noimageindex: true,
+        "max-video-preview": -1,
+        "max-image-preview": "large",
+        "max-snippet": -1,
+      },
+      googleBotNews: {
+        index: false,
+      },
     },
   };
 }
