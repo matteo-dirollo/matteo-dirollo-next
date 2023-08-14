@@ -1,7 +1,14 @@
 "use client";
-import { Box, HStack, Heading, Text, VStack, useColorModeValue } from "@chakra-ui/react";
+import {
+  Box,
+  HStack,
+  Heading,
+  Text,
+  VStack,
+  useColorModeValue,
+} from "@chakra-ui/react";
 import Link from "next/link";
-import React, { useMemo } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useSelector } from "react-redux";
 import { selectAllPosts } from "@/app/blog/postsSlice";
 import _ from "lodash";
@@ -13,7 +20,15 @@ const MorePosts = ({ article }) => {
     () => _.filter(posts, (post) => post !== article),
     [posts, article]
   );
-  const renderPosts = _.slice(cards, 0, 3).map((card) => (
+  const [ morePosts, setMorePosts ] = useState([]);
+
+  useEffect(() => {
+    if (article && cards) {
+      setMorePosts(cards);
+    }
+  }, [article, cards]);
+
+  const renderPosts = _.slice(morePosts, 0, 3).map((card) => (
     <React.Fragment key={card.id}>
       <VStack justify="start">
         <Link

@@ -1,5 +1,5 @@
 import { store } from "@/lib/store";
-import { fetchSinglePost, fetchPosts } from "../postsSlice";
+import { fetchSinglePost } from "../postsSlice";
 import ArticleHeading from "./../../../components/ui/text/headings/ArticleHeading";
 import {
   Container,
@@ -13,8 +13,7 @@ import Subtitle from "@/components/layout/Posts/Subtitle";
 import PlainEditor from "@/components/ui/lexicalEditor/PlainEditor";
 import Tags from "@/components/layout/Posts/Tags";
 import MorePosts from "./../../../components/layout/Posts/MorePosts";
-import Comments from "@/components/ui/comments/Comments";
-import Head from "next/head";
+import Comments from "@/components/ui/comments/Comments";;
 
 function extractTextNodes(content) {
   let texts = [];
