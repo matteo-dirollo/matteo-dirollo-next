@@ -1,6 +1,7 @@
+'use client'
+import React, { useEffect } from 'react';
 import { Box, Center, Heading, Text } from '@chakra-ui/react';
 import { motion } from 'framer-motion';
-import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchObject, clearStorage, selectLoading } from '../../../api/firestore/storageSlice';
 import {

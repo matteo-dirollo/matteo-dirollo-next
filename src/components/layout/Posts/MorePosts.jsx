@@ -57,7 +57,7 @@ const MorePosts = ({ article }) => {
   ));
   return (
     <div>
-      {cards.length > 0 && (
+      {morePosts?.length > 0 && (
         <Box>
           <Heading mb={5} as="h2" size="md">
             More Posts
