@@ -113,7 +113,7 @@ export const firebaseProviderUsersCollection = createAsyncThunk(
         email: user.email,
         userId: user.uid,
         createdOn: user.metadata.creationTime,
-        role: "standard",
+        role: "guest",
       };
 
       if (user.providerData) {
