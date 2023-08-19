@@ -13,7 +13,7 @@ import Subtitle from "@/components/layout/Posts/Subtitle";
 import PlainEditor from "@/components/ui/lexicalEditor/PlainEditor";
 import Tags from "@/components/layout/Posts/Tags";
 import MorePosts from "@/components/layout/Posts/MorePosts";
-import Comments from "@/components/ui/comments/Comments";;
+import Comments from "@/components/ui/comments/Comments";
 
 function extractTextNodes(content) {
   let texts = [];
@@ -103,6 +103,15 @@ export async function generateMetadata({ params }) {
   };
 }
 
+// export async function generateStaticParams({ params }) {
+//   await store.dispatch(fetchSinglePost(params.id));
+//   const article = await store.getState().posts.currentPost;
+
+//   // return {
+//   //   post: article,
+//   // };
+// }
+
 export default async function Article({ params }) {
   await store.dispatch(fetchSinglePost(params.id));
   const article = await store.getState().posts.currentPost;
@@ -113,7 +122,7 @@ export default async function Article({ params }) {
     omission: "...",
   });
 
-  let modifiedArticle = { ...article };
+  const modifiedArticle = { ...article };
 
   modifiedArticle.date = new Date(
     article.date.seconds * 1000 + article.date.nanoseconds / 1000000
@@ -165,3 +174,6 @@ export default async function Article({ params }) {
     </div>
   );
 }
+
+export const dynamic = "force-static";
+export const dynamicParams = true;

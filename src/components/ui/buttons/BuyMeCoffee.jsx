@@ -12,7 +12,7 @@ const BuyMeCoffee = () => {
       as="a"
       w={{ sm: '10em', base: '8em' }}
     >
-      <Image src="https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&emoji=&slug=matteodiro3&button_colour=FFDD00&font_colour=000000&font_family=Lato&outline_colour=000000&coffee_colour=ffffff" />
+      <Image alt='freelance, coffee, addiction' src="https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&emoji=&slug=matteodiro3&button_colour=FFDD00&font_colour=000000&font_family=Lato&outline_colour=000000&coffee_colour=ffffff" />
     </Box>
   );
 };
