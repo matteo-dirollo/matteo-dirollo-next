@@ -8,6 +8,7 @@ import { Box, VStack } from '@/styles/ChakraImports';
 
 export async function generateMetadata() {
   const description = "I'm a freelance graphic designer specializing in creating captivating graphics, stunning illustrations, and mesmerizing animations. Let's bring your ideas to life with unique and eye-catching visual designs.";
+  const image = 'https://firebasestorage.googleapis.com/v0/b/matteo-dirollo-com.appspot.com/o/Blog%2Fcovers%2Flosange.00_00_00_00.Still001.jpg2f3da30f-7490-46ff-916e-68aa65c2de6f?alt=media&token=a7a14880-77ed-4e61-8113-25ae6b0b4950'
   return {
     title: {
       template: '%s | MdR',
@@ -25,15 +26,40 @@ export async function generateMetadata() {
       siteName: "Matteo's Portfolio & Blog",
       images: [
         {
-          url: 'https://firebasestorage.googleapis.com/v0/b/matteo-dirollo-com.appspot.com/o/Blog%2Fcovers%2Flosange.00_00_00_00.Still001.jpg2f3da30f-7490-46ff-916e-68aa65c2de6f?alt=media&token=a7a14880-77ed-4e61-8113-25ae6b0b4950',
+          url: image,
           width: 800,
           height: 600,
         },
         {
-          url: 'https://firebasestorage.googleapis.com/v0/b/matteo-dirollo-com.appspot.com/o/Blog%2Fcovers%2Flosange.00_00_00_00.Still001.jpg2f3da30f-7490-46ff-916e-68aa65c2de6f?alt=media&token=a7a14880-77ed-4e61-8113-25ae6b0b4950',
+          url: image,
           width: 1800,
           height: 1600,
           alt: "",
+        },
+      ],
+      locale: "en_US",
+      type: "website",
+    },
+    openGraph: {
+      title: {
+        template: '%s | MdR',
+        default: 'MdR', 
+      },
+      description: description,
+      keywords: ['graphic design', 'video editing', 'web design'],
+      url: 'https:/matteo-dirollo.com',
+      siteName: "Matteo's Portfolio & Blog",
+      images: [
+        {
+          url: image,
+          width: 800,
+          height: 600,
+        },
+        {
+          url: image,
+          width: 1800,
+          height: 1600,
+          alt: "3D rendering of abstract shapes created with Blender Cycles, featuring a rotating losange.",
         },
       ],
       locale: "en_US",

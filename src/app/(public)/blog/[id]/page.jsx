@@ -48,6 +48,8 @@ export async function generateMetadata({ params }) {
     article.date.seconds * 1000 + article.date.nanoseconds / 1000000
   ).toLocaleDateString();
   modifiedArticle.body = JSON.parse(article.body);
+
+  // console.log(article.body)
   return {
     title: article.title,
     description: truncatedArticleDescription,
