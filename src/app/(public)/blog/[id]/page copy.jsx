@@ -1,5 +1,5 @@
 import { store } from "@/lib/store";
-import { fetchSinglePost, fetchPosts } from "../postsSlice";
+import { fetchSinglePost } from "../postsSlice";
 import ArticleHeading from "@/components/ui/text/headings/ArticleHeading";
 import {
   Container,
@@ -104,18 +104,10 @@ export async function generateMetadata({ params }) {
   };
 }
 
-export async function generateStaticParams() {
-  await store.dispatch(fetchPosts());
-  const articles = store.getState().posts.posts;
 
-  return articles.map((article) => ({
-    id: article.id,
-  }));
-}
 
 export default async function Article({ params }) {
-  const {id} = params;
-  await store.dispatch(fetchSinglePost(id));
+  await store.dispatch(fetchSinglePost(params.id));
   const article = await store.getState().posts.currentPost;
   const parsedBody = JSON.parse(article.body);
   const articleBody = extractTextNodes(parsedBody.root);
@@ -130,6 +122,7 @@ export default async function Article({ params }) {
     article.date.seconds * 1000 + article.date.nanoseconds / 1000000
   ).toLocaleDateString();
   modifiedArticle.body = JSON.parse(article.body);
+
   return (
     <div>
       <Container

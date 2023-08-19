@@ -3,16 +3,9 @@ import React from "react";
 import { fetchPosts } from "./postsSlice";
 import ArticleCards from "./ArticleCards";
 
-export async function generateStaticParams() {
-  await store.dispatch(fetchPosts());
-  const articles = store.getState().posts.posts;
 
-  return articles.map((article) => ({
-    id: article.id,
-  }));
-}
 
-export default async function Blog({ params }) {
+export default async function Blog() {
   await store.dispatch(fetchPosts());
   const articles = store.getState().posts.posts;
   const plainArticles = articles.map((article) => {
