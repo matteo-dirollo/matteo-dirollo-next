@@ -1,6 +1,7 @@
 'use client';
 
 export { Box,
+    Flex,
     Container,
     Center,
     Divider,

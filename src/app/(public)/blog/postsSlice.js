@@ -73,6 +73,7 @@ export const addNewPost = createAsyncThunk(
         author: getState().auth.currentUser.displayName,
         authorId: getState().auth.currentUser.uid,
         date: Timestamp.fromDate(new Date()),
+        comments: []
       });
     } catch (error) {
       console.log("Error adding document: ", error);

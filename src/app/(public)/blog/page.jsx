@@ -1,45 +1,34 @@
-"use client";
-import {
-  Box,
-  Flex,
-  Heading,
-  Text,
-  useColorModeValue,
-  Center,
-} from "@chakra-ui/react";
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchPosts, getPostsStatus, selectAllPosts } from "./postsSlice";
-import _ from "lodash";
-import Pagination from "@/components/ui/buttons/Pagination";
+import { store } from "@/lib/store";
+import React from "react";
+import { fetchPosts } from "./postsSlice";
+import { Box, Text } from "@/styles/ChakraImports";
 import Link from "next/link";
-import LoadingSpinner from "@/components/ui/loaders/LoadingSpinner";
+import CustomHeading from "@/components/ui/text/headings/CustomHeading";
+import CustomText from "@/components/ui/text/body/CustomText";
 
-const Blog = () => {
-  const dispatch = useDispatch();
-  const posts = useSelector(selectAllPosts);
-  const postsStatus = useSelector(getPostsStatus);
-  const textColor = useColorModeValue("gray.700", "gray.100");
+export async function generateStaticParams() {
+  await store.dispatch(fetchPosts());
+  const articles = store.getState().posts.posts;
+  //   const posts = await fetch("fetch Data").then((res) => res.json());
+  return articles.map((article) => ({
+    id: article.id,
+    title: article.title,
+    author: article.author,
+    date: article.date,
+    imageUrl: article.imageUrl,
+    authorId: article.authorId,
+    category: article.category,
+    body: article.body,
+    comments: article.comments,
+  }));
+}
 
-  const [currentPage, setCurrentPage] = useState(1);
-  const [postsPerPage] = useState(6);
-
-  const indexOfLastPost = currentPage * postsPerPage;
-  const indexOfFirstPost = indexOfLastPost - postsPerPage;
-  const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
-
-  const paginate = (pageNumber) => setCurrentPage(pageNumber);
-
-  useEffect(() => {
-    if (postsStatus === "idle") {
-      dispatch(fetchPosts());
-    }
-  }, [postsStatus, dispatch]);
-
-  const renderPosts = currentPosts.map((post) => (
-    <Box maxW="250px" m="5px" as="article" key={post.date}>
+export default function Blog({ params }) {
+  
+  return (
+    <Box maxW="250px" m="5px" as="article" key={params.date}>
       <Link
-        href={`/blog/${post.id}`}
+        href={`/blog/${params.id}`}
         sx={{
           "a:hover": { textDecoration: "none", color: "green" },
         }}
@@ -52,21 +41,17 @@ const Blog = () => {
           fontSize="sm"
           color="purple.600"
         >
-          {_.first(post.category)}
+          {_.first(params.category)}
         </Text>
-        <Heading fontSize="xl" color={textColor} as="h2" size="sm">
-          {post.title}
-        </Heading>
-        <Text colorScheme={textColor} fontSize="xs">
-          {new Date(
-            post.date.seconds * 1000 + post.date.nanoseconds / 1000000
-          ).toLocaleDateString()}
-        </Text>
+        <CustomHeading fontSize="xl" as="h2" size="sm">
+          {params.title}
+        </CustomHeading>
+        <CustomText fontSize="xs" post={params.date} />
         <Box
           w="250px"
           h="250px"
           sx={{
-            backgroundImage: `url(${post.imageUrl})`,
+            backgroundImage: `url(${params.imageUrl})`,
             backgroundPosition: "center",
             backgroundSize: "cover",
           }}
@@ -74,46 +59,5 @@ const Blog = () => {
         />
       </Link>
     </Box>
-  ));
-  if (postsStatus === "succeeded") {
-    return (
-      <Box w="80%" marginX="auto" my={10} minH={"100vh"} as="section">
-        <Heading my={10} color={textColor}>
-          Latest Projects
-        </Heading>
-        <Box w="100%" mx="0 auto" display="flex" justifyContent="center">
-          <Flex
-            maxW="intrinsic"
-            mx="auto"
-            flexWrap="wrap"
-            justifySelf="stretch"
-            justify="space-evenly"
-            spacing="30px"
-          >
-            {renderPosts}
-          </Flex>
-        </Box>
-        <Center>
-          <Pagination
-            postsPerPage={postsPerPage}
-            totalPosts={posts.length}
-            paginate={paginate}
-            active={currentPage}
-          />
-        </Center>
-      </Box>
-    );
-  } else {
-    return <LoadingSpinner />
-  }
-};
-
-export default Blog;
-
-// export async function generateStaticParams() {
-//   const posts = await fetch('https://.../posts').then((res) => res.json())
-
-//   return posts.map((post) => ({
-//     slug: post.slug,
-//   }))
-// }
+  );
+}
