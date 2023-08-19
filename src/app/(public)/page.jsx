@@ -66,7 +66,7 @@ export async function generateMetadata() {
       type: "website",
     },
     twitter: {
-      card: 'https://firebasestorage.googleapis.com/v0/b/matteo-dirollo-com.appspot.com/o/Blog%2Fcovers%2Flosange.00_00_00_00.Still001.jpg2f3da30f-7490-46ff-916e-68aa65c2de6f?alt=media&token=a7a14880-77ed-4e61-8113-25ae6b0b4950',
+      card: image,
       title: {
         template: '%s | MdR',
         default: 'MdR', 
