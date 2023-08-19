@@ -9,7 +9,7 @@ import CustomText from "@/components/ui/text/body/CustomText";
 export async function generateStaticParams() {
   await store.dispatch(fetchPosts());
   const articles = store.getState().posts.posts;
-  //   const posts = await fetch("fetch Data").then((res) => res.json());
+
   return articles.map((article) => ({
     id: article.id,
     title: article.title,
