@@ -105,7 +105,7 @@ export async function generateMetadata({ params }) {
 
 export default async function Article({ params }) {
   await store.dispatch(fetchSinglePost(params.id));
-  const article = store.getState().posts.currentPost;
+  const article = await store.getState().posts.currentPost;
   const parsedBody = JSON.parse(article.body);
   const articleBody = extractTextNodes(parsedBody.root);
   const truncatedArticleDescription = _.truncate(articleBody, {
@@ -150,7 +150,7 @@ export default async function Article({ params }) {
               mb={5}
             />
           </Center>
-          <PlainEditor stateInstance={article.body} />
+          <PlainEditor stateInstance={modifiedArticle.body} />
         </Box>
         <Divider my={10} />
         <HStack>
