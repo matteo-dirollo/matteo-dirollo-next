@@ -2,12 +2,6 @@ import { configureStore } from "@reduxjs/toolkit";
 import {
   persistReducer,
   persistStore,
-  FLUSH,
-  REHYDRATE,
-  PAUSE,
-  PERSIST,
-  PURGE,
-  REGISTER,
 } from "redux-persist";
 import {verifyAuth} from "@/api/auth/authSlice"
 import autoMergeLevel1 from "redux-persist/lib/stateReconciler/autoMergeLevel1";
@@ -16,7 +10,7 @@ import createWebStorage from "redux-persist/lib/storage/createWebStorage";
 import modalReducer from "@/components/ui/modals/modalSlice";
 import asyncReducer from "@/api/asyncSlice";
 import authReducer from "@/api/auth/authSlice";
-import postsReducer from "@/app/blog/postsSlice";
+import postsReducer from "@/app/(public)/blog/postsSlice";
 import storageReducer from "@/api/firestore/storageSlice";
 
 const rootReducer = combineReducers({

@@ -1,6 +1,6 @@
 import { store } from "@/lib/store";
 import { fetchSinglePost } from "../postsSlice";
-import ArticleHeading from "./../../../components/ui/text/headings/ArticleHeading";
+import ArticleHeading from "@/components/ui/text/headings/ArticleHeading";
 import {
   Container,
   Box,
@@ -12,7 +12,7 @@ import {
 import Subtitle from "@/components/layout/Posts/Subtitle";
 import PlainEditor from "@/components/ui/lexicalEditor/PlainEditor";
 import Tags from "@/components/layout/Posts/Tags";
-import MorePosts from "./../../../components/layout/Posts/MorePosts";
+import MorePosts from "@/components/layout/Posts/MorePosts";
 import Comments from "@/components/ui/comments/Comments";;
 
 function extractTextNodes(content) {

@@ -18,9 +18,9 @@ import { MdEmail } from 'react-icons/md';
 import { FaMastodon } from 'react-icons/fa';
 import { BsGithub } from 'react-icons/bs';
 import { addDoc, collection, Timestamp } from 'firebase/firestore';
-import MyTextInput from '../../components/ui/inputs/MyTextInput';
-import TextareaInput from '../../components/ui/inputs/TextareaInput';
-import { db } from '../../api/firebase-config.js';
+import MyTextInput from '../../../components/ui/inputs/MyTextInput';
+import TextareaInput from '../../../components/ui/inputs/TextareaInput';
+import { db } from '../../../api/firebase-config.js';
 
 
 const ContactForm = () => {

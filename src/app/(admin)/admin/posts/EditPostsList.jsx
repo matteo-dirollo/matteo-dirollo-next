@@ -6,7 +6,7 @@ import {
   fetchPosts,
   getPostsStatus,
   selectAllPosts,
-} from "@/app/blog/postsSlice";
+} from "@/app/(public)/blog/postsSlice";
 import _ from "lodash";
 import {
   Box,

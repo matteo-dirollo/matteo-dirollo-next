@@ -4,7 +4,7 @@ import { MdPostAdd } from 'react-icons/md';
 export const AdminItems = [
   {
     label: 'Dashboard',
-    to: '/admin',
+    to: '/admin/dashboard',
     icon: FiLayout,
   },
   {

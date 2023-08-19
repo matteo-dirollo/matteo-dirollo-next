@@ -10,7 +10,7 @@ import {
 import Link from "next/link";
 import React, { useEffect, useMemo, useState } from "react";
 import { useSelector } from "react-redux";
-import { selectAllPosts } from "@/app/blog/postsSlice";
+import { selectAllPosts } from "@/app/(public)/blog/postsSlice";
 import _ from "lodash";
 
 const MorePosts = ({ article }) => {

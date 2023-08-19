@@ -14,7 +14,7 @@ import "@/components/ui/lexicalEditor/styles.css";
 
 import ModalManager from "@/components/ui/modals/ModalManager";
 import FooterNewsletter from "@/components/layout/Footer/FooterNewsletter";
-import { Providers } from "./providers";
+import { Providers } from "@/app/providers";
 import PublicNav from "@/components/layout/Navbar/PublicNav";
 
 export default function RootLayout({ children }) {
