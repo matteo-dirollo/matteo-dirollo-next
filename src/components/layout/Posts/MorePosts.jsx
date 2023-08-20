@@ -16,9 +16,9 @@ import _ from "lodash";
 const MorePosts = ({ article }) => {
   const posts = useSelector(selectAllPosts);
   const textColor = useColorModeValue("gray.700", "gray.100");
-  const cards = useMemo(() => 
-     _.filter(posts, (post) => post !== article)
-  , [posts, article]);
+  const cards = useMemo(() =>{ 
+     return _.filter(posts, (post) => post.id !== article.id)
+  }, [posts, article]);
   const [morePosts, setMorePosts] = useState([]);
 
   useEffect(() => {
