@@ -16,16 +16,16 @@ import _ from "lodash";
 const MorePosts = ({ article }) => {
   const posts = useSelector(selectAllPosts);
   const textColor = useColorModeValue("gray.700", "gray.100");
-  const cards = useMemo(() => {
-    return _.filter(posts, (post) => post.id !== article.id);
-  }, [posts, article]);
+  const cards = useMemo(() => 
+     _.filter(posts, (post) => post !== article)
+  , [posts, article]);
   const [morePosts, setMorePosts] = useState([]);
 
   useEffect(() => {
     if (cards) {
       setMorePosts(cards);
     }
-  }, [cards]);
+  }, [article, cards]);
 
   const renderPosts = _.slice(morePosts, 0, 3).map((card) => (
     <React.Fragment key={card.id}>
