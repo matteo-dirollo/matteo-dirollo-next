@@ -7,7 +7,7 @@ import { store } from "@/lib/store";
 import { Box, VStack } from '@/styles/ChakraImports';
 
 export async function generateMetadata() {
-  const description = "I'm a freelance graphic designer specializing in creating captivating graphics, stunning illustrations, and mesmerizing animations. Let's bring your ideas to life with unique and eye-catching visual designs.";
+  const description = 'I\'m a versatile freelance graphic designer with a passion for crafting graphics and illustrations. I also offer services in photo editing, background removal, and the creation of 2D and 3D animations. Beyond design, I can code for React/Next web applications and edit videos. I\'m always eager to take on new design challenges and open to any project propositions. Let\'s work together to bring your ideas into visual form.';
   const image = 'https://firebasestorage.googleapis.com/v0/b/matteo-dirollo-com.appspot.com/o/Blog%2Fcovers%2Flosange.00_00_00_00.Still001.jpg2f3da30f-7490-46ff-916e-68aa65c2de6f?alt=media&token=a7a14880-77ed-4e61-8113-25ae6b0b4950'
   return {
     title: {
