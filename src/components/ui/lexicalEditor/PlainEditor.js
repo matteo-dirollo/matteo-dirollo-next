@@ -13,7 +13,6 @@ import ListMaxIndentLevelPlugin from './plugins/ListMaxIndentLevelPlugin';
 import { MarkdownShortcutPlugin } from '@lexical/react/LexicalMarkdownShortcutPlugin';
 import { TRANSFORMERS } from '@lexical/markdown';
 import { editorConfig } from './themes/editorConfig';
-// import './styles.css'
 import { Box, useColorModeValue } from '@chakra-ui/react';
 import ImagesPlugin from './plugins/ImagesPlugin';
 import YouTubePlugin from './plugins/YoutubePlugin';
