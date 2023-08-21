@@ -11,7 +11,6 @@ const CheckAuth = ({children}) => {
     
       const router = useRouter();
     
-      console.log(isAdmin);
       if (!isAdmin) {
         router.push("/");
         return null;
