@@ -1,3 +1,4 @@
+'use client'
 import { BlockWithAlignableContents } from "@lexical/react/LexicalBlockWithAlignableContents"
 import { DecoratorBlockNode } from "@lexical/react/LexicalDecoratorBlockNode"
 import * as React from "react"

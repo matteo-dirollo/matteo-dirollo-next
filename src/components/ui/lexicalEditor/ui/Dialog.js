@@ -7,7 +7,7 @@
  */
 
 // import "./Dialog.css"
-
+'use client'
 import * as React from "react"
 
 export function DialogButtonsList({ children }) {

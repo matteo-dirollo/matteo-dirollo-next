@@ -1,5 +1,5 @@
 // import { $getRoot } from 'lexical';
-
+'use client'
 export default function OnChange(editorState, editor) {
   
   editorState.read(() => {

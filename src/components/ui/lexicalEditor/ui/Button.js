@@ -7,7 +7,7 @@
  */
 
 // import "./Button.css"
-
+'use client'
 import * as React from "react"
 
 import joinClasses from "../utils/joinClasses"

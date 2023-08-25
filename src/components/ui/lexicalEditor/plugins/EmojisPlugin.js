@@ -1,3 +1,4 @@
+'use client'
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext"
 import { TextNode } from "lexical"
 import { useEffect } from "react"

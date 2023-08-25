@@ -1,3 +1,4 @@
+'use client'
 import { TextNode } from "lexical"
 
 export class KeywordNode extends TextNode {

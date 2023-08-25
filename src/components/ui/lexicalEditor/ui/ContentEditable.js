@@ -7,7 +7,7 @@
  */
 
 // import "./ContentEditable.css"
-
+'use client'
 import { ContentEditable } from "@lexical/react/LexicalContentEditable"
 import * as React from "react"
 

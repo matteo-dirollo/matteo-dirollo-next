@@ -1,6 +1,6 @@
 // import { useFormikContext } from 'formik';
 // import { $getRoot } from 'lexical';
-
+'use client'
 const OnChangeFormik = (editorState, editor) => {
 
   editorState.read(() => {

@@ -5,6 +5,7 @@
  * LICENSE file in the root directory of this source tree.
  *
  */
+'use client'
 import { $applyNodeReplacement, TextNode, } from 'lexical';
 function convertMentionElement(domNode) {
     const textContent = domNode.textContent;

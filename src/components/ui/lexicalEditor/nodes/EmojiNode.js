@@ -5,6 +5,7 @@
  * LICENSE file in the root directory of this source tree.
  *
  */
+'use client'
 import { $applyNodeReplacement, TextNode } from 'lexical';
 export class EmojiNode extends TextNode {
     static getType() {

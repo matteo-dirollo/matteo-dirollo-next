@@ -7,7 +7,7 @@
  */
 
 // import "./Placeholder.css"
-
+'use client'
 import * as React from "react"
 
 export default function Placeholder({ children, className }) {

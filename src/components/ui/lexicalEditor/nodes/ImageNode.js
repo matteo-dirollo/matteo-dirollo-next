@@ -1,9 +1,9 @@
+'use client';
 import { $applyNodeReplacement, createEditor, DecoratorNode } from "lexical"
 import * as React from "react"
 import { Suspense } from "react"
 
 const ImageComponent = React.lazy(
-  // @ts-ignore
   () => import("./ImageComponent")
 )
 

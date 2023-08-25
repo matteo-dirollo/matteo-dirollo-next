@@ -5,7 +5,7 @@
  * LICENSE file in the root directory of this source tree.
  *
  */
-
+'use client'
 export function sanitizeUrl(url) {
     /** A pattern that matches safe  URLs. */
     const SAFE_URL_PATTERN = /^(?:(?:https?|mailto|ftp|tel|file|sms):|[^&:/?#]*(?:[/?#]|$))/gi

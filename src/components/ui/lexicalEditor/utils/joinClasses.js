@@ -5,7 +5,7 @@
  * LICENSE file in the root directory of this source tree.
  *
  */
-
+'use client'
 export default function joinClasses(...args) {
     return args.filter(Boolean).join(" ")
   }

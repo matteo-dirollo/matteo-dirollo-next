@@ -1,5 +1,5 @@
 // import "./ImageNode.css"
-
+'use client'
 import { AutoFocusPlugin } from "@lexical/react/LexicalAutoFocusPlugin"
 import { useCollaborationContext } from "@lexical/react/LexicalCollaborationContext"
 import { CollaborationPlugin } from "@lexical/react/LexicalCollaborationPlugin"
@@ -67,6 +67,7 @@ function LazyImage({
 }) {
   useSuspenseImage(src)
   return (
+    // eslint-disable-next-line @next/next/no-img-element
     <img
       className={className || undefined}
       src={src}

@@ -1,3 +1,4 @@
+'use client'
 /**
  * Copyright (c) Meta Platforms, Inc. and affiliates.
  *
@@ -11,7 +12,8 @@ import {
   LexicalTypeaheadMenuPlugin,
   TypeaheadOption,
   useBasicTypeaheadTriggerMatch
-} from "@lexical/react/LexicalTypeaheadMenuPlugin"
+} from "@lexical/react/LexicalTypeaheadMenuPlugin";
+  
 import { useCallback, useEffect, useMemo, useState } from "react"
 import * as React from "react"
 import * as ReactDOM from "react-dom"

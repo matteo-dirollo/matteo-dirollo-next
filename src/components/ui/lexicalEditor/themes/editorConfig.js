@@ -1,3 +1,4 @@
+'use client'
 import { HeadingNode, QuoteNode } from '@lexical/rich-text';
 import { EmoticonNode } from '../nodes/EmoticonNode';
 import { ImageNode } from '../nodes/ImageNode';

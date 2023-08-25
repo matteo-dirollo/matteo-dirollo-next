@@ -1,3 +1,4 @@
+'use client'
 import React from 'react';
 import { AutoLinkPlugin } from "@lexical/react/LexicalAutoLinkPlugin";
 

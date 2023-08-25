@@ -1,4 +1,5 @@
 // Instead of directly initializing these constants, wrap them in a function
+'use client'
 function getWebsocketInfo() {
     const url = new URL(typeof window !== 'undefined' ? window.location.href : 'http://defaulturl.com');
     const params = new URLSearchParams(url.search);

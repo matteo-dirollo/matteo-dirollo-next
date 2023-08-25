@@ -5,7 +5,7 @@
  * LICENSE file in the root directory of this source tree.
  *
  */
-
+'use client'
 import { useCallback, useEffect, useMemo, useRef, useState } from "react"
 import * as React from "react"
 import { createPortal } from "react-dom"
@@ -168,6 +168,7 @@ export default function DropDown({
         className={buttonClassName}
         onClick={() => setShowDropDown(!showDropDown)}
         ref={buttonRef}
+        type="button"
       >
         {buttonIconClassName && <span className={buttonIconClassName} />}
         {buttonLabel && (
