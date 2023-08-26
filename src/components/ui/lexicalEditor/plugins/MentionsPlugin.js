@@ -581,12 +581,19 @@ function getPossibleQueryMatch(text) {
   return match === null ? checkForCapitalizedNameMentions(text, 3) : match
 }
 
-class MentionTypeaheadOption extends TypeaheadOption {
-  constructor(name, picture) {
-    super(name)
-    this.name = name
-    this.picture = picture
-  }
+function MentionTypeaheadOption (name, picture) {
+  console.log('Name:', name);
+  console.log('Picture:', picture);
+  
+  // Call the TypeaheadOption constructor function directly.
+  // This won't replicate all the behavior of the 'new' keyword, but it can work for many use cases.
+  const typeaheadOption = TypeaheadOption(name);
+
+  return {
+      ...typeaheadOption,
+      name,
+      picture
+  };
 }
 
 function MentionsTypeaheadMenuItem({
