@@ -781,6 +781,22 @@ i.image {
   background-image: url(/images/icons/file-image.svg);
 }
 
+/* Center the image horizontally */
+span.editor-image {
+  display: flex;
+  justify-content: center;
+  max-width: 100%; /* Ensure the container doesn't exceed the viewport width */
+  overflow: hidden; /* Prevent the image from overflowing */
+}
+
+span.editor-image img {
+  width: 100%; /* Make the image take the full width of its container */
+  height: auto; /* Maintain the image's aspect ratio */
+}
+
+/* Decrease dimensions on mobile phones */
+
+
 
 @media screen and (max-width: 600px) {
   iframe {
