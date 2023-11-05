@@ -6,6 +6,7 @@ import {
   Text,
   useColorModeValue,
   Center,
+  Stack,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -14,7 +15,6 @@ import _ from "lodash";
 import Pagination from "@/components/ui/buttons/Pagination";
 import Link from "next/link";
 import LoadingSpinner from "@/components/ui/loaders/LoadingSpinner";
-
 
 const Blog = () => {
   const dispatch = useDispatch();
@@ -38,17 +38,13 @@ const Blog = () => {
   }, [postsStatus, dispatch]);
 
   const renderPosts = currentPosts.map((post) => (
-    <Box maxW="250px" m="5px" as="article" key={post.date}>
+    <Box key={post.date} maxW="250px" m="5px" as="article">
       <Link
         href={`/blog/${post.id}`}
-        sx={{
-          "a:hover": { textDecoration: "none", color: "green" },
-        }}
+        sx={{ "a:hover": { textDecoration: "none", color: "green" } }}
       >
         <Text
-          sx={{
-            "p a:hover": { textDecoration: "none", color: "green" },
-          }}
+          sx={{ "p a:hover": { textDecoration: "none", color: "green" } }}
           as="b"
           fontSize="sm"
           color="purple.600"
@@ -76,6 +72,7 @@ const Blog = () => {
       </Link>
     </Box>
   ));
+
   if (postsStatus === "succeeded") {
     return (
       <Box w="80%" marginX="auto" my={10} minH={"100vh"} as="section">
@@ -91,7 +88,13 @@ const Blog = () => {
             justify="space-evenly"
             spacing="30px"
           >
-            {renderPosts}
+            <Stack
+              spacing={5}
+              direction={["column", "row"]} // Use "column" for smaller screens and "row" for larger screens
+              wrap="wrap" // Allow items to wrap to the next row
+            >
+              {renderPosts}
+            </Stack>
           </Flex>
         </Box>
         <Center>
@@ -105,10 +108,8 @@ const Blog = () => {
       </Box>
     );
   } else {
-    return <LoadingSpinner />
+    return <LoadingSpinner />;
   }
 };
 
 export default Blog;
-
-
