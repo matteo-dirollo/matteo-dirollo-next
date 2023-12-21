@@ -1,4 +1,5 @@
 import { extendTheme } from '@chakra-ui/react';
+//new style
 
 const theme = extendTheme({
   fonts: {
