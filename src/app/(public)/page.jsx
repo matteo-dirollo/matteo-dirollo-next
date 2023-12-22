@@ -103,7 +103,6 @@ export default async function Home() {
     <Box display="flex" justifyContent="center" alignItems="center" >
       <VStack justifyContent="center" alignItems="center" maxW={'90%'} >
         <HeroSection />
-        {/* <BackgroundVideo /> */}
         <Services my='100px'  />
         <PostsCards />
       </VStack>

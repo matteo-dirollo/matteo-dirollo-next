@@ -6,7 +6,8 @@ import {
   Text,
   VStack,
   useColorModeValue,
-  Divider
+  Divider,
+  useBreakpointValue
 } from "@chakra-ui/react";
 import Link from "next/link";
 import React, { useEffect } from "react";
@@ -19,6 +20,7 @@ const PostsCards = () => {
   const posts = useSelector(selectAllPosts);
   const postsStatus = useSelector(getPostsStatus);
   const textColor = useColorModeValue("gray.700", "gray.100");
+  const isDesktop = useBreakpointValue({ base: false, md: true });
 
   useEffect(() => {
     if (postsStatus === "idle") {
@@ -62,7 +64,11 @@ const PostsCards = () => {
             Latest Projects
           </Heading>
           <Divider borderWidth='1.5px' borderColor='#000' mb='12px' />
-          <HStack mb={5}>{renderCards}</HStack>
+          {isDesktop ? (
+        <HStack mb={5}>{renderCards}</HStack>
+      ) : (
+        <VStack mb={5}>{renderCards}</VStack>
+      )}
         </Box>
   );
 };
