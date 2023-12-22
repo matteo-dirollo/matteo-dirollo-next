@@ -52,10 +52,11 @@ const Blog = () => {
           as="b"
           fontSize="sm"
           color="purple.600"
+          fontWeight='600'
         >
           {_.first(post.category)}
         </Text>
-        <Heading fontSize="xl" color={textColor} as="h2" size="sm">
+        <Heading fontSize="xl" color={textColor} as="h2" size="sm" fontWeight='medium'>
           {post.title}
         </Heading>
         <Text colorScheme={textColor} fontSize="xs">
@@ -79,7 +80,7 @@ const Blog = () => {
   if (postsStatus === "succeeded") {
     return (
       <Box w="80%" marginX="auto" my={10} minH={"100vh"} as="section">
-        <Heading my={10} color={textColor}>
+        <Heading my={10} color={textColor} fontWeight='medium'>
           Latest Projects
         </Heading>
         <Box w="100%" mx="0 auto" display="flex" justifyContent="center">

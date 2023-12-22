@@ -7,6 +7,9 @@ const theme = extendTheme({
     body: 'Neue Haas Grotesk Display Pro',
   },
   fontWeights: {
+    extraThin: 100,
+    thin: 200,
+    light: 300,
     normal: 400,
     medium: 500,
     bold: 700,

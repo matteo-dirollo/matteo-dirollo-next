@@ -81,7 +81,7 @@ const Navbar = () => {
           direction={"row"}
           spacing={[2, 6, 6]}
         >
-          <ColorModeSwitcher justifySelf="flex-end" />
+          {/* <ColorModeSwitcher justifySelf="flex-end" /> */}
           {authenticated ? (
             <SignOut />
           ) : (
