@@ -2,6 +2,10 @@ import { extendTheme } from '@chakra-ui/react';
 //new style
 
 const theme = extendTheme({
+  config: {
+    initialColorMode: 'light', // Set to 'light' to force the light theme
+    useSystemColorMode: false,
+  },
   fonts: {
     heading: 'Neue Haas Grotesk Display Pro',
     body: 'Neue Haas Grotesk Display Pro',

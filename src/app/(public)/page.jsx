@@ -5,6 +5,7 @@ import Services from "@/components/layout/Services/Services";
 
 import { store } from "@/lib/store";
 import { Box, VStack } from "@/styles/ChakraImports";
+import PostsCards from './../../components/layout/Posts/PostsCards';
 
 export async function generateMetadata() {
   const description =
@@ -100,12 +101,11 @@ export default async function Home() {
 
   return (
     <Box display="flex" justifyContent="center" alignItems="center" >
-      <VStack justifyContent="center" alignItems="center" >
+      <VStack justifyContent="center" alignItems="center" maxW={'90%'} >
         <HeroSection />
-
         {/* <BackgroundVideo /> */}
-        <Services  />
-        {/* <LatestPosts /> */}
+        <Services my='100px'  />
+        <PostsCards />
       </VStack>
     </Box>
   );
