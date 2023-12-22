@@ -23,6 +23,7 @@ export default function RootLayout({ children }) {
         <Providers>
           <PublicNav />
           <ModalManager />
+         
           {children}
           <FooterNewsletter />
         </Providers>
