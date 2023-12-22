@@ -133,8 +133,10 @@ export default function SignUp({ onClose, onOpen }) {
                       isLoading={isSubmitting}
                       disable={!isValid || !dirty || isSubmitting}
                       type="submit"
-                      colorScheme="teal"
+                      bg='black'
+                      color="white"
                       width="100%"
+                      _hover={{color:'black', bg:'blackAlpha.200'}}
                     >
                       Sign Up
                     </Button>

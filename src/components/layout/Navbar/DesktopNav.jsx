@@ -56,7 +56,7 @@ const DesktopNav = () => {
   });
 
   return (
-    <Stack direction={"row"} spacing={4}>
+    <Stack direction="row" spacing={4} align="center">
       {MenuItem}
     </Stack>
   );

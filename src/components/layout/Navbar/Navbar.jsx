@@ -66,7 +66,7 @@ const Navbar = () => {
           >
             <Link href="/">
               <Box>
-                <EmmeLogo width={"30"} height={"30"} />
+                <EmmeLogo width={"60"} height={"60"} />
               </Box>
             </Link>
           </Text>

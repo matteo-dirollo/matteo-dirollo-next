@@ -25,7 +25,7 @@ export default function TextareaInput({ errors, label, ...props }) {
           borderWidth: '1px',
           // borderColor: 'gray.300',
           _focus: {
-            borderColor: 'teal.300',
+            borderColor: 'blackAlpha.700',
             borderWidth: '2px', // Change the border weight for the :focus state
           },
         }}
