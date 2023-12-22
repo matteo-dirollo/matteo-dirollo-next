@@ -104,7 +104,7 @@ export default async function Home() {
         <HeroSection />
 
         {/* <BackgroundVideo /> */}
-        <Services mt='250px' />
+        <Services  />
         {/* <LatestPosts /> */}
       </VStack>
     </Box>
