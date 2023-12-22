@@ -3,8 +3,8 @@ import { extendTheme } from '@chakra-ui/react';
 
 const theme = extendTheme({
   fonts: {
-    heading: 'Epilogue, sans-serif',
-    body: 'Epilogue, sans-serif',
+    heading: 'Neue Haas Grotesk Display Pro',
+    body: 'Neue Haas Grotesk Display Pro',
   },
   fontWeights: {
     normal: 400,

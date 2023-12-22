@@ -1,7 +1,5 @@
 // import "./globals.css";
-import "@fontsource/epilogue"; // Defaults to weight 400
-import "@fontsource/epilogue/400.css"; // Specify weight
-import "@fontsource/epilogue/400-italic.css";
+import '../../styles/fonts.css';
 
 // LEXICAL STYLES 
 import "@/components/ui/lexicalEditor/ui/Button.css";

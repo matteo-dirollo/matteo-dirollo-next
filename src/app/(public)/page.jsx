@@ -1,6 +1,6 @@
 import React from "react";
 import { fetchUsers } from "@/api/auth/authSlice";
-import BackgroundVideo from "@/components/layout/BackgroundVideo/BackgroundVideo";
+import HeroSection from "@/components/layout/HeroSection/HeroSection";
 import Services from "@/components/layout/Services/Services";
 
 import { store } from "@/lib/store";
@@ -100,7 +100,9 @@ export default async function Home() {
    
     <Box>
       <VStack justifyContent="center" alignItems="center">
-        <BackgroundVideo />
+        <HeroSection />
+      
+        {/* <BackgroundVideo /> */}
         <Services />
         {/* <LatestPosts /> */}
       </VStack>
