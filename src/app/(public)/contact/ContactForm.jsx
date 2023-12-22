@@ -25,10 +25,10 @@ import { db } from '../../../api/firebase-config.js';
 
 const ContactForm = () => {
   const toast = useToast();
-  const textColor = useColorModeValue('gray.700', 'gray.100');
-  const emailToColor = useColorModeValue('teal.100', 'teal.500');
-  const buttonColor = useColorModeValue('teal.500', 'teal.300');
-  const buttonHoverColor = useColorModeValue('teal.600', 'teal.400');
+  const textColor = useColorModeValue('black', 'white');
+  const emailToColor = useColorModeValue('blackAlpha.100', 'whiteAlpha.100');
+  const buttonColor = useColorModeValue('black', 'blackAlpha.200');
+  const buttonHoverColor = useColorModeValue('blackAlpha.200', 'white');
   const tastSuccess = () => {
     toast({
       title: 'Messsage sent.',
@@ -107,8 +107,8 @@ const ContactForm = () => {
           variant="ghost"
           color={textColor}
           _hover={{ backgroundColor: emailToColor }}
-          border={'2px solid teal'}
-          leftIcon={<MdEmail color="teal" size="20px" />}
+          border={'2px solid #000000'}
+          leftIcon={<MdEmail color="black" size="20px" />}
           onClick={handleClick}
         >
           matteo.dirollo@icloud.com
@@ -173,7 +173,9 @@ const ContactForm = () => {
                 isLoading={isSubmitting}
                 disable={!isValid || !dirty || isSubmitting}
                 type="submit"
-                colorScheme="teal"
+                color='white'
+                _hover={{color:'black', bg:'blackAlpha.200'}}
+                bg="black"
                 minW={200}
                 p={5}
                 py={7}

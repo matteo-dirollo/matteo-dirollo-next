@@ -49,7 +49,10 @@ const CommentForm = ({ articleId }) => {
             loadingText='Submitting'
             disabled={!isValid || !dirty || isSubmitting}
             type="submit"
-            colorScheme="teal"
+            bg='black'
+            color="white"
+            _hover={{bg:'blackAlpha.200',
+            color:"black"}}
             my={5}
           >
             Add Comment

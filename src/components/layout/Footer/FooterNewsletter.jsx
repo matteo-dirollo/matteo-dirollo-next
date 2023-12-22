@@ -26,8 +26,8 @@ import Expire from "../../ui/utils/Expire";
 
 const FooterNewsletter = () => {
   const toast = useToast();
-  const buttonColor = useColorModeValue("teal.500", "teal.300");
-  const buttonHoverColor = useColorModeValue("teal.600", "teal.400");
+  const buttonColor = useColorModeValue("black", "white");
+  const buttonHoverColor = useColorModeValue("blackAlpha.300", "blackAlpha.200");
 
   const initialValues = {
     email: "",
@@ -71,7 +71,7 @@ const FooterNewsletter = () => {
   };
 
   const inputBg = useColorModeValue("blackAlpha.100", "whiteAlpha.100");
-  const iconButtonbg = useColorModeValue("teal.600", "teal.800");
+  const iconButtonbg = useColorModeValue("blackAlpha.300", "blackAlpha.400");
   const iconButtonColor = useColorModeValue("white", "gray.800");
 
   return (
@@ -193,7 +193,7 @@ const FooterNewsletter = () => {
                     />
 
                     <IconButton
-                      bg={"teal.400"}
+                      bg={"black"}
                       color={iconButtonColor}
                       isLoading={isSubmitting}
                       disable={!isValid || !dirty || isSubmitting}
