@@ -10,6 +10,7 @@ const ServiceCard = ({ title, description, animationData }) => {
       // borderRadius="lg"
       p={6}
       m={4}
+      my='100px'
       // boxShadow="lg"
       width="300px"
       textAlign={'center'}
@@ -18,7 +19,7 @@ const ServiceCard = ({ title, description, animationData }) => {
         <LottieIcon animationData={animationData} />
       </Box>
 
-      <Text as="h3" fontSize="3xl" fontWeight="600" mb={4}>
+      <Text as="h3" fontSize="3xl" fontWeight="medium" mb={4}>
         {title}
       </Text>
       <Text fontSize={'sm'}>{description}</Text>

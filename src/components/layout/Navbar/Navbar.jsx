@@ -90,7 +90,8 @@ const Navbar = () => {
               size={["sm", "md"]}
               fontSize={"sm"}
               fontWeight={400}
-              variant={"link"}
+              variant={"unstyled"}
+              _hover={{ outline: "none", boxShadow: "none", fontWeight:'medium' }}
               onClick={() => {
                 dispatch(openModal({ modalType: "SignIn" }));
               }}
@@ -103,14 +104,14 @@ const Navbar = () => {
               fontSize={"sm"}
               fontWeight={400}
               color={"white"}
-              sx={{ bg: "pink.400" }}
+              sx={{ bg: "black" }}
               size={["sm", "md"]}
               variant="solid"
               onClick={() => {
                 dispatch(openModal({ modalType: "SignUp" }));
               }}
               _hover={{
-                bg: "pink.300",
+                bg: "#4e4e4e",
               }}
             >
               Sign Up

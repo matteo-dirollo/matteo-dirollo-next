@@ -13,11 +13,12 @@ const HeroSection = () => {
       width="100%"
       minHeight={["20vh", "40vh", "60vh", "80vh"]}
       overflow="hidden"
+      margin={0}
     >
       {/* Left side with text overlay */}
       <Box
         className="container"
-        width="90%"
+        width="100%"
         margin="0 auto"
         display="flex"
         alignItems="center"
@@ -35,7 +36,7 @@ const HeroSection = () => {
           zIndex='1'
         >
           <Text fontSize="6xl" color="black" fontWeight="300">
-            I’m Matteo Di Rollo, a graphic designer & content creator.<br />
+            I&apos;m a Graphic, Motion Designer & content creator. <br />
             Available for freelance & collaborations.
           </Text>
         </Box>

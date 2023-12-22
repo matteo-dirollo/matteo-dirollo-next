@@ -22,7 +22,7 @@ const SignOut = () => {
       size={["sm", "md"]}
       fontSize={"sm"}
       fontWeight={400}
-      colorScheme={'teal'}
+      color={'black'}
       variant={"solid"}
       onClick={handleSignOut}   
     >
