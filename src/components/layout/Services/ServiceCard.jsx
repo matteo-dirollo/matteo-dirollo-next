@@ -10,7 +10,6 @@ const ServiceCard = ({ title, description, animationData }) => {
       // borderRadius="lg"
       p={6}
       m={4}
-      my='100px'
       // boxShadow="lg"
       width="300px"
       textAlign={'center'}

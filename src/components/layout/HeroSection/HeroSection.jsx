@@ -35,7 +35,7 @@ const HeroSection = () => {
           marginRight='-150px'
           zIndex='1'
         >
-          <Text fontSize="6xl" color="black" fontWeight="300">
+          <Text fontSize={['5xl', '6xl']} color="black" fontWeight="300">
             I&apos;m a Graphic, Motion Designer & content creator. <br />
             Available for freelance & collaborations.
           </Text>
@@ -44,7 +44,7 @@ const HeroSection = () => {
       <Box
         className="right"
         minWidth="50%"
-        bgImage="url('https://firebasestorage.googleapis.com/v0/b/matteo-dirollo-com.appspot.com/o/Home%2Fkombucha_POMEGRANATE_v8.png?alt=media&token=bc44bf97-0fbf-44e3-bda7-9c42f39fb608')"
+        bgImage="url('https://images.unsplash.com/photo-1604079628040-94301bb21b91?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')"
         bgSize="cover"
         height="500px"
         zIndex='0'
