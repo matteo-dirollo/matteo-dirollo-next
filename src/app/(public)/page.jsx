@@ -6,6 +6,7 @@ import Services from "@/components/layout/Services/Services";
 import { store } from "@/lib/store";
 import { Box, VStack } from "@/styles/ChakraImports";
 import PostsCards from './../../components/layout/Posts/PostsCards';
+import { fetchPosts } from "./blog/postsSlice";
 
 export async function generateMetadata() {
   const description =
@@ -98,6 +99,7 @@ export async function generateMetadata() {
 
 export default async function Home() {
   await store.dispatch(fetchUsers());
+  await store.dispatch(fetchPosts());
 
   return (
     <Box display="flex" justifyContent="center" alignItems="center" >
