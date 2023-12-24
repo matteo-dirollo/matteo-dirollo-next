@@ -103,7 +103,7 @@ export default async function Home() {
   await store.dispatch(fetchPosts());
 
   return (
-    <Box display="flex" justifyContent="center" alignItems="center" >
+    <Box display="flex" justifyContent="center" alignItems="center" mb={20} >
       <VStack justifyContent="center" alignItems="center" maxW={'90%'} >
         <HeroSection />
         <Services my='100px'  />
