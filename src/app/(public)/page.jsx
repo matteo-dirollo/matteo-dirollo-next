@@ -7,6 +7,7 @@ import { store } from "@/lib/store";
 import { Box, VStack } from "@/styles/ChakraImports";
 import PostsCards from './../../components/layout/Posts/PostsCards';
 import { fetchPosts } from "./blog/postsSlice";
+import SpotifyPlaylist from "@/components/layout/Spotify/SpotifyPlaylist";
 
 export async function generateMetadata() {
   const description =
@@ -107,6 +108,7 @@ export default async function Home() {
         <HeroSection />
         <Services my='100px'  />
         <PostsCards />
+        <SpotifyPlaylist />
       </VStack>
     </Box>
   );

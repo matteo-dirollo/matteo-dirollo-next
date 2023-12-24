@@ -13,6 +13,7 @@ import authReducer from "@/api/auth/authSlice";
 import postsReducer from "@/app/(public)/blog/postsSlice";
 import storageReducer from "@/api/firestore/storageSlice";
 
+
 const rootReducer = combineReducers({
   async: asyncReducer,
   modals: modalReducer,
