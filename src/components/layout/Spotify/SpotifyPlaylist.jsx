@@ -4,8 +4,6 @@ import React from "react";
 import SpotifyPlayer from "react-spotify-player";
 
 const SpotifyPlaylist = () => {
-
-
   const size = {
     width: "100%",
     height: 152,
@@ -16,21 +14,19 @@ const SpotifyPlaylist = () => {
   return (
     <Box width="100%">
       <Heading mb={5} as="h2" size="xl" fontWeight="medium">
-        My embarassing music
+        Music I listen to while coding
       </Heading>
       <Divider borderWidth="1.5px" borderColor="#000" mb="14px" />
-      <Text mb="14px">
-        The Spotify playlist I was listining while coding this website
-      </Text>
-      <SpotifyPlayer
-        uri="spotify:playlist:3rRMSaQGXezre7OUJnqrXy"
-        size={size}
-        view={view}
-        theme={theme}
-      />
+      <Box width='100%' my={20}>
+        <SpotifyPlayer
+          uri="spotify:playlist:3rRMSaQGXezre7OUJnqrXy"
+          size={size}
+          view={view}
+          theme={theme}
+        />
+      </Box>
     </Box>
   );
 };
 
 export default SpotifyPlaylist;
-
