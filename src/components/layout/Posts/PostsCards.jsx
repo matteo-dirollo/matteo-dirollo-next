@@ -32,7 +32,7 @@ const PostsCards = () => {
   const renderCards = _.slice(posts, 0, 3).map((post)=>(
 
  
-      <Box key={post.id}>
+      <Box key={post.id} flex="1">
         <VStack justify="start">
           <Link
             href={`/blog/${post.id}`}
@@ -65,7 +65,7 @@ const PostsCards = () => {
           </Heading>
           <Divider borderWidth='1.5px' borderColor='#000' mb='12px' />
           {isDesktop ? (
-        <HStack mb={5}>{renderCards}</HStack>
+        <HStack justifyContent="center" mb={5}>{renderCards}</HStack>
       ) : (
         <VStack mb={5}>{renderCards}</VStack>
       )}
