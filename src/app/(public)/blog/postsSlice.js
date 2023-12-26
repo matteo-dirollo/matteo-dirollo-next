@@ -186,6 +186,10 @@ const postsSlice = createSlice({
     postAdded: (state, { payload }) => {
       state.posts.push({ ...payload, comments: [] });
     },
+    postSelected: (state, action) => {
+      const postId = action.payload;
+      state.selectedPost = state.posts.find((post) => post.id === postId);
+    },
     postDeleted: (state, { payload }) => {
       state.posts = state.posts.filter((post) => post.id !== payload);
     },
@@ -399,6 +403,7 @@ const postsSlice = createSlice({
 });
 
 export const selectAllPosts = (state) => state.posts.posts;
+export const selectedPost =(state) => state.posts.currentPost;
 export const getPostsStatus = (state) => state.posts.status;
 export const getPostsError = (state) => state.posts.error;
 export const selectCommentsByPostId = (state, postId) =>

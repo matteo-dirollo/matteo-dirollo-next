@@ -48,10 +48,8 @@ h1 {
   margin: 20px auto 20px auto;
   border-radius: 2px;
   max-width: 600px;
-  min-width:150px;
   color: #000;
   position: relative;
-  display: block;
   line-height: 20px;
   font-weight: 400;
   text-align: left;
@@ -351,6 +349,7 @@ pre::-webkit-scrollbar-thumb {
 
 .toolbar {
   display: flex;
+  position: sticky;
   margin-bottom: 1px;
   background: #fff;
   padding: 4px;
@@ -359,6 +358,8 @@ pre::-webkit-scrollbar-thumb {
   border-top-right-radius: 10px;
   vertical-align: middle;
   overflow: auto;
+  z-index: 2;
+  white-space: nowrap;
 }
 
 .toolbar button.toolbar-item {

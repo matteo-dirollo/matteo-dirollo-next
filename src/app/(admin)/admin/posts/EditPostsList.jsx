@@ -1,11 +1,13 @@
-'use client'
+"use client";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   deletePost,
   fetchPosts,
+  fetchSinglePost,
   getPostsStatus,
   selectAllPosts,
+  selectedPost,
 } from "@/app/(public)/blog/postsSlice";
 import _ from "lodash";
 import {
@@ -18,17 +20,26 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { DeleteIcon, EditIcon } from "@chakra-ui/icons";
+import { openModal } from "@/components/ui/modals/modalSlice";
 
 const EditPostList = () => {
   const dispatch = useDispatch();
   const posts = useSelector(selectAllPosts);
   const postsStatus = useSelector(getPostsStatus);
+  
 
   const onSubmit = (postId) => {
     if (postId) {
       dispatch(deletePost(postId));
     }
   };
+
+  const onEdit = (postId) => {
+    if (postId) {
+      dispatch(fetchSinglePost(postId));
+      dispatch(openModal({ modalType: "ModifyPost" }));
+    }
+  }
 
   useEffect(() => {
     if (postsStatus === "idle") {
@@ -58,7 +69,9 @@ const EditPostList = () => {
           </Box>
         </HStack>
         <Box mt="5px" ml="25px">
-          <Button leftIcon={<EditIcon />} colorScheme="blue" mx="3px" size="xs">
+          <Button onClick={() => {
+              onEdit(post.id);
+            }} leftIcon={<EditIcon />} colorScheme="blue" mx="3px" size="xs">
             Modify
           </Button>
           <Button

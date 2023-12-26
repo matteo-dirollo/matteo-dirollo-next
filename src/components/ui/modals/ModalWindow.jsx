@@ -1,5 +1,5 @@
-'use client'
-import React from 'react';
+"use client";
+import React from "react";
 import {
   Modal,
   ModalOverlay,
@@ -9,15 +9,16 @@ import {
   ModalBody,
   ModalCloseButton,
   useColorModeValue,
-} from '@chakra-ui/react';
-import { useDispatch } from 'react-redux';
-import { closeModal } from '@/components/ui/modals/modalSlice';
+} from "@chakra-ui/react";
+import { useDispatch } from "react-redux";
+import { closeModal } from "@/components/ui/modals/modalSlice";
 
-const ModalWindow = ({ children, header, modalFooter }) => {
+const ModalWindow = ({ children, header, modalFooter, size }) => {
   const dispatch = useDispatch();
 
   return (
     <Modal
+      size={size ? size : "default"}
       isCentered
       isOpen={true}
       onClose={() => {
@@ -25,21 +26,23 @@ const ModalWindow = ({ children, header, modalFooter }) => {
       }}
     >
       <ModalOverlay
-        bg="blackAlpha.300"
-        backdropFilter="blur(10px) hue-rotate(90deg)"
+         bg='none'
+         backdropFilter='auto'
+         backdropInvert='80%'
+         backdropBlur='2px'
       />
       <ModalContent>
         {header && <ModalHeader>{header}</ModalHeader>}
         <ModalCloseButton />
         <ModalBody
           borderTopRadius="md"
-          bg={useColorModeValue('gray.50', 'gray.800')}
+          bg={useColorModeValue("gray.50", "gray.800")}
         >
           {children}
         </ModalBody>
         <ModalFooter
           borderBottomRadius="md"
-          bg={useColorModeValue('gray.50', 'gray.800')}
+          bg={useColorModeValue("gray.50", "gray.800")}
         >
           {modalFooter}
         </ModalFooter>
