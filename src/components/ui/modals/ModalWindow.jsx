@@ -18,7 +18,7 @@ const ModalWindow = ({ children, header, modalFooter, size }) => {
 
   return (
     <Modal
-      size={size ? size : "default"}
+      size={size ? size : "md"}
       isCentered
       isOpen={true}
       onClose={() => {
@@ -26,10 +26,8 @@ const ModalWindow = ({ children, header, modalFooter, size }) => {
       }}
     >
       <ModalOverlay
-         bg='none'
-         backdropFilter='auto'
-         backdropInvert='80%'
-         backdropBlur='2px'
+        bg="blackAlpha.300"
+        backdropFilter="blur(10px) hue-rotate(90deg)"
       />
       <ModalContent>
         {header && <ModalHeader>{header}</ModalHeader>}

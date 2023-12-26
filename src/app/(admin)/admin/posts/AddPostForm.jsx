@@ -246,7 +246,8 @@ const AddPostForm = () => {
                 isLoading={isSubmitting}
                 disable={!isValid || !dirty || isSubmitting}
                 type="submit"
-                colorScheme="teal"
+                bg='black'
+                color="white"
                 maxW={300}
               >
                 Add
