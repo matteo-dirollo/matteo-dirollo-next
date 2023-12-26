@@ -11,7 +11,7 @@ import SpotifyPlaylist from "@/components/layout/Spotify/SpotifyPlaylist";
 
 export async function generateMetadata() {
   const description =
-    "I'm a versatile freelance graphic designer with a passion for crafting graphics and illustrations. I also offer services in photo editing, background removal, and the creation of 2D and 3D animations. Beyond design, I can code for React/Next web applications and edit videos. I'm always eager to take on new design challenges and open to any project propositions. Let's work together to bring your ideas into visual form.";
+    "I'm a Graphic, Motion Designer & content creator. Available for freelance & collaborations.";
   const image =
     "https://images.unsplash.com/photo-1604079628040-94301bb21b91?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D";
   return {
