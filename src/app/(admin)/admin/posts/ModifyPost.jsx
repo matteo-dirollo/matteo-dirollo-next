@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useRef } from "react";
+import React, { useState, useRef } from "react";
 import { selectedPost } from "@/app/(public)/blog/postsSlice";
 import ModalWindow from "@/components/ui/modals/ModalWindow";
 import {
@@ -56,15 +56,20 @@ import { useSelector, useDispatch } from "react-redux";
 
 const ModifyPost = () => {
   const post = useSelector(selectedPost);
-  const editorValue = `{"root":{"children":[{"children":[{"detail":0,"format":0,"mode":"normal","style":"","text":"Boocha is a mockup brand I created for a beverage made with fermented tea, known as kombucha. To get started, I created three very simple labels to provide material for working on the 3D models immediately afterward, and then I modeled the meshes in blender.","type":"text","version":1}],"direction":"ltr","format":"","indent":0,"type":"paragraph","version":1},{"children":[],"direction":null,"format":"","indent":0,"type":"paragraph","version":1},{"children":[{"detail":0,"format":0,"mode":"normal","style":"","text":"The label","type":"text","version":1}],"direction":"ltr","format":"","indent":0,"type":"heading","version":1,"tag":"h1"},{"children":[{"type":"linebreak","version":1},{"detail":0,"format":0,"mode":"normal","style":"","text":"The different versions of the label also had different funny names. For the first one on the left, Umbo, I created an abstract visual that resembles a liquid somehow and the tastes are highlighted with the color white The other version takes its name from the scoby (symbiotic culture of bacteria and yeast), a mass that aids the fermentation process, and, for the visuals I drew the shape of each fruit and I’ve added a different pattern to each one.","type":"text","version":1}],"direction":"ltr","format":"","indent":0,"type":"paragraph","version":1},{"children":[],"direction":"ltr","format":"","indent":0,"type":"paragraph","version":1},{"children":[],"direction":"ltr","format":"","indent":0,"type":"paragraph","version":1},{"children":[{"altText":"graphic design illustrator","caption":{"editorState":{"root":{"children":[],"direction":null,"format":"","indent":0,"type":"root","version":1}}},"height":0,"maxWidth":500,"showCaption":false,"src":"https://firebasestorage.googleapis.com/v0/b/matteo-dirollo-com.appspot.com/o/Blog%2FBoocha%2Fslide_boocha_labels.jpg?alt=media&token=ca82a42f-43b6-4efe-946c-f38ce9d97d71","type":"image","version":1,"width":0}],"direction":"ltr","format":"","indent":0,"type":"paragraph","version":1},{"children":[],"direction":null,"format":"","indent":0,"type":"paragraph","version":1},{"children":[{"detail":0,"format":0,"mode":"normal","style":"","text":"3D modeling","type":"text","version":1},{"type":"linebreak","version":1}],"direction":"ltr","format":"","indent":0,"type":"heading","version":1,"tag":"h1"},{"children":[{"detail":0,"format":0,"mode":"normal","style":"","text":"Good topography is essential when unwrapping a model, this avoids slowing down the CPU and stretching textures on the final result. It gives you also the freedom to add different modifiers and add displacement when needed. In this case I applied the displacement to the bottom of the bottle and also to make the twisted thread of the cup, by simply using blender material nodes.","type":"text","version":1}],"direction":"ltr","format":"","indent":0,"type":"paragraph","version":1},{"children":[],"direction":null,"format":"","indent":0,"type":"paragraph","version":1},{"children":[],"direction":null,"format":"","indent":0,"type":"paragraph","version":1},{"children":[{"altText":"kombucha, 3d modeling, blender, cycles","caption":{"editorState":{"root":{"children":[],"direction":null,"format":"","indent":0,"type":"root","version":1}}},"height":0,"maxWidth":500,"showCaption":false,"src":"https://firebasestorage.googleapis.com/v0/b/matteo-dirollo-com.appspot.com/o/Blog%2FBoocha%2Fslide_boocha_details.jpg?alt=media&token=7ebbf2eb-a0da-4f29-8728-386f3cef137c","type":"image","version":1,"width":0}],"direction":null,"format":"","indent":0,"type":"paragraph","version":1},{"children":[],"direction":null,"format":"","indent":0,"type":"paragraph","version":1},{"children":[{"detail":0,"format":0,"mode":"normal","style":"","text":"To conclude, I've built several scenes, adjusting lights based on my models' positions to effectively illuminate the edges of the bottle. It was also enjoyable to create the can and various Arrays, for which I utilized geometry nodes.","type":"text","version":1}],"direction":"ltr","format":"","indent":0,"type":"paragraph","version":1},{"children":[],"direction":null,"format":"","indent":0,"type":"paragraph","version":1},{"children":[{"altText":"","caption":{"editorState":{"root":{"children":[],"direction":null,"format":"","indent":0,"type":"root","version":1}}},"height":0,"maxWidth":500,"showCaption":false,"src":"https://firebasestorage.googleapis.com/v0/b/matteo-dirollo-com.appspot.com/o/Blog%2FBoocha%2Fkombucha_array_v4.png?alt=media&token=e90a0b49-5a71-4694-889f-3889838b55d6","type":"image","version":1,"width":0}],"direction":null,"format":"","indent":0,"type":"paragraph","version":1},{"children":[],"direction":null,"format":"","indent":0,"type":"paragraph","version":1},{"children":[{"altText":"","caption":{"editorState":{"root":{"children":[],"direction":null,"format":"","indent":0,"type":"root","version":1}}},"height":0,"maxWidth":500,"showCaption":false,"src":"https://firebasestorage.googleapis.com/v0/b/matteo-dirollo-com.appspot.com/o/Blog%2FBoocha%2Fslide_boocha_warhol.jpg?alt=media&token=be429dc4-750d-4075-a04c-b88d1bccc24d","type":"image","version":1,"width":0}],"direction":null,"format":"","indent":0,"type":"paragraph","version":1}],"direction":"ltr","format":"","indent":0,"type":"root","version":1}}`;
-  const initialEditorValue = JSON.parse(editorValue);
+  const article = post?.body
+  
+  
+  const initialEditorValue = JSON.stringify(article, null, 2);
   const toast = useToast();
   const editorInstanceRef = useRef(null);
   const dispatch = useDispatch();
   const textColor = useColorModeValue("gray.700", "gray.100");
 
 
-
+  const [ newEditorConfig ] = useState({
+    ...editorConfig,
+    editorState: initialEditorValue,
+  });
 
   const toastSuccess = () => {
     toast({
@@ -77,7 +82,7 @@ const ModifyPost = () => {
   };
   const initialValues = {
     title: post?.title || "", // Use post.title as the initial value for the title
-    editor: JSON.parse(editorValue), // Use post.editor as the initial value for the editor
+    editor: initialEditorValue, // Use post.editor as the initial value for the editor
     img: post?.imageUrl || null, // Use post.img as the initial value for the img
     tags: post?.category || [], // Use post.tags as the initial value for tags
   };
@@ -104,9 +109,9 @@ const ModifyPost = () => {
     } catch (error) {
       throw error;
     }
-    // console.log(values.editor)
-  };
 
+  };
+console.log(initialEditorValue)
   return (
     <ModalWindow size="auto">
       <Flex alignItems={"center"} align="center" justify="center">
@@ -131,7 +136,7 @@ const ModifyPost = () => {
                 <MyTextInput label="Title" name="title" />
               </Box>
               <Box my={8}>
-                <LexicalComposer initialConfig={newEditorState}>
+                <LexicalComposer initialConfig={newEditorConfig}>
                   <Box
                     sx={{
                       ".other:h2": {
@@ -149,11 +154,10 @@ const ModifyPost = () => {
                           <ContentEditable
                             className="editor-input"
                             responsive-editor-input
-                            content={editorValue}
                           />
                         }
-                        placeholder={<Placeholder />}
                         ErrorBoundary={LexicalErrorBoundary}
+                        stateInstance={initialEditorValue}
                       />
                       <EditorBubbles editorInstanceRef={editorInstanceRef} />
                       <OnChangePlugin

@@ -21,7 +21,7 @@ import LexicalErrorBoundary from '@lexical/react/LexicalErrorBoundary';
 function PlainEditor({ stateInstance }) {
 
   const revertedJsonString = JSON.stringify(stateInstance);
-  const [newEditorConfig] = useState({
+  const [ newEditorConfig ] = useState({
     ...editorConfig,
     editable: false,
     editorState: revertedJsonString,
