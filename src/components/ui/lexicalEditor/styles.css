@@ -47,9 +47,11 @@ h1 {
 .editor-container {
   margin: 20px auto 20px auto;
   border-radius: 2px;
-  max-width: 100%;
+  max-width: 600px;
+  min-width:150px;
   color: #000;
   position: relative;
+  display: block;
   line-height: 20px;
   font-weight: 400;
   text-align: left;
@@ -60,6 +62,7 @@ h1 {
 .editor-inner {
   background: #fff;
   position: relative;
+  box-sizing: border-box;
 }
 
 .editor-input {
@@ -351,9 +354,11 @@ pre::-webkit-scrollbar-thumb {
   margin-bottom: 1px;
   background: #fff;
   padding: 4px;
+  position: sticky;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
   vertical-align: middle;
+  overflow: auto;
 }
 
 .toolbar button.toolbar-item {

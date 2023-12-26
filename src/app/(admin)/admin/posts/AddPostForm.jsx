@@ -142,7 +142,7 @@ const AddPostForm = () => {
                   <Box className="editor-inner">
                     <RichTextPlugin
                       contentEditable={
-                        <ContentEditable className="editor-input" />
+                        <ContentEditable className="editor-input" responsive-editor-input />
                       }
                       placeholder={<Placeholder />}
                       ErrorBoundary={LexicalErrorBoundary}
