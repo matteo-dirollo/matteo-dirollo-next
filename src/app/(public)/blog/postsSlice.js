@@ -95,6 +95,38 @@ export const deletePost = createAsyncThunk(
   }
 );
 
+export const updatePost = createAsyncThunk(
+  "posts/updatePost",
+  async ({ postId, updatedData }) => {
+    console.log(updatedData)
+    const imgRef = ref(storage, `Blog/covers/${updatedData.img.name + v4()}`);
+    await uploadBytes(imgRef, updatedData.img);
+    const imgUrl = await getDownloadURL(imgRef);
+    try {
+      const postsDoc = doc(db, "Posts", postId);
+      const newPostId = _.kebabCase(updatedData.title)
+      // Update only the fields that need to be modified
+      const updateData = {
+        title: updatedData.title,
+        imageUrl: imgUrl, // If the image URL is modified, update it accordingly
+        body: JSON.stringify(updatedData.editor),
+        category: updatedData.tags,
+        // author: getState().auth.currentUser.displayName,
+        // authorId: getState().auth.currentUser.uid,
+        date: Timestamp.fromDate(new Date()),
+        // Add other fields that need to be updated
+      };
+
+      await updateDoc(postsDoc, updateData);
+
+      return { postId, updatedData };
+    } catch (error) {
+      console.log("Error updating post:", error);
+      throw error;
+    }
+  }
+);
+
 export const addComment = createAsyncThunk(
   "posts/addComment",
   async ({ postId, comment }) => {
@@ -295,6 +327,27 @@ const postsSlice = createSlice({
       })
       .addCase(deletePost.rejected, (state, action) => {
         state.status = "failed";
+      })
+      .addCase(updatePost.pending, (state, action) => {
+        state.status = "loading";
+      })
+      .addCase(updatePost.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        const { postId, updatedData } = action.payload;
+    
+        // Find the post in the state and update its fields
+        const post = state.posts.find((post) => post.id === postId);
+        if (post) {
+          post.title = updatedData.title;
+          post.imageUrl = updatedData.imgUrl; // Update the image URL if it was modified
+          post.body = JSON.stringify(updatedData.editor);
+          post.category = updatedData.tags;
+          // Update other fields as needed
+        }
+      })
+      .addCase(updatePost.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.error.message;
       })
       // Fetch Comments
       .addCase(fetchComments.pending, (state, action) => {

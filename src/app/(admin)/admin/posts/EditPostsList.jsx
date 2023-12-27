@@ -33,9 +33,9 @@ const EditPostList = () => {
     }
   };
 
-  const onEdit = (postId) => {
-    if (postId) {
-      dispatch(fetchSinglePost(postId));
+  const onEdit = (post) => {
+    if (post) {
+      dispatch(fetchSinglePost(post.id));
       dispatch(openModal({ modalType: 'ModifyPost', modalProps: { post } }));
     }
   };
@@ -70,7 +70,7 @@ const EditPostList = () => {
         <Box mt="5px" ml="25px">
           <Button
             onClick={() => {
-              onEdit(post.id);
+              onEdit(post);
             }}
             leftIcon={<EditIcon />}
             colorScheme="blue"

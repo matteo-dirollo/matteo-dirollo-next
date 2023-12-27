@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useRef } from "react";
-import { fetchSinglePost, selectedPost } from "@/app/(public)/blog/postsSlice";
+import { fetchSinglePost, selectedPost, updatePost } from "@/app/(public)/blog/postsSlice";
 import ModalWindow from "@/components/ui/modals/ModalWindow";
 import {
   Box,
@@ -15,6 +15,7 @@ import {
   Icon,
   FormLabel,
   Image,
+  Text,
 } from "@chakra-ui/react";
 import { CheckboxContainer, CheckboxControl } from "formik-chakra-ui";
 import { Form, Formik } from "formik";
@@ -51,51 +52,24 @@ import TwitterPlugin from "@/components/ui/lexicalEditor/plugins/TwitterPlugin";
 import "@/components/ui/lexicalEditor/styles.css";
 import { TRANSFORMERS } from "@lexical/markdown";
 import EmoticonPlugin from "@/components/ui/lexicalEditor/plugins/EmoticonPlugin";
-import { useSelector, useDispatch } from "react-redux";
-import { useEffect } from "react";
-import { asyncActionError, asyncActionFinish, asyncActionStart } from "@/api/asyncSlice";
 import LoadingSpinner from "@/components/ui/loaders/LoadingSpinner";
-import { store } from "@/lib/store";
+import { useDispatch } from "react-redux";
 
 
 const ModifyPost = ({post}) => {
-  
- 
   const dispatch = useDispatch();
-  const [initialEditorValue, setInitialEditorValue] = useState(null);
-
-  useEffect((post) => {
-   
-    const fetchData = async () => {
-      try {
-        dispatch(asyncActionStart()); // Dispatch async action start
-        const updatedPost = await dispatch(fetchSinglePost(post.id));
-        
-        const value =JSON.stringify(updatedPost.body);
-        setInitialEditorValue(value);
-        setEditorState(initialEditorValue);
-         // Dispatch async action finish
-         dispatch(asyncActionFinish());
-      } catch (error) {
-        console.error('Error fetching post:', error);
-        dispatch(asyncActionError(error)); // Dispatch async action error
-      }
-    };
-
-    fetchData();
-  
-  }, [post, initialEditorValue, dispatch]);
-
-  // const initialEditorValue = post ? JSON.stringify(post.body) : null;
+  const modifiedPost = JSON.parse(post.body)
+  const editorBody =JSON.stringify(modifiedPost);
+ 
   const toast = useToast();
   const editorInstanceRef = useRef(null);
 
   const textColor = useColorModeValue("gray.700", "gray.100");
-  const [editorState, setEditorState] = useState();
+  
 
   const [newEditorConfig] = useState({
     ...editorConfig,
-    editorState: editorState,
+    editorState: editorBody,
   });
 
   const toastSuccess = () => {
@@ -107,11 +81,14 @@ const ModifyPost = ({post}) => {
       isClosable: true,
     });
   };
+
+
+
   const initialValues = {
-    title: post?.title || "", // Use post.title as the initial value for the title
-    editor: editorState, // Use post.editor as the initial value for the editor
-    img: post?.imageUrl || null, // Use post.img as the initial value for the img
-    tags: post?.category || [], // Use post.tags as the initial value for tags
+    title: post.title || "", // Use post.title as the initial value for the title
+    editor: editorBody || null, // Use post.editor as the initial value for the editor
+    img: post.imageUrl || null, // Use post.img as the initial value for the img
+    tags: post.category || [], // Use post.tags as the initial value for tags
   };
 
   const validationSchema = Yup.object({
@@ -122,20 +99,21 @@ const ModifyPost = ({post}) => {
 
   const onSavePost = (values) => {
     if (values) {
+      dispatch(updatePost({ postId: post.id, updatedData: values }));
       dispatch(fetchPosts());
     }
   };
 
   const handleSubmit = async (values, { setSubmitting, resetForm }) => {
-    // try {
-    //   await new Promise((resolve) => setTimeout(resolve, 500));
-    //   onSavePost(values);
-    //   toastSuccess();
-    //   setSubmitting(false);
-    //   resetForm();
-    // } catch (error) {
-    //   throw error;
-    // }
+    try {
+      await new Promise((resolve) => setTimeout(resolve, 500));
+      onSavePost(values);
+      toastSuccess();
+      setSubmitting(false);
+      resetForm();
+    } catch (error) {
+      throw error;
+    }
   };
 
   if (!post) {
@@ -144,6 +122,7 @@ const ModifyPost = ({post}) => {
 
   return (
     <ModalWindow size="auto">
+      {/* <Text>{editorState}</Text> */}
       <Flex alignItems={"center"} align="center" justify="center">
         <Formik
           enableReinitialize={true}
