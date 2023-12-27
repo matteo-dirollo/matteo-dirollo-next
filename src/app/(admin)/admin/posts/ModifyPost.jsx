@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useRef } from "react";
-import { fetchSinglePost, selectedPost, updatePost } from "@/app/(public)/blog/postsSlice";
+import {  updatePost } from "@/app/(public)/blog/postsSlice";
 import ModalWindow from "@/components/ui/modals/ModalWindow";
 import {
   Box,
@@ -123,7 +123,7 @@ const ModifyPost = ({post}) => {
   return (
     <ModalWindow size="auto">
       {/* <Text>{editorState}</Text> */}
-      <Flex alignItems={"center"} align="center" justify="center">
+      <Box display='block' width={'100%'}>
         <Formik
           enableReinitialize={true}
           initialValues={initialValues}
@@ -142,6 +142,7 @@ const ModifyPost = ({post}) => {
           }) => (
             <Form>
               <Box>
+              <Box width={'100%'}>
                 <MyTextInput label="Title" name="title" />
               </Box>
               <Box my={8}>
@@ -291,10 +292,11 @@ const ModifyPost = ({post}) => {
                   Modify
                 </Button>
               </Stack>
+              </Box>
             </Form>
           )}
         </Formik>
-      </Flex>
+      </Box>
     </ModalWindow>
   );
 };

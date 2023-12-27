@@ -73,6 +73,7 @@ h1 {
   outline: 0;
   padding: 15px 10px;
   caret-color: #444;
+  width: 100%; 
 }
 
 .editor-placeholder {

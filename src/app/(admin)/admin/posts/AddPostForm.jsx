@@ -105,7 +105,7 @@ const AddPostForm = () => {
   };
 
   return (
-    <Flex maxW="full" overflow="hidden">
+    <Box maxW="full" overflow="hidden">
       <Formik
         enableReinitialize={true}
         initialValues={initialValues}
@@ -256,7 +256,7 @@ const AddPostForm = () => {
           </Form>
         )}
       </Formik>
-    </Flex>
+    </Box>
   );
 };
 
