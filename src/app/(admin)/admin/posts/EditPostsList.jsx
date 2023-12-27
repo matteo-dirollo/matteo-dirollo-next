@@ -26,7 +26,6 @@ const EditPostList = () => {
   const dispatch = useDispatch();
   const posts = useSelector(selectAllPosts);
   const postsStatus = useSelector(getPostsStatus);
-  
 
   const onSubmit = (postId) => {
     if (postId) {
@@ -39,7 +38,7 @@ const EditPostList = () => {
       dispatch(fetchSinglePost(postId));
       dispatch(openModal({ modalType: "ModifyPost" }));
     }
-  }
+  };
 
   useEffect(() => {
     if (postsStatus === "idle") {
@@ -69,9 +68,15 @@ const EditPostList = () => {
           </Box>
         </HStack>
         <Box mt="5px" ml="25px">
-          <Button onClick={() => {
+          <Button
+            onClick={() => {
               onEdit(post.id);
-            }} leftIcon={<EditIcon />} colorScheme="blue" mx="3px" size="xs">
+            }}
+            leftIcon={<EditIcon />}
+            colorScheme="blue"
+            mx="3px"
+            size="xs"
+          >
             Modify
           </Button>
           <Button

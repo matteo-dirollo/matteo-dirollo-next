@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useRef } from "react";
-import { selectedPost } from "@/app/(public)/blog/postsSlice";
+import { fetchSinglePost, selectedPost } from "@/app/(public)/blog/postsSlice";
 import ModalWindow from "@/components/ui/modals/ModalWindow";
 import {
   Box,
@@ -53,22 +53,49 @@ import "@/components/ui/lexicalEditor/styles.css";
 import { TRANSFORMERS } from "@lexical/markdown";
 import EmoticonPlugin from "@/components/ui/lexicalEditor/plugins/EmoticonPlugin";
 import { useSelector, useDispatch } from "react-redux";
+import { useEffect } from "react";
+import { asyncActionError, asyncActionFinish, asyncActionStart } from "@/api/asyncSlice";
+import { store } from "@/lib/store";
+import LoadingSpinner from "@/components/ui/loaders/LoadingSpinner";
 
 const ModifyPost = () => {
-  const post = useSelector(selectedPost);
-  const article = post?.body
   
+  const post = store.getState().posts.currentPost;
+  const dispatch = useDispatch();
+  const [initialEditorValue, setInitialEditorValue] = useState(null);
+
+  useEffect((post) => {
+   
+    const fetchData = async () => {
+      try {
+        dispatch(asyncActionStart()); // Dispatch async action start
+        const updatedPost = await dispatch(fetchSinglePost(post.id));
+        
+        const value = updatedPost ? JSON.stringify(updatedPost.body) : null;
+        setInitialEditorValue(value);
+        setEditorState(initialEditorValue);
+         // Dispatch async action finish
+         dispatch(asyncActionFinish());
+      } catch (error) {
+        console.error('Error fetching post:', error);
+        dispatch(asyncActionError(error)); // Dispatch async action error
+      }
+    };
+
+    fetchData();
   
-  const initialEditorValue = JSON.stringify(article, null, 2);
+  }, [post, initialEditorValue, dispatch]);
+
+  // const initialEditorValue = post ? JSON.stringify(post.body) : null;
   const toast = useToast();
   const editorInstanceRef = useRef(null);
-  const dispatch = useDispatch();
+
   const textColor = useColorModeValue("gray.700", "gray.100");
+  const [editorState, setEditorState] = useState();
 
-
-  const [ newEditorConfig ] = useState({
+  const [newEditorConfig] = useState({
     ...editorConfig,
-    editorState: initialEditorValue,
+    editorState: editorState,
   });
 
   const toastSuccess = () => {
@@ -82,7 +109,7 @@ const ModifyPost = () => {
   };
   const initialValues = {
     title: post?.title || "", // Use post.title as the initial value for the title
-    editor: initialEditorValue, // Use post.editor as the initial value for the editor
+    editor: null, // Use post.editor as the initial value for the editor
     img: post?.imageUrl || null, // Use post.img as the initial value for the img
     tags: post?.category || [], // Use post.tags as the initial value for tags
   };
@@ -100,18 +127,21 @@ const ModifyPost = () => {
   };
 
   const handleSubmit = async (values, { setSubmitting, resetForm }) => {
-    try {
-      await new Promise((resolve) => setTimeout(resolve, 500));
-      onSavePost(values);
-      toastSuccess();
-      setSubmitting(false);
-      resetForm();
-    } catch (error) {
-      throw error;
-    }
-
+    // try {
+    //   await new Promise((resolve) => setTimeout(resolve, 500));
+    //   onSavePost(values);
+    //   toastSuccess();
+    //   setSubmitting(false);
+    //   resetForm();
+    // } catch (error) {
+    //   throw error;
+    // }
   };
-console.log(initialEditorValue)
+
+  if (!post) {
+    return <LoadingSpinner />; // or any loading state or message
+  }
+
   return (
     <ModalWindow size="auto">
       <Flex alignItems={"center"} align="center" justify="center">
@@ -157,7 +187,6 @@ console.log(initialEditorValue)
                           />
                         }
                         ErrorBoundary={LexicalErrorBoundary}
-                        stateInstance={initialEditorValue}
                       />
                       <EditorBubbles editorInstanceRef={editorInstanceRef} />
                       <OnChangePlugin
