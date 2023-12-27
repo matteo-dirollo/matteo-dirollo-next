@@ -42,7 +42,6 @@ import { MarkdownShortcutPlugin } from "@lexical/react/LexicalMarkdownShortcutPl
 import ListMaxIndentLevelPlugin from "@/components/ui/lexicalEditor/plugins/ListMaxIndentLevelPlugin";
 import CodeHighlightPlugin from "@/components/ui/lexicalEditor/plugins/CodeHighlightPlugin";
 import AutoLinkPlugin from "@/components/ui/lexicalEditor/plugins/AutoLinkPlugin";
-import Placeholder from "@/components/ui/lexicalEditor/Placeholder";
 import { FiFile } from "react-icons/fi";
 import ImagesPlugin from "@/components/ui/lexicalEditor/plugins/ImagesPlugin";
 import YouTubePlugin from "@/components/ui/lexicalEditor/plugins/YoutubePlugin";
@@ -55,12 +54,13 @@ import EmoticonPlugin from "@/components/ui/lexicalEditor/plugins/EmoticonPlugin
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { asyncActionError, asyncActionFinish, asyncActionStart } from "@/api/asyncSlice";
-import { store } from "@/lib/store";
 import LoadingSpinner from "@/components/ui/loaders/LoadingSpinner";
+
+export async function generateStaticParams(){}
 
 const ModifyPost = () => {
   
-  const post = store.getState().posts.currentPost;
+  const post = useSelector(selectedPost);
   const dispatch = useDispatch();
   const [initialEditorValue, setInitialEditorValue] = useState(null);
 
