@@ -55,12 +55,12 @@ import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { asyncActionError, asyncActionFinish, asyncActionStart } from "@/api/asyncSlice";
 import LoadingSpinner from "@/components/ui/loaders/LoadingSpinner";
+import { store } from "@/lib/store";
 
-export async function generateStaticParams(){}
 
-const ModifyPost = () => {
+const ModifyPost = ({post}) => {
   
-  const post = useSelector(selectedPost);
+ 
   const dispatch = useDispatch();
   const [initialEditorValue, setInitialEditorValue] = useState(null);
 
@@ -71,7 +71,7 @@ const ModifyPost = () => {
         dispatch(asyncActionStart()); // Dispatch async action start
         const updatedPost = await dispatch(fetchSinglePost(post.id));
         
-        const value = updatedPost ? JSON.stringify(updatedPost.body) : null;
+        const value =JSON.stringify(updatedPost.body);
         setInitialEditorValue(value);
         setEditorState(initialEditorValue);
          // Dispatch async action finish
@@ -109,7 +109,7 @@ const ModifyPost = () => {
   };
   const initialValues = {
     title: post?.title || "", // Use post.title as the initial value for the title
-    editor: null, // Use post.editor as the initial value for the editor
+    editor: editorState, // Use post.editor as the initial value for the editor
     img: post?.imageUrl || null, // Use post.img as the initial value for the img
     tags: post?.category || [], // Use post.tags as the initial value for tags
   };

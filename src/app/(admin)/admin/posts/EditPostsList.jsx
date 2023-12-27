@@ -36,7 +36,7 @@ const EditPostList = () => {
   const onEdit = (postId) => {
     if (postId) {
       dispatch(fetchSinglePost(postId));
-      dispatch(openModal({ modalType: "ModifyPost" }));
+      dispatch(openModal({ modalType: 'ModifyPost', modalProps: { post } }));
     }
   };
 
