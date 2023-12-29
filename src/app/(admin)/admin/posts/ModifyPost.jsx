@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useRef } from "react";
-import {  updatePost } from "@/app/(public)/blog/postsSlice";
+import {  fetchPosts, updatePost } from "@/app/(public)/blog/postsSlice";
 import ModalWindow from "@/components/ui/modals/ModalWindow";
 import {
   Box,
