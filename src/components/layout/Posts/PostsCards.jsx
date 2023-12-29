@@ -32,7 +32,7 @@ const PostsCards = () => {
   const renderCards = _.slice(posts, 0, 3).map((post)=>(
 
  
-      <Box key={post.id} flex="1">
+      <Box key={post.id} flex="1" w='100%'>
         <VStack justify="start" align='stretch' >
           <Link
            

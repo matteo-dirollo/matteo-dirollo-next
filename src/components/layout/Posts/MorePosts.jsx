@@ -29,7 +29,7 @@ const MorePosts = ({ article }) => {
 
   const renderPosts = _.slice(morePosts, 0, 3).map((card) => (
     <React.Fragment key={card.id}>
-      <VStack justify="start">
+      <VStack justify="start" align='stretch' w='100%'>
         <Link
           href={`/blog/${card.id}`}
           sx={{ "a:hover": { textDecoration: "none" } }}

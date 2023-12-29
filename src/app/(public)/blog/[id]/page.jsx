@@ -170,7 +170,9 @@ export default async function Article({ params }) {
         </HStack>
         <Comments article={modifiedArticle} />
         <br />
+        <Box overflow="auto">
         <MorePosts article={modifiedArticle} />
+        </Box>
       </Container>
     </div>
   );
