@@ -54,6 +54,7 @@ import { TRANSFORMERS } from "@lexical/markdown";
 import EmoticonPlugin from "@/components/ui/lexicalEditor/plugins/EmoticonPlugin";
 import LoadingSpinner from "@/components/ui/loaders/LoadingSpinner";
 import { useDispatch } from "react-redux";
+import { closeModal } from "@/components/ui/modals/modalSlice";
 
 
 const ModifyPost = ({post}) => {
@@ -110,6 +111,7 @@ const ModifyPost = ({post}) => {
       onSavePost(values);
       toastSuccess();
       setSubmitting(false);
+      dispatch(closeModal());
       resetForm();
     } catch (error) {
       throw error;
