@@ -108,7 +108,7 @@ export default async function Home() {
         <HeroSection />
         <Services my='100px'  />
         <PostsCards />
-        <SpotifyPlaylist />
+        {/* <SpotifyPlaylist /> */}
       </VStack>
     </Box>
   );

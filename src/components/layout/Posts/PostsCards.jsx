@@ -33,19 +33,15 @@ const PostsCards = () => {
 
  
       <Box key={post.id} flex="1">
-        <VStack justify="start">
+        <VStack justify="start" align='stretch' >
           <Link
+           
             href={`/blog/${post.id}`}
             sx={{ "a:hover": { textDecoration: "none" } }}
           >
-            <Text
-              mb="8px"
-              as="h3" fontSize="md" fontWeight="medium"
-            >
-              {post.title}
-            </Text>
             <Box
               boxSize="250px"
+              w='full'
               sx={{
                 backgroundImage: `url(${post.imageUrl})`,
                 backgroundPosition: "center",
@@ -53,6 +49,12 @@ const PostsCards = () => {
               }}
             />
           </Link>
+          <Text
+              mb="8px"
+             fontSize="lg" fontWeight="bold"
+            >
+              {post.title}
+            </Text>
         </VStack>
       </Box>
 
@@ -63,11 +65,11 @@ const PostsCards = () => {
           <Heading mb={5} as="h2" size="xl" fontWeight='medium'>
             Latest Projects
           </Heading>
-          <Divider borderWidth='1.5px' borderColor='#000' mb='12px' />
+          <Divider borderWidth='1.5px' borderColor='#000' mb='34px' />
           {isDesktop ? (
-        <HStack justifyContent="center" mb={5}>{renderCards}</HStack>
+        <HStack justifyContent="center" spacing="6" mb={5}>{renderCards}</HStack>
       ) : (
-        <VStack mb={5}>{renderCards}</VStack>
+        <VStack my={5} >{renderCards}</VStack>
       )}
         </Box>
   );
