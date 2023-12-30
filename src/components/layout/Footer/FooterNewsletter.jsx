@@ -139,7 +139,7 @@ const FooterNewsletter = () => {
               About
             </Link> */}
             <Link fontSize={"0.8em"} href={"#"}>
-              Blog
+              Projects
             </Link>
             <Link fontSize={"0.8em"} href={"#"}>
               Contact

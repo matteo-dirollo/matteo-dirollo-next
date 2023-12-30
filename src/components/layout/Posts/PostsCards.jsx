@@ -12,7 +12,7 @@ import {
 import Link from "next/link";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { selectAllPosts, fetchPosts, getPostsStatus } from "@/app/(public)/blog/postsSlice";
+import { selectAllPosts, fetchPosts, getPostsStatus } from "@/app/(public)/projects/postsSlice";
 import _ from "lodash";
 
 const PostsCards = () => {
@@ -36,7 +36,7 @@ const PostsCards = () => {
         <VStack justify="start" align='stretch' >
           <Link
            
-            href={`/blog/${post.id}`}
+            href={`/projects/${post.id}`}
             sx={{ "a:hover": { textDecoration: "none" } }}
           >
             <Box

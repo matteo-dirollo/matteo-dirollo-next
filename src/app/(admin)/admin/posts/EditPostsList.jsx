@@ -8,7 +8,7 @@ import {
   getPostsStatus,
   selectAllPosts,
   selectedPost,
-} from "@/app/(public)/blog/postsSlice";
+} from "@/app/(public)/projects/postsSlice";
 import _ from "lodash";
 import {
   Box,

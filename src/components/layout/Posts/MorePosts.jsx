@@ -10,7 +10,7 @@ import {
 import Link from "next/link";
 import React, { useEffect, useMemo, useState } from "react";
 import { useSelector } from "react-redux";
-import { selectAllPosts } from "@/app/(public)/blog/postsSlice";
+import { selectAllPosts } from "@/app/(public)/projects/postsSlice";
 import _ from "lodash";
 
 const MorePosts = ({ article }) => {
@@ -31,7 +31,7 @@ const MorePosts = ({ article }) => {
     <React.Fragment key={card.id}>
       <VStack justify="start" align='stretch' w='100%'>
         <Link
-          href={`/blog/${card.id}`}
+          href={`/projects/${card.id}`}
           sx={{ "a:hover": { textDecoration: "none" } }}
         >
           <Text

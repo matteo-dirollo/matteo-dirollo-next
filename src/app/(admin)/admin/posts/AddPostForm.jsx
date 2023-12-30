@@ -47,7 +47,7 @@ import EmoticonPlugin from '@/components/ui/lexicalEditor/plugins/EmoticonPlugin
 // import {$generateHtmlFromNodes} from '@lexical/html';
 
 import { useDispatch } from 'react-redux';
-import { addNewPost, fetchPosts } from '@/app/(public)/blog/postsSlice';
+import { addNewPost, fetchPosts } from '@/app/(public)/projects/postsSlice';
 import { FiFile } from 'react-icons/fi';
 import ImagesPlugin from '@/components/ui/lexicalEditor/plugins/ImagesPlugin';
 import YouTubePlugin from '@/components/ui/lexicalEditor/plugins/YoutubePlugin';

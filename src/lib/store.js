@@ -10,7 +10,7 @@ import createWebStorage from "redux-persist/lib/storage/createWebStorage";
 import modalReducer from "@/components/ui/modals/modalSlice";
 import asyncReducer from "@/api/asyncSlice";
 import authReducer from "@/api/auth/authSlice";
-import postsReducer from "@/app/(public)/blog/postsSlice";
+import postsReducer from "@/app/(public)/projects/postsSlice";
 import storageReducer from "@/api/firestore/storageSlice";
 
 

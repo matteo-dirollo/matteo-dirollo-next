@@ -23,7 +23,7 @@ const ArticleCards = ({ articles }) => {
   const renderCards = currentPosts.map((article) => (
     <Box maxW="250px" m="5px" as="article" key={article.date}>
       <Link
-        href={`/blog/${article.id}`}
+        href={`/projects/${article.id}`}
         sx={{
           "a:hover": { textDecoration: "none", color: "green" },
         }}

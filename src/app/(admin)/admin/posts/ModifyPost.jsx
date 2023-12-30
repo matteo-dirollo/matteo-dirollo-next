@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useRef } from "react";
-import {  fetchPosts, updatePost } from "@/app/(public)/blog/postsSlice";
+import {  fetchPosts, updatePost } from "@/app/(public)/projects/postsSlice";
 import ModalWindow from "@/components/ui/modals/ModalWindow";
 import {
   Box,
@@ -55,6 +55,7 @@ import EmoticonPlugin from "@/components/ui/lexicalEditor/plugins/EmoticonPlugin
 import LoadingSpinner from "@/components/ui/loaders/LoadingSpinner";
 import { useDispatch } from "react-redux";
 import { closeModal } from "@/components/ui/modals/modalSlice";
+import Projects from '../../../(public)/projects/page';
 
 
 const ModifyPost = ({post}) => {

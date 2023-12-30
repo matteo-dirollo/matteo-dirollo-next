@@ -47,7 +47,7 @@ h1 {
 .editor-container {
   margin: 20px auto 20px auto;
   border-radius: 2px;
-  max-width: 600px;
+  max-width: 100%;
   color: #000;
   position: relative;
   line-height: 20px;
@@ -118,6 +118,10 @@ h1 {
 
 .editor-link {
   color: rgb(33, 111, 219);
+  text-decoration: underline;
+}
+
+.editor-link:hover {
   text-decoration: none;
 }
 
@@ -798,7 +802,7 @@ span.editor-image {
 
 span.editor-image img {
   width: 100%; /* Make the image take the full width of its container */
-  height: auto; /* Maintain the image's aspect ratio */
+  max-height: 400px; /* Maintain the image's aspect ratio */
 }
 
 /* Decrease dimensions on mobile phones */

@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import CommentItem from "./CommentItem";
 import CommentForm from "./CommentForm";
 import _ from "lodash";
-import { deleteComment, fetchComments } from "@/app/(public)/blog/postsSlice";
+import { deleteComment, fetchComments } from "@/app/(public)/projects/postsSlice";
 
 const Comments = ({ article }) => {
   const comments = article.comments ? Object.values(article.comments) : [];
