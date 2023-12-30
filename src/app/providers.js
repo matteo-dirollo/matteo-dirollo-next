@@ -5,7 +5,7 @@ import { ChakraProvider } from "@chakra-ui/react";
 import { CacheProvider } from "@chakra-ui/next-js";
 import ReduxProvider from "@/lib/ReduxProvider";
 import { ColorModeScript } from '@chakra-ui/react'
-import RefreshState from "./RefreshState";
+import RefreshState from "../lib/RefreshState";
 
 export function Providers({ children }) {
   return (
