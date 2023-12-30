@@ -345,13 +345,25 @@ const postsSlice = createSlice({
         const { postId, updatedData } = action.payload;
 
         // Find the post in the state and update its fields
-        const post = state.posts.find((post) => post.id === postId);
-        if (post) {
-          post.title = updatedData.title;
-          post.imageUrl = updatedData.imgUrl; // Update the image URL if it was modified
-          post.body = JSON.stringify(updatedData.editor);
-          post.category = updatedData.tags;
-          // Update other fields as needed
+        const postIndex = state.posts.findIndex((post) => post.id === postId);
+
+        if (postIndex !== -1) {
+          // Create a new post object with the updated data
+          const updatedPost = {
+            ...state.posts[postIndex],
+            title: updatedData.title,
+            imageUrl: updatedData.imgUrl, // Update the image URL if it was modified
+            body: JSON.stringify(updatedData.editor),
+            category: updatedData.tags,
+            // Update other fields as needed
+          };
+
+          // Create a new array of posts with the updated post
+          const updatedPosts = [...state.posts];
+          updatedPosts[postIndex] = updatedPost;
+
+          // Update the state with the new array of posts and filter out the old version
+          state.posts = updatedPosts.filter((post) => post.id !== postId);
         }
       })
       .addCase(updatePost.rejected, (state, action) => {
