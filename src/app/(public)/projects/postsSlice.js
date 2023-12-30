@@ -55,7 +55,6 @@ export const fetchSinglePost = createAsyncThunk(
   }
 );
 
-
 export const addNewPost = createAsyncThunk(
   "posts/addNewPost",
   async (post, { getState }) => {
@@ -73,7 +72,7 @@ export const addNewPost = createAsyncThunk(
         author: getState().auth.currentUser.displayName,
         authorId: getState().auth.currentUser.uid,
         date: Timestamp.fromDate(new Date()),
-        comments: []
+        comments: [],
       });
     } catch (error) {
       console.log("Error adding document: ", error);
@@ -98,13 +97,13 @@ export const deletePost = createAsyncThunk(
 export const updatePost = createAsyncThunk(
   "posts/updatePost",
   async ({ postId, updatedData }) => {
-    console.log(updatedData)
+    console.log(updatedData);
     const imgRef = ref(storage, `Blog/covers/${updatedData.img.name + v4()}`);
     await uploadBytes(imgRef, updatedData.img);
     const imgUrl = await getDownloadURL(imgRef);
     try {
       const postsDoc = doc(db, "Posts", postId);
-      const newPostId = _.kebabCase(updatedData.title)
+      const newPostId = _.kebabCase(updatedData.title);
       // Update only the fields that need to be modified
       const updateData = {
         title: updatedData.title,
@@ -203,9 +202,15 @@ export const fetchComments = createAsyncThunk(
         id: commentId,
         ...comments[commentId],
       }));
+
+      commentsWithIds.forEach((newComment) => {
+        if (!state.comments.find((comment) => comment.id === newComment.id)) {
+          state.comments.push(newComment);
+        }
+      });
       return commentsWithIds;
     } catch (error) {
-      console.log("Failed to fetch comments:", error);
+      // console.log("Failed to fetch comments:", error);
       throw new Error("Failed to fetch comments");
     }
   }
@@ -277,25 +282,25 @@ const postsSlice = createSlice({
       })
       .addCase(fetchPosts.fulfilled, (state, action) => {
         state.status = "succeeded";
-          action.payload.forEach((newPost) => {
-    if (!state.posts.find((post) => post.id === newPost.id)) {
-      state.posts.push(newPost);
-    }
-  });
+        action.payload.forEach((newPost) => {
+          if (!state.posts.find((post) => post.id === newPost.id)) {
+            state.posts.push(newPost);
+          }
+        });
       })
       .addCase(fetchPosts.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error.message;
       })
       .addCase(fetchSinglePost.pending, (state) => {
-        state.status = 'loading';
+        state.status = "loading";
       })
       .addCase(fetchSinglePost.fulfilled, (state, action) => {
-        state.status = 'succeeded';
+        state.status = "succeeded";
         state.currentPost = action.payload; // Store the fetched post in currentPost
       })
       .addCase(fetchSinglePost.rejected, (state, action) => {
-        state.status = 'failed';
+        state.status = "failed";
         state.error = action.error.message;
       })
       .addCase(addNewPost.pending, (state, action) => {
@@ -338,7 +343,7 @@ const postsSlice = createSlice({
       .addCase(updatePost.fulfilled, (state, action) => {
         state.status = "succeeded";
         const { postId, updatedData } = action.payload;
-    
+
         // Find the post in the state and update its fields
         const post = state.posts.find((post) => post.id === postId);
         if (post) {
@@ -460,7 +465,7 @@ const postsSlice = createSlice({
 });
 
 export const selectAllPosts = (state) => state.posts.posts;
-export const selectedPost =(state) => state.posts.currentPost;
+export const selectedPost = (state) => state.posts.currentPost;
 export const getPostsStatus = (state) => state.posts.status;
 export const getPostsError = (state) => state.posts.error;
 export const selectCommentsByPostId = (state, postId) =>
