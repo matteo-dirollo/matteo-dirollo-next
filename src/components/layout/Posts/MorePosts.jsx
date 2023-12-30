@@ -44,6 +44,7 @@ const MorePosts = ({ article }) => {
           </Text>
           <Box
             boxSize="250px"
+            w={['250px','full']}
             sx={{
               backgroundImage: `url(${card.imageUrl})`,
               backgroundPosition: "center",
@@ -61,7 +62,7 @@ const MorePosts = ({ article }) => {
           <Heading mb={5} as="h2" size="md">
             More Posts
           </Heading>
-          <HStack mb={5}>{renderPosts}</HStack>
+          <HStack justifyContent="center" spacing="6" mb={5}>{renderPosts}</HStack>
         </Box>
       )}
     </div>
