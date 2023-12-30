@@ -16,7 +16,7 @@ import Pagination from "@/components/ui/buttons/Pagination";
 import Link from "next/link";
 import LoadingSpinner from "@/components/ui/loaders/LoadingSpinner";
 
-const Blog = () => {
+const Projects = () => {
   const dispatch = useDispatch();
   const posts = useSelector(selectAllPosts);
   const postsStatus = useSelector(getPostsStatus);
@@ -40,7 +40,7 @@ const Blog = () => {
   const renderPosts = currentPosts.map((post) => (
     <Box key={post.date} maxW="250px" m="5px" as="article">
       <Link
-        href={`/blog/${post.id}`}
+        href={`/projects/${post.id}`}
         sx={{ "a:hover": { textDecoration: "none", color: "green" } }}
       >
         <Text
@@ -113,4 +113,4 @@ const Blog = () => {
   }
 };
 
-export default Blog;
+export default Projects;

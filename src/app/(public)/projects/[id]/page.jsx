@@ -61,7 +61,7 @@ export async function generateMetadata({ params }) {
       keywords: article.category,
       publishedTime: modifiedArticle.date,
       authors: modifiedArticle.author,
-      url: `https:/matteo-dirollo.com/blog/${params.id}`,
+      url: `https:/matteo-dirollo.com/projects/${params.id}`,
       siteName: "Matteo's Portfolio & Blog",
       images: [
         {

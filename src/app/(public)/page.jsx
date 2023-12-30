@@ -6,7 +6,7 @@ import Services from "@/components/layout/Services/Services";
 import { store } from "@/lib/store";
 import { Box, VStack } from "@/styles/ChakraImports";
 import PostsCards from './../../components/layout/Posts/PostsCards';
-import { fetchPosts } from "./blog/postsSlice";
+import { fetchPosts } from "./projects/postsSlice";
 import SpotifyPlaylist from "@/components/layout/Spotify/SpotifyPlaylist";
 
 export async function generateMetadata() {
