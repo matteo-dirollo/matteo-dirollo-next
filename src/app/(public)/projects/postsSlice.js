@@ -102,8 +102,9 @@ export const updatePost = createAsyncThunk(
     await uploadBytes(imgRef, updatedData.img);
     const imgUrl = await getDownloadURL(imgRef);
     try {
-      const postsDoc = doc(db, "Posts", postId);
       const newPostId = _.kebabCase(updatedData.title);
+      const postsDoc = doc(db, "Posts", newPostId);
+     
       // Update only the fields that need to be modified
       const updateData = {
         title: updatedData.title,
@@ -118,7 +119,7 @@ export const updatePost = createAsyncThunk(
 
       await updateDoc(postsDoc, updateData);
 
-      return { postId, updatedData };
+      return { newPostId, updatedData };
     } catch (error) {
       console.log("Error updating post:", error);
       throw error;
