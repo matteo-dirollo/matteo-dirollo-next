@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { fetchComments, fetchPosts } from "../app/(public)/projects/postsSlice";
 import { useDispatch } from "react-redux";
-import { fetchUsers } from "@/api/auth/authSlice";
+// import { fetchUsers } from "@/api/auth/authSlice";
 
 export default function RefreshState({ children }) {
   const dispatch = useDispatch();
@@ -13,7 +13,7 @@ export default function RefreshState({ children }) {
     if (!dataLoaded) {
       dispatch(fetchPosts());
       dispatch(fetchComments());
-      dispatch(fetchUsers());
+      // dispatch(fetchUsers());
       setDataLoaded(true);
     }
   }, [dispatch, dataLoaded]);
