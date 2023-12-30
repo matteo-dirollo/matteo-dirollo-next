@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { fetchComments, fetchPosts } from "../app/(public)/projects/postsSlice";
 import { useDispatch } from "react-redux";
 import { fetchUsers } from "@/api/auth/authSlice";
