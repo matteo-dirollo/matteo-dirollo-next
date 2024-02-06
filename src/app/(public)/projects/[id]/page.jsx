@@ -114,7 +114,7 @@ export async function generateStaticParams() {
 }
 
 export default async function Article({ params }) {
-  const {id} = params;
+  const { id } = params;
   await store.dispatch(fetchSinglePost(id));
   const article = await store.getState().posts.currentPost;
   const parsedBody = JSON.parse(article.body);
@@ -170,9 +170,7 @@ export default async function Article({ params }) {
         </HStack>
         <Comments article={modifiedArticle} />
         <br />
-        <Box overflow="auto">
-        <MorePosts article={modifiedArticle} />
-        </Box>
+        <MorePosts width="100%" article={modifiedArticle} />
       </Container>
     </div>
   );

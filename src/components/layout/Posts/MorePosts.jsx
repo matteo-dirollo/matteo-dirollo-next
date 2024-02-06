@@ -1,10 +1,12 @@
 "use client";
 import {
   Box,
+  Flex,
   HStack,
   Heading,
   Text,
   VStack,
+  useBreakpointValue,
   useColorModeValue,
 } from "@chakra-ui/react";
 import Link from "next/link";
@@ -15,9 +17,11 @@ import _ from "lodash";
 
 const MorePosts = ({ article }) => {
   const posts = useSelector(selectAllPosts);
+  const justifyContentValue = useBreakpointValue({ base: "flex-start", lg: "center" });
+  const overflowResp = useBreakpointValue({ base: "auto", lg: "hidden" });
   const textColor = useColorModeValue("gray.700", "gray.100");
-  const cards = useMemo(() =>{ 
-     return _.filter(posts, (post) => post.id !== article.id)
+  const cards = useMemo(() => {
+    return _.filter(posts, (post) => post.id !== article.id);
   }, [posts, article]);
   const [morePosts, setMorePosts] = useState([]);
 
@@ -28,8 +32,8 @@ const MorePosts = ({ article }) => {
   }, [article, cards]);
 
   const renderPosts = _.slice(morePosts, 0, 3).map((card) => (
-    <React.Fragment key={card.id}>
-      <VStack justify="start" align='stretch' w='100%'>
+    <Box key={card.id} flexShrink={0} minWidth={250}>
+      <VStack justify="start" align="stretch" width={"100%"}>
         <Link
           href={`/projects/${card.id}`}
           sx={{ "a:hover": { textDecoration: "none" } }}
@@ -44,7 +48,7 @@ const MorePosts = ({ article }) => {
           </Text>
           <Box
             boxSize="250px"
-            w={['250px','full']}
+            w={["250px", "full"]}
             sx={{
               backgroundImage: `url(${card.imageUrl})`,
               backgroundPosition: "center",
@@ -53,17 +57,25 @@ const MorePosts = ({ article }) => {
           />
         </Link>
       </VStack>
-    </React.Fragment>
+    </Box>
   ));
   return (
     <div>
       {morePosts?.length > 0 && (
-        <Box>
+        <React.Fragment>
           <Heading mb={5} as="h2" size="md">
             More Posts
           </Heading>
-          <HStack justifyContent="center" spacing="6" mb={5}>{renderPosts}</HStack>
-        </Box>
+          <HStack
+            justifyContent={justifyContentValue}
+            spacing={["3", "6"]}
+            mb={5}
+            w={"100%"}
+            overflow={overflowResp}
+          >
+            {renderPosts}
+          </HStack>
+        </React.Fragment>
       )}
     </div>
   );
