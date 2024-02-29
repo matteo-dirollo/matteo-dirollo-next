@@ -21,6 +21,7 @@ import {
 } from "@chakra-ui/react";
 import { DeleteIcon, EditIcon } from "@chakra-ui/icons";
 import { openModal } from "@/components/ui/modals/modalSlice";
+import { toggleThirdPanel } from "./panelSlice";
 
 const EditPostList = () => {
   const dispatch = useDispatch();
@@ -37,6 +38,7 @@ const EditPostList = () => {
     if (post) {
       dispatch(fetchSinglePost(post.id));
       dispatch(openModal({ modalType: 'ModifyPost', modalProps: { post } }));
+      dispatch(toggleThirdPanel());
     }
   };
 

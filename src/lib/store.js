@@ -12,6 +12,7 @@ import asyncReducer from "@/api/asyncSlice";
 import authReducer from "@/api/auth/authSlice";
 import postsReducer from "@/app/(public)/projects/postsSlice";
 import storageReducer from "@/api/firestore/storageSlice";
+import panelReducer from './../app/(admin)/admin/posts/panelSlice';
 
 
 const rootReducer = combineReducers({
@@ -19,6 +20,7 @@ const rootReducer = combineReducers({
   modals: modalReducer,
   auth: authReducer,
   posts: postsReducer,
+  panel: panelReducer,
   storage: storageReducer,
 });
 
