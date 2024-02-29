@@ -1,11 +1,9 @@
 "use client";
 import React, { useState, useRef } from "react";
 import {  fetchPosts, updatePost } from "@/app/(public)/projects/postsSlice";
-import ModalWindow from "@/components/ui/modals/ModalWindow";
 import {
   Box,
   Button,
-  Flex,
   Stack,
   useToast,
   useColorModeValue,
@@ -58,7 +56,7 @@ import { closeModal } from "@/components/ui/modals/modalSlice";
 import Projects from '../../../(public)/projects/page';
 
 
-const ModifyPost = ({post}) => {
+const ModifyPost = ({ post, setSelectedPost })=> {
   const dispatch = useDispatch();
   const modifiedPost = JSON.parse(post.body)
   const editorBody =JSON.stringify(modifiedPost);
@@ -103,8 +101,13 @@ const ModifyPost = ({post}) => {
     if (values) {
       dispatch(updatePost({ postId: post.id, updatedData: values }));
       dispatch(fetchPosts());
+      setSelectedPost(null)
     }
   };
+
+  const onExit = () => {
+    setSelectedPost(null);
+  }
 
   const handleSubmit = async (values, { setSubmitting, resetForm }) => {
     try {
@@ -124,7 +127,7 @@ const ModifyPost = ({post}) => {
   }
 
   return (
-    <ModalWindow size="auto">
+    <Box size="auto">
       {/* <Text>{editorState}</Text> */}
       <Box display='block' width={'100%'}>
         <Formik
@@ -275,6 +278,15 @@ const ModifyPost = ({post}) => {
               </CheckboxContainer>
               <br />
               <Stack>
+              <Button
+                  onClick={() => {
+                    onExit();
+                  }}
+                  colorScheme="gray"
+                  maxW={300}
+                >
+                  Exit
+                </Button>
                 <Button
                   onClick={() => {
                     handleReset();
@@ -300,7 +312,7 @@ const ModifyPost = ({post}) => {
           )}
         </Formik>
       </Box>
-    </ModalWindow>
+    </Box>
   );
 };
 

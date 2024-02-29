@@ -6,8 +6,7 @@ import {
   fetchPosts,
   fetchSinglePost,
   getPostsStatus,
-  selectAllPosts,
-  selectedPost,
+  selectAllPosts
 } from "@/app/(public)/projects/postsSlice";
 import _ from "lodash";
 import {
@@ -20,10 +19,9 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { DeleteIcon, EditIcon } from "@chakra-ui/icons";
-import { openModal } from "@/components/ui/modals/modalSlice";
 import { toggleThirdPanel } from "./panelSlice";
 
-const EditPostList = () => {
+const EditPostList = ({ onSelectPost }) => {
   const dispatch = useDispatch();
   const posts = useSelector(selectAllPosts);
   const postsStatus = useSelector(getPostsStatus);
@@ -37,8 +35,9 @@ const EditPostList = () => {
   const onEdit = (post) => {
     if (post) {
       dispatch(fetchSinglePost(post.id));
-      dispatch(openModal({ modalType: 'ModifyPost', modalProps: { post } }));
+      // dispatch(openModal({ modalType: 'ModifyPost', modalProps: { post } }));
       dispatch(toggleThirdPanel());
+      onSelectPost(post);
     }
   };
 
