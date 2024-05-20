@@ -1,5 +1,5 @@
 import { store } from "@/lib/store";
-import { fetchPosts } from "../postsSlice";
+import { fetchPosts } from "./(public)/projects/postsSlice";
 
 // Function to fetch project IDs using Redux
 async function fetchProjectIds() {
