@@ -1,4 +1,3 @@
-
 import { fetchPosts } from "@/app/(public)/projects/postsSlice";
 import { store } from "@/lib/store";
 
@@ -9,6 +8,7 @@ async function fetchProjectIds() {
   return articles.map(article => article.id);
 }
 
+// Function to generate the sitemap
 export default async function sitemap() {
   // Fetch dynamic project IDs
   const projectIds = await fetchProjectIds();
@@ -38,9 +38,9 @@ export default async function sitemap() {
   // Dynamic project entries
   const projectEntries = projectIds.map(id => ({
     url: `https://matteo-dirollo.com/projects/${id}`,
-    lastModified: new Date(),  // You can customize this if you have individual lastModified dates for each project
-    changeFrequency: 'monthly', // Adjust as necessary
-    priority: 0.7,  // Adjust as necessary
+    lastModified: new Date().toISOString(), // Use ISO string format
+    changeFrequency: 'monthly',
+    priority: 0.7,
   }));
 
   // Combine static and dynamic entries
@@ -50,6 +50,7 @@ export default async function sitemap() {
   return generateSitemapXml(allEntries);
 }
 
+// Function to convert entries to XML format
 function generateSitemapXml(entries) {
   const urls = entries.map(entry => `
     <url>
@@ -64,5 +65,3 @@ function generateSitemapXml(entries) {
       ${urls}
     </urlset>`;
 }
-
-
