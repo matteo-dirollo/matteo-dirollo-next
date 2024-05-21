@@ -15,7 +15,7 @@ async function fetchProjectIds() {
 }
 
 // Function to generate the sitemap
-export default async function sitemap() {
+async function generateSitemap() {
   try {
     // Fetch dynamic project IDs
     const projectIds = await fetchProjectIds();
@@ -57,8 +57,20 @@ export default async function sitemap() {
     const allEntries = [...staticEntries, ...projectEntries];
 
     // Convert entries to XML format
-    const sitemapXml = generateSitemapXml(allEntries);
-    console.log("Generated Sitemap XML:", sitemapXml);
+    const sitemapXml = `
+      <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+        ${allEntries
+          .map(entry => `
+            <url>
+              <loc>${entry.url}</loc>
+              <lastmod>${entry.lastModified}</lastmod>
+              <changefreq>${entry.changeFrequency}</changefreq>
+              <priority>${entry.priority}</priority>
+            </url>
+          `)
+          .join('')}
+      </urlset>
+    `.trim();
 
     return sitemapXml;
   } catch (error) {
@@ -67,18 +79,14 @@ export default async function sitemap() {
   }
 }
 
-// Function to convert entries to XML format
-function generateSitemapXml(entries) {
-  const urls = entries.map(entry => `
-    <url>
-      <loc>${entry.url}</loc>
-      <lastmod>${entry.lastModified}</lastmod>
-      <changefreq>${entry.changeFrequency}</changefreq>
-      <priority>${entry.priority}</priority>
-    </url>`).join("");
-
-  return `<?xml version="1.0" encoding="UTF-8"?>
-    <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-      ${urls}
-    </urlset>`;
+// API route handler to serve the sitemap
+export default async function handler(req, res) {
+  try {
+    const sitemapXml = await generateSitemap();
+    res.setHeader('Content-Type', 'application/xml');
+    res.status(200).send(sitemapXml);
+  } catch (error) {
+    console.error("Error in API handler:", error);
+    res.status(500).send('Internal Server Error');
+  }
 }
