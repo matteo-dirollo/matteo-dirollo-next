@@ -2,5 +2,5 @@ User-agent: *
 Disallow: /admin/
 Disallow: /login/
 
-Sitemap: https://matteo-dirollo.com/feed.xml
+Sitemap: https://matteo-dirollo.com/sitemap.xml
 
