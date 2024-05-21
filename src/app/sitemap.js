@@ -1,6 +1,8 @@
 import { fetchPosts } from "@/app/(public)/projects/postsSlice";
 import { store } from "@/lib/store";
 
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
+
 // Function to fetch project IDs using Redux
 async function fetchProjectIds() {
   try {
@@ -24,19 +26,19 @@ async function generateSitemap() {
     // Static sitemap entries
     const staticEntries = [
       {
-        url: 'https://matteo-dirollo.com',
+        url: `${BASE_URL}`,
         lastModified: new Date().toISOString(),
         changeFrequency: 'yearly',
         priority: 1,
       },
       {
-        url: `https://matteo-dirollo.com/projects`,
+        url: `${BASE_URL}/projects`,
         lastModified: new Date().toISOString(),
         changeFrequency: 'monthly',
         priority: 0.8,
       },
       {
-        url: `https://matteo-dirollo.com/contact`,
+        url: `${BASE_URL}/contact`,
         lastModified: new Date().toISOString(),
         changeFrequency: 'weekly',
         priority: 0.5,
@@ -45,7 +47,7 @@ async function generateSitemap() {
 
     // Dynamic project entries
     const projectEntries = projectIds.map(id => ({
-      url: `https://matteo-dirollo.com/projects/${id}`,
+      url: `${BASE_URL}projects/${id}`,
       lastModified: new Date().toISOString(), // Use ISO string format
       changeFrequency: 'monthly',
       priority: 0.7,
