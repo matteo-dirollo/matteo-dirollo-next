@@ -7,7 +7,7 @@ async function fetchProjects() {
   const articles = store.getState().posts.posts;
   return articles.map((article) => ({
     id: article.id,
-    lastModified: article.date, // Assuming 'date' exists in project data
+    lastModified: article.date.toDate(), // Assuming 'date' exists in project data
   }));
 }
 
