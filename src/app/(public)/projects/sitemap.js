@@ -7,7 +7,7 @@ async function fetchProjects() {
   const articles = store.getState().posts.posts;
   return articles.map((article) => ({
     id: article.id,
-    lastModified: article.date.toDate(), // Assuming 'date' exists in project data
+    lastModified: article.date, // Assuming 'date' exists in project data
   }));
 }
 
@@ -23,6 +23,6 @@ module.exports.generateSitemaps = async function () {
   // Efficiently map projects to SitemapItem objects for Next.js Sitemap Generator
   return projects.map((project) => ({
     url: `https://matteo-dirollo.com/projects/${project.id}`,
-    lastModified: project.lastModified.toISOString(), // Ensure valid format for lastModified
+    lastModified: project.lastModified, // Ensure valid format for lastModified
   }));
 }
