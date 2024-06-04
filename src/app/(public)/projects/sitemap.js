@@ -8,6 +8,16 @@ async function fetchProjects() {
   return articles
 }
 
+function getBaseUrl() {
+    if (process.env.NEXT_PUBLIC_BASE_URL) {
+      return process.env.NEXT_PUBLIC_BASE_URL;
+    } else {
+      // Provide a default base URL if not in development
+      return "https://matteo-dirollo.com"; // Replace with your production URL
+    }
+  }
+  
+
 module.exports.generateSitemaps = async function () {
   const projects = await fetchProjects();
 
@@ -19,7 +29,7 @@ module.exports.generateSitemaps = async function () {
 
   // Efficiently map projects to SitemapItem objects for Next.js Sitemap Generator
   return projects.map((project) => ({
-    url: `https://matteo-dirollo.com/projects/${project.id}`,
+    url: `${getBaseUrl()}/${project.id}`,
     lastModified: project.date.toISOString(), // Ensure valid format for lastModified
   }));
 }
