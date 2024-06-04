@@ -1,21 +1,27 @@
-import { fetchPosts } from "./postsSlice";
-import { store } from "@/lib/store";
+const { store } = require("@/lib/store"); // Assuming this imports the store object
 
-// Function to fetch project IDs using Redux
-async function fetchProjectIds() {
+// Function to fetch project data using Redux (assuming project data includes ID and date)
+async function fetchProjects() {
   await store.dispatch(fetchPosts());
   const articles = store.getState().posts.posts;
-  return articles.map(article => article.id);
+  return articles.map((article) => ({
+    id: article.id,
+    lastModified: article.date, // Assuming 'date' exists in project data
+  }));
 }
 
-export async function generateSitemaps() {
-    const projects = fetchProjectIds()
-    return projects;
+module.exports.generateSitemaps = async function () {
+  const projects = await fetchProjects();
+
+  // Check if project data is available before generating sitemap
+  if (!projects || projects.length === 0) {
+    console.warn('No project data found for sitemap generation.');
+    return [];
   }
 
-export default function sitemap({projects}) {
-    return projects.map((project) => ({
-        url: `https://matteo-dirollo.com/projects/${id}`,
-        lastModified: project.date,
-      }))
-  }
+  // Efficiently map projects to SitemapItem objects for Next.js Sitemap Generator
+  return projects.map((project) => ({
+    url: `https://matteo-dirollo.com/projects/${project.id}`,
+    lastModified: project.lastModified.toISOString(), // Ensure valid format for lastModified
+  }));
+}
