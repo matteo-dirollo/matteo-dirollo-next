@@ -801,9 +801,11 @@ span.editor-image {
 }
 
 span.editor-image img {
-  width: 100%; /* Make the image take the full width of its container */
-  max-height: 400px; /* Maintain the image's aspect ratio */
+  width: 100% !important;
+  
 }
+
+
 
 /* Decrease dimensions on mobile phones */
 
