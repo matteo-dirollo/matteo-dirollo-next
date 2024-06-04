@@ -1,4 +1,5 @@
-const { store } = require("@/lib/store"); // Assuming this imports the store object
+import { store } from "@/lib/store";
+import { fetchPosts } from "./postsSlice";
 
 // Function to fetch project data using Redux (assuming project data includes ID and date)
 async function fetchProjects() {
