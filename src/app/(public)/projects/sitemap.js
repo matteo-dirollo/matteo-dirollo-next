@@ -5,10 +5,7 @@ import { fetchPosts } from "./postsSlice";
 async function fetchProjects() {
   await store.dispatch(fetchPosts());
   const articles = store.getState().posts.posts;
-  return articles.map((article) => ({
-    id: article.id,
-    lastModified: article.date,
-  }));
+  return articles
 }
 
 module.exports.generateSitemaps = async function () {
@@ -23,6 +20,6 @@ module.exports.generateSitemaps = async function () {
   // Efficiently map projects to SitemapItem objects for Next.js Sitemap Generator
   return projects.map((project) => ({
     url: `https://matteo-dirollo.com/projects/${project.id}`,
-    lastModified: project.lastModified, // Ensure valid format for lastModified
+    lastModified: project.date, // Ensure valid format for lastModified
   }));
 }
