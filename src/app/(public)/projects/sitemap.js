@@ -20,6 +20,6 @@ module.exports.generateSitemaps = async function () {
   // Efficiently map projects to SitemapItem objects for Next.js Sitemap Generator
   return projects.map((project) => ({
     url: `https://matteo-dirollo.com/projects/${project.id}`,
-    lastModified: project.date, // Ensure valid format for lastModified
+    lastModified: project.date.toISOString(), // Ensure valid format for lastModified
   }));
 }
