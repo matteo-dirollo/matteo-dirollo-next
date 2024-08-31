@@ -18,7 +18,7 @@ function getBaseUrl() {
   }
   
 
-module.exports.generateSitemaps = async function () {
+  export async function generateSitemaps() {
   const projects = await fetchProjects();
 
   // Check if project data is available before generating sitemap

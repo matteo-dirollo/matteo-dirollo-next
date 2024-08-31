@@ -1,3 +1,6 @@
+import { store } from "@/lib/store";
+import { fetchPosts } from './(public)/projects/postsSlice';
+
 function getBaseUrl() {
   if (process.env.NEXT_PUBLIC_BASE_URL) {
     return process.env.NEXT_PUBLIC_BASE_URL;
@@ -7,8 +10,21 @@ function getBaseUrl() {
   }
 }
 
+// Function to fetch project data using Redux (assuming project data includes ID and date)
+async function fetchProjects() {
+  await store.dispatch(fetchPosts());
+  const articles = store.getState().posts.posts;
+  return articles
+}
 
-export default function sitemap() {
+
+export default async function sitemap() {
+  const projects = await fetchProjects();
+    // Check if project data is available before generating sitemap
+    if (!projects || projects.length === 0) {
+      console.warn('No project data found for sitemap generation.');
+      return [];
+    }
   return [
     {
       url: `${getBaseUrl()}`,
