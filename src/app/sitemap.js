@@ -16,6 +16,8 @@ export default async function sitemap() {
     priority: 1,
   }));
 
+  console.log(post)
+
   const staticPages = [
     {
       url: `${getBaseUrl()}`,
