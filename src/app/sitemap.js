@@ -51,31 +51,15 @@ export default async function sitemap() {
       lastModified: lastModified,
       changeFrequency: "monthly",
       priority: 1,
-      alternateRefs: [
-        {
-          rel: "news",
-          content: {
-            publication: {
-              name: "MDR",
-              language: "en",
-            },
-            publication_date: lastModified,
-            title: item.title,
-            keywords: item.tags?.join(", ") || "",
-          },
+      // For language alternates
+      alternates: {
+        languages: {
+          en: `${getBaseUrl()}/en/projects/${item.id}`,
+          // Add other languages as needed
         },
-        {
-          rel: "image",
-          content: {
-            loc: item.imageUrl,
-            caption: item.title,
-          },
-        },
-        {
-          rel: "description",
-          content: truncatedArticleDescription,
-        },
-      ],
+      },
+      // For images
+      images: [item.imageUrl],
     };
   });
 
