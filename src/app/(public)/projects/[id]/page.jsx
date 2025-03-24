@@ -88,11 +88,11 @@ export async function generateMetadata({ params }) {
     robots: {
       index: true,
       follow: true,
-      nocache: true,
+      nocache: false,
       googleBot: {
         index: true,
         follow: false,
-        noimageindex: true,
+        noimageindex: false,
         "max-video-preview": -1,
         "max-image-preview": "large",
         "max-snippet": -1,
