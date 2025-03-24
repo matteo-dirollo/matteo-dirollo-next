@@ -1,3 +1,4 @@
+'use client';
 import React from 'react';
 import { Center, Flex, Spinner } from '@chakra-ui/react';
 
