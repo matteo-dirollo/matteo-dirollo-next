@@ -1,15 +1,5 @@
-'use client';
+"use client";
 import React from "react";
-import {
-  Box,
-  Container,
-  SimpleGrid,
-  Stack,
-  Text,
-  IconButton,
-  useColorModeValue,
-  useToast,
-} from "@chakra-ui/react";
 import * as Yup from "yup";
 import { db } from "../../../api/firebase-config.js";
 import { setDoc, doc } from "@firebase/firestore";
@@ -23,12 +13,9 @@ import MyTextInput from "../../ui/inputs/MyTextInput";
 import BuyMeCoffee from "../../ui/buttons/BuyMeCoffee";
 import EmmeLogo from "../../../../public/EmmeLogo";
 import Expire from "../../ui/utils/Expire";
+import { addToast, Button } from "@heroui/react";
 
 const FooterNewsletter = () => {
-  const toast = useToast();
-  const buttonColor = useColorModeValue("black", "white");
-  const buttonHoverColor = useColorModeValue("blackAlpha.300", "blackAlpha.200");
-
   const initialValues = {
     email: "",
   };
@@ -46,7 +33,6 @@ const FooterNewsletter = () => {
       email: values.email,
       time: Timestamp.now(),
     });
-    // console.log('Document written with ID: ', docRef.id);
   };
 
   const handleSubmit = async (
@@ -56,12 +42,10 @@ const FooterNewsletter = () => {
     try {
       await collectData(values);
       resetForm();
-      toast({
-        title: "Thank you for registering ! ",
+      addToast({
+        title: "Thank you for registering!",
         description: "You will receive an email soon.",
-        status: "success",
-        duration: 3000,
-        isClosable: true,
+        color: "success",
       });
     } catch (error) {
       setErrors({ db: "Already registered" });
@@ -70,106 +54,57 @@ const FooterNewsletter = () => {
     }
   };
 
-  const inputBg = useColorModeValue("blackAlpha.100", "whiteAlpha.100");
-  const iconButtonbg = useColorModeValue("blackAlpha.300", "blackAlpha.400");
-  const iconButtonColor = useColorModeValue("white", "gray.800");
-
   return (
-    <Box
-      bg={useColorModeValue("gray.50", "gray.900")}
-      color={useColorModeValue("gray.700", "gray.200")}
-    >
-      <Container as={Stack} maxW={"6xl"} py={10}>
-        <SimpleGrid
-          templateColumns={{ sm: "1fr 1fr", md: "2fr 1fr 1fr 2fr" }}
-          spacing={8}
-        >
-          <Stack spacing={6}>
-            <Box>
-              <EmmeLogo
-                width={30}
-                color={useColorModeValue("gray.700", "white")}
-              />
-            </Box>
-
-            {/* <Box>
-              <Text fontSize="lg" fontWeight="bold">
-                Let's work together
-              </Text>
-              <Text fontSize={'xs'}>
-                Are you looking for a graphic designer and creative for your
-                project? Whether it's designing a logo, creating stunning
-                visuals, or developing a website, I'm here to help. Let's
-                discuss your requirements and bring your ideas to life. I'm also
-                open to collaborations and new opportunities. Contact me today!
-              </Text>
-            </Box> */}
-
-            <Text fontSize={"sm"}>© 2022 All rights reserved</Text>
-            <Stack direction={"row"} spacing={6}>
-              <IconButton
+    <div className="bg-gray-50 dark:bg-gray-900 text-gray-700 dark:text-gray-200">
+      <div className="container mx-auto max-w-6xl py-10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
+          <div className="space-y-6">
+            <div>
+              <EmmeLogo width={30} color={"gray-700 dark:text-white"} />
+            </div>
+            <p className="text-sm">© 2022 All rights reserved</p>
+            <div className="flex space-x-6">
+              <button
                 aria-label="github"
-                variant="ghost"
-                size="sm"
-                isRound={true}
-                color={buttonColor}
-                _hover={{ color: `${buttonHoverColor}` }}
-                icon={<BsGithub size="28px" />}
-              />
+                className="text-black dark:text-white hover:text-blackAlpha-300 dark:hover:text-blackAlpha-200 rounded-full"
+              >
+                <BsGithub size="28px" />
+              </button>
               <a
                 rel="me"
                 href="https://masto.ai/@matteodirollo"
                 target="_blank"
               >
-                <IconButton
+                <button
                   aria-label="Mastodon"
-                  variant="ghost"
-                  size="sm"
-                  isRound={true}
-                  color={buttonColor}
-                  _hover={{ color: `${buttonHoverColor}` }}
-                  icon={<FaMastodon size="28px" />}
-                />
+                  className="text-black dark:text-white hover:text-blackAlpha-300 dark:hover:text-blackAlpha-200 rounded-full"
+                >
+                  <FaMastodon size="28px" />
+                </button>
               </a>
-            </Stack>
-          </Stack>
-          <Stack align={"flex-start"}>
-            {/* <Text>Company</Text> */}
-            {/* <Link fontSize={'0.8em'} href={'#'}>
-              About
-            </Link> */}
-            <Link fontSize={"0.8em"} href={"#"}>
+            </div>
+          </div>
+          <div className="flex flex-col space-y-2">
+            <Link href={"#"} className="text-sm">
               Projects
             </Link>
-            <Link fontSize={"0.8em"} href={"#"}>
+            <Link href={"#"} className="text-sm">
               Contact
             </Link>
-            {/* <Link fontSize={'0.8em'} href={'#'}>
-              Pricing
-            </Link> */}
-            {/* <Link fontSize={'0.8em'} href={'#'}>
-              Testimonials
-            </Link> */}
-          </Stack>
-          <Stack align={"flex-start"}>
-            {/* <Text>Support</Text> */}
-            {/* <Link fontSize={'0.8em'} href={'#'}>
-              Help Center
-            </Link> */}
-            <Link href="/terms-and-conditions" fontSize={"0.8em"}>
+          </div>
+          <div className="flex flex-col space-y-2">
+            <Link href="/terms-and-conditions" className="text-sm">
               Terms of Service
             </Link>
-            <Link href={"#"} fontSize={"0.8em"}>
+            <Link href={"#"} className="text-sm">
               Legal
             </Link>
-            <Link href="/privacy-policy" fontSize={"0.8em"}>
-              
-                Privacy Policy
-              
+            <Link href="/privacy-policy" className="text-sm">
+              Privacy Policy
             </Link>
-          </Stack>
-          <Stack align={"flex-start"}>
-            <Text>Get some news</Text>
+          </div>
+          <div className="flex flex-col space-y-4">
+            <p>Get some news</p>
             <Formik
               initialValues={initialValues}
               validationSchema={validationSchema}
@@ -177,47 +112,59 @@ const FooterNewsletter = () => {
             >
               {({ isSubmitting, isValid, dirty, errors }) => (
                 <Form>
-                  <Stack
-                    flexDirection={"row"}
-                    gap={3}
-                    display={"flex"}
-                    align={"center"}
-                  >
+                  <div className="flex flex-row gap-3 items-center">
                     <MyTextInput
                       name="email"
-                      bg={inputBg}
-                      border={0}
-                      _focus={{
-                        bg: "whiteAlpha.300",
-                      }}
+                      className="bg-blackAlpha-100 dark:bg-whiteAlpha-100 border-0 focus:bg-whiteAlpha-300"
                     />
-
-                    <IconButton
-                      bg={"black"}
-                      color={iconButtonColor}
-                      isLoading={isSubmitting}
-                      disable={!isValid || !dirty || isSubmitting}
+                    <Button
                       type="submit"
-                      _hover={{ bg: iconButtonbg }}
-                      aria-label="Subscribe"
-                      icon={<BiMailSend />}
-                    />
-                  </Stack>
+                      disabled={!isValid || !dirty || isSubmitting}
+                      className={`bg-black text-white hover:bg-blackAlpha-300 dark:hover:bg-blackAlpha-400 p-2 rounded-md ${
+                        !isValid || !dirty || isSubmitting
+                          ? "opacity-50 cursor-not-allowed"
+                          : ""
+                      }`}
+                    >
+                      {isSubmitting ? (
+                        <svg
+                          className="animate-spin h-5 w-5 text-white"
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                        >
+                          <circle
+                            className="opacity-25"
+                            cx="12"
+                            cy="12"
+                            r="10"
+                            stroke="currentColor"
+                            strokeWidth="4"
+                          ></circle>
+                          <path
+                            className="opacity-75"
+                            fill="currentColor"
+                            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                          ></path>
+                        </svg>
+                      ) : (
+                        <BiMailSend size="20px" />
+                      )}
+                    </Button>
+                  </div>
                   {errors.db && (
                     <Expire delay="3000">
-                      <Text color={"red.300"} fontSize={"sm"}>
-                        {errors.db}
-                      </Text>
+                      <p className="text-red-300 text-sm">{errors.db}</p>
                     </Expire>
                   )}
                 </Form>
               )}
             </Formik>
             <BuyMeCoffee />
-          </Stack>
-        </SimpleGrid>
-      </Container>
-    </Box>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 };
 

@@ -1,6 +1,5 @@
 'use client'
 import React from 'react';
-import { Box, Button } from '@chakra-ui/react';
 
 const Pagination = ({ postsPerPage, totalPosts, paginate, active }) => {
   const pageNumbers = [];
@@ -10,21 +9,23 @@ const Pagination = ({ postsPerPage, totalPosts, paginate, active }) => {
   }
 
   return (
-    <Box>
+    <div className="flex">
       {pageNumbers.map(number => (
-        <Button
-          className={number}
-          variant={active === number ? 'outline' : 'solid'}
+        <button
+          className={`mx-1 px-3 py-1 rounded-md ${
+            active === number
+              ? 'bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-100'
+              : 'bg-transparent text-gray-700 dark:text-gray-100 border border-gray-300 dark:border-gray-600'
+          }`}
           key={number}
-          mx={1}
-          onClick={e => {
+          onClick={() => {
             paginate(number);
           }}
         >
           {number}
-        </Button>
+        </button>
       ))}
-    </Box>
+    </div>
   );
 };
 

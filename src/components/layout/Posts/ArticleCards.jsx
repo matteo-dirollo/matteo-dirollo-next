@@ -1,18 +1,10 @@
 "use client";
-import React, {useState} from "react";
-import {
-  Box,
-  Center,
-  Flex,
-  Heading,
-  Text,
-  useColorModeValue,
-} from "@chakra-ui/react";
+import React, { useState } from "react";
 import Link from "next/link";
 import Pagination from "@/components/ui/buttons/Pagination";
+import _ from "lodash";
 
 const ArticleCards = ({ articles }) => {
-  const textColor = useColorModeValue("gray.700", "gray.100");
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage] = useState(6);
   const indexOfLastPost = currentPage * postsPerPage;
@@ -21,68 +13,49 @@ const ArticleCards = ({ articles }) => {
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   const renderCards = currentPosts.map((article) => (
-    <Box maxW="250px" m="5px" as="article" key={article.date}>
+    <article
+      key={article.date}
+      className="max-w-[250px] m-[5px] flex flex-col"
+    >
       <Link
         href={`/projects/${article.id}`}
-        sx={{
-          "a:hover": { textDecoration: "none", color: "green" },
-        }}
+        className="hover:no-underline"
       >
-        <Text
-          sx={{
-            "p a:hover": { textDecoration: "none", color: "green" },
-          }}
-          as="b"
-          fontSize="sm"
-          color="purple.600"
-        >
+        <p className="text-purple-600 text-sm font-bold">
           {_.first(article.category)}
-        </Text>
-        <Heading fontSize="xl" color={textColor} as="h2" size="sm">
+        </p>
+        <h2 className="text-gray-700 dark:text-gray-100 text-xl font-bold">
           {article.title}
-        </Heading>
-        <Text colorScheme={textColor} fontSize="xs">
+        </h2>
+        <p className="text-xs text-gray-700 dark:text-gray-100">
           {article.date}
-        </Text>
-        <Box
-          w="250px"
-          h="250px"
-          sx={{
-            backgroundImage: `url(${article.imageUrl})`,
-            backgroundPosition: "center",
-            backgroundSize: "cover",
-          }}
-          my={5}
+        </p>
+        <div
+          className="w-[250px] h-[250px] bg-cover bg-center my-5"
+          style={{ backgroundImage: `url(${article.imageUrl})` }}
         />
       </Link>
-    </Box>
+    </article>
   ));
   return (
-    <Box w="80%" marginX="auto" my={10} minH={"100vh"} as="section">
-      <Heading my={10} color={textColor}>
+    <section className="w-[80%] mx-auto my-10 min-h-[100vh]">
+      <h2 className="my-10 text-gray-700 dark:text-gray-100 text-2xl font-bold">
         Latest Projects
-      </Heading>
-      <Box w="100%" mx="0 auto" display="flex" justifyContent="center">
-        <Flex
-          maxW="intrinsic"
-          mx="auto"
-          flexWrap="wrap"
-          justifySelf="stretch"
-          justify="space-evenly"
-          spacing="30px"
-        >
+      </h2>
+      <div className="w-full mx-0 flex justify-center">
+        <div className="max-w-full mx-auto flex flex-wrap justify-evenly gap-5">
           {renderCards}
-        </Flex>
-      </Box>
-      <Center>
+        </div>
+      </div>
+      <div className="flex justify-center">
         <Pagination
           postsPerPage={postsPerPage}
           totalPosts={articles.length}
           paginate={paginate}
           active={currentPage}
         />
-      </Center>
-    </Box>
+      </div>
+    </section>
   );
 };
 

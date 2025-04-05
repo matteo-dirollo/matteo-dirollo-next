@@ -19,8 +19,9 @@ import MobileNav from "./MobileNav";
 import { useDispatch, useSelector } from "react-redux";
 import { openModal } from "../../ui/modals/modalSlice";
 import SignOut from "@/api/auth/ui/SignOut";
-import EmmeLogo from "public/EmmeLogo";
+
 import { ColorModeSwitcher } from "@/components/ui/ColorModeSwitcher";
+import EmmeLogo from "../../../../public/EmmeLogo";
 
 const Navbar = () => {
   const { authenticated } = useSelector((state) => state.auth);
@@ -65,9 +66,9 @@ const Navbar = () => {
             color={useColorModeValue("gray.800", "white")}
           >
             <Link href="/">
-              <Box>
+           
                 <EmmeLogo width={"60"} height={"60"} />
-              </Box>
+              
             </Link>
           </Text>
 

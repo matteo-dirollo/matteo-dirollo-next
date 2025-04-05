@@ -1,11 +1,10 @@
 'use client'
-import { Flex } from "@chakra-ui/react";
 import React from "react";
 import ServiceCard from "./ServiceCard";
 
 const Services = () => {
   return (
-    <Flex justifyContent="center" flexWrap="wrap">
+    <div className="flex justify-center flex-wrap">
       <ServiceCard
         title="Graphic Design Solutions"
         description="Providing visually appealing and impactful designs for various purposes, including logos, branding materials, marketing collaterals, and more."
@@ -25,7 +24,7 @@ const Services = () => {
         description="Designing and developing custom websites using the latest web technologies, creating visually appealing and user-friendly online experiences."
         animationData={"https://lottie.host/34ce3d86-02ea-4aad-8386-65b471725112/bWM6VeFJ4C.json"}
       />
-    </Flex>
+    </div>
   );
 };
 

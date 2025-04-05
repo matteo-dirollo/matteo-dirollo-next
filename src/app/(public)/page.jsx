@@ -4,10 +4,9 @@ import HeroSection from "@/components/layout/HeroSection/HeroSection";
 import Services from "@/components/layout/Services/Services";
 
 import { store } from "@/lib/store";
-import { Box, VStack } from "@/styles/ChakraImports";
-import PostsCards from './../../components/layout/Posts/PostsCards';
+import PostsCards from "./../../components/layout/Posts/PostsCards";
 import { fetchPosts } from "./projects/postsSlice";
-import SpotifyPlaylist from "@/components/layout/Spotify/SpotifyPlaylist";
+// import SpotifyPlaylist from "@/components/layout/Spotify/SpotifyPlaylist";
 
 export async function generateMetadata() {
   const description =
@@ -103,13 +102,13 @@ export default async function Home() {
   await store.dispatch(fetchPosts());
 
   return (
-    <Box display="flex" justifyContent="center" alignItems="center" mb={20} >
-      <VStack justifyContent="center" alignItems="center" maxW={'90%'} >
+    <div className="flex justify-center items-center mb-20 w-full">
+      <div className="flex flex-col justify-center items-center max-w-[90%] gap-10">
         <HeroSection />
-        <Services my='100px'  />
+        <Services my="100px" />
         <PostsCards />
         {/* <SpotifyPlaylist /> */}
-      </VStack>
-    </Box>
+      </div>
+    </div>
   );
 }

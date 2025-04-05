@@ -1,19 +1,18 @@
-'use client';
-import React from 'react';
-import { Center, Flex, Spinner } from '@chakra-ui/react';
+"use client";
+import React from "react";
+import { Spinner } from "@heroui/react";
 
 const LoadingSpinner = () => {
   return (
-    <Flex
-      width={'100vw'}
-      height={'100vh'}
-      alignContent={'center'}
-      justifyContent={'center'}
-    >
-      <Center>
-        <Spinner thickness="4px" speed="0.65s" color="blue.500" size="xl" />
-      </Center>
-    </Flex>
+    <div className="flex w-screen h-screen items-center justify-center">
+      <div className="flex items-center justify-center">
+        <Spinner
+          classNames={{ label: "text-foreground mt-4" }}
+          label="wave"
+          variant="wave"
+        />
+      </div>
+    </div>
   );
 };
 

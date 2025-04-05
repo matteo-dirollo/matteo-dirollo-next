@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React, { useState } from 'react';
 import { LexicalComposer } from '@lexical/react/LexicalComposer';
 import { ContentEditable } from '@lexical/react/LexicalContentEditable';
@@ -13,15 +13,13 @@ import ListMaxIndentLevelPlugin from './plugins/ListMaxIndentLevelPlugin';
 import { MarkdownShortcutPlugin } from '@lexical/react/LexicalMarkdownShortcutPlugin';
 import { TRANSFORMERS } from '@lexical/markdown';
 import { editorConfig } from './themes/editorConfig';
-import { Box, useColorModeValue } from '@chakra-ui/react';
 import ImagesPlugin from './plugins/ImagesPlugin';
 import YouTubePlugin from './plugins/YoutubePlugin';
 import LexicalErrorBoundary from '@lexical/react/LexicalErrorBoundary';
 
 function PlainEditor({ stateInstance }) {
-
   const revertedJsonString = JSON.stringify(stateInstance);
-  const [ newEditorConfig ] = useState({
+  const [newEditorConfig] = useState({
     ...editorConfig,
     editable: false,
     editorState: revertedJsonString,
@@ -29,8 +27,8 @@ function PlainEditor({ stateInstance }) {
 
   return (
     <LexicalComposer initialConfig={newEditorConfig}>
-      <Box maxW='100%' className="editor-container">
-        <Box sx={{'*':{color:useColorModeValue('gray.700', 'gray.100')}}} className="readonlyeditor-inner">
+      <div className="max-w-full editor-container">
+        <div className="readonlyeditor-inner text-gray-700 dark:text-gray-100">
           <RichTextPlugin
             contentEditable={<ContentEditable className="editor-input" />}
             ErrorBoundary={LexicalErrorBoundary}
@@ -45,8 +43,8 @@ function PlainEditor({ stateInstance }) {
           <EmoticonPlugin />
           <ListMaxIndentLevelPlugin maxDepth={7} />
           <MarkdownShortcutPlugin transformers={TRANSFORMERS} />
-        </Box>
-      </Box>
+        </div>
+      </div>
     </LexicalComposer>
   );
 }
