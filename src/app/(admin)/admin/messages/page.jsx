@@ -1,17 +1,7 @@
-'use client'
+'use client';
 import React, { useEffect, useState } from 'react';
 import { db } from '@/api/firebase-config';
 import { collection, getDocs } from 'firebase/firestore';
-import {
-  List,
-  ListItem,
-  Divider,
-  Box,
-  VStack,
-  StackDivider,
-  Text,
-  Flex,
-} from '@chakra-ui/react';
 import { useDispatch } from 'react-redux';
 import {
   asyncActionError,
@@ -28,14 +18,13 @@ const Messages = () => {
       dispatch(asyncActionStart());
       const data = [];
       await getDocs(collection(db, 'Contact_Form'))
-        .then(querySnpashot => {
-          querySnpashot.forEach(doc => {
-            // console.log(doc.id, '=>', doc.data());
+        .then((querySnapshot) => {
+          querySnapshot.forEach((doc) => {
             data.push(doc.data());
           });
           dispatch(asyncActionFinish());
         })
-        .catch(error => {
+        .catch((error) => {
           dispatch(asyncActionError(error));
           console.log('Error getting documents: ', error);
         });
@@ -48,67 +37,41 @@ const Messages = () => {
     return () => {
       clearTimeout(timeInterval);
     };
-  }, [dispatch]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [dispatch]);
 
   const renderUserMessages = docs.map((message, index) => {
     return (
       <React.Fragment key={index}>
-        <ListItem>
-          <Flex
-            alignItems="start"
-            flexWrap="wrap"
-            flexDirection="horizontal"
-            gap="6"
-          >
-            <Box p="5px" minW="max-content" minH="40px">
-              <Text mt="8px" color="gray.400" fontSize="sm">
-                {index + 1}
-              </Text>
-            </Box>
-            <Box p="5px" minW="90px" minH="40px">
-              <Text color="gray.400" fontSize="xs">
-                Name
-              </Text>
-              <Text fontSize="md">{message.name}</Text>
-            </Box>
-            <Box p="5px" minW="120px">
-              <Text color="gray.400" fontSize="xs">
-                Last Name
-              </Text>
-              <Text fontSize="md">{message.surname}</Text>
-            </Box>
-            <Box p="5px" minW="300px">
-              <Text color="gray.400" fontSize="xs">
-                Email
-              </Text>
-              <Text fontSize="md">{message.email}</Text>
-            </Box>
-            <Box p="5px" minW="180px">
-              <Text color="gray.400" fontSize="xs">
-                Message
-              </Text>
-              <Text fontSize="md">{message.message}</Text>
-            </Box>
-          </Flex>
-        </ListItem>
-        <Divider />
+        <li className="flex flex-wrap items-start gap-6 border-b border-gray-200 py-4">
+          <div className="p-1 min-w-max">
+            <p className="text-sm text-gray-400">{index + 1}</p>
+          </div>
+          <div className="p-1 min-w-[90px]">
+            <p className="text-xs text-gray-400">Name</p>
+            <p className="text-md">{message.name}</p>
+          </div>
+          <div className="p-1 min-w-[120px]">
+            <p className="text-xs text-gray-400">Last Name</p>
+            <p className="text-md">{message.surname}</p>
+          </div>
+          <div className="p-1 min-w-[300px]">
+            <p className="text-xs text-gray-400">Email</p>
+            <p className="text-md">{message.email}</p>
+          </div>
+          <div className="p-1 min-w-[180px]">
+            <p className="text-xs text-gray-400">Message</p>
+            <p className="text-md">{message.message}</p>
+          </div>
+        </li>
       </React.Fragment>
     );
   });
 
   return (
-    <>
-      <Text fontSize="sm" as="b" color="gray.600">
-        Contact Form
-      </Text>
-      <VStack
-        divider={<StackDivider borderColor="gray.200" />}
-        spacing={4}
-        align="stretch"
-      >
-        <List p={10}>{renderUserMessages}</List>
-      </VStack>
-    </>
+    <div>
+      <p className="text-sm font-bold text-gray-600">Contact Form</p>
+      <ul className="divide-y divide-gray-200 p-4">{renderUserMessages}</ul>
+    </div>
   );
 };
 
