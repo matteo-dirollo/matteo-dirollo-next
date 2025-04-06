@@ -1,7 +1,6 @@
 import React from 'react';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
-
 import { useDispatch } from 'react-redux';
 import { addComment, fetchComments } from '@/app/(public)/projects/postsSlice';
 import {
@@ -10,8 +9,8 @@ import {
   asyncActionFinish,
   asyncActionStart,
 } from '../../../api/asyncSlice';
-import { Button } from '@chakra-ui/react';
 import TextareaInput from '../inputs/TextareaInput';
+import { Button } from '@heroui/react';
 
 const CommentForm = ({ articleId }) => {
   const dispatch = useDispatch();
@@ -26,12 +25,12 @@ const CommentForm = ({ articleId }) => {
       resetForm();
     } catch (error) {
       console.log(error);
-        dispatch(asyncActionError());
+      dispatch(asyncActionError());
     } finally {
       dispatch(fetchComments(articleId));
       setSubmitting(false);
-        dispatch(asyncActionFinish());
-        dispatch(appLoaded());
+      dispatch(asyncActionFinish());
+      dispatch(appLoaded());
     }
   };
 
@@ -45,17 +44,15 @@ const CommentForm = ({ articleId }) => {
         <Form>
           <TextareaInput name="comment" />
           <Button
-            isLoading={isSubmitting}
-            loadingText='Submitting'
-            disabled={!isValid || !dirty || isSubmitting}
             type="submit"
-            bg='black'
-            color="white"
-            _hover={{bg:'blackAlpha.200',
-            color:"black"}}
-            my={5}
+            className={`mt-5 px-4 py-2 rounded-md text-white font-medium transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 ${
+              isSubmitting
+                ? 'bg-gray-400 cursor-not-allowed'
+                : 'bg-black hover:bg-gray-800'
+            } ${!isValid || !dirty ? 'opacity-50 cursor-not-allowed' : ''}`}
+            disabled={!isValid || !dirty || isSubmitting}
           >
-            Add Comment
+            {isSubmitting ? 'Submitting...' : 'Add Comment'}
           </Button>
         </Form>
       )}

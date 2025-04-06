@@ -1,12 +1,9 @@
 "use client";
 import React, { useState, useRef } from "react";
-import {  fetchPosts, updatePost } from "@/app/(public)/projects/postsSlice";
+import { fetchPosts, updatePost } from "@/app/(public)/projects/postsSlice";
 import {
-  Box,
+  addToast,
   Button,
-  Stack,
-  useToast,
-  useColorModeValue,
   Input,
   InputGroup,
   InputLeftElement,
@@ -14,7 +11,7 @@ import {
   FormLabel,
   Image,
   Text,
-} from "@chakra-ui/react";
+} from "@heroui/react";
 import { CheckboxContainer, CheckboxControl } from "formik-chakra-ui";
 import { Form, Formik } from "formik";
 import LexicalErrorBoundary from "@lexical/react/LexicalErrorBoundary";
@@ -53,19 +50,14 @@ import EmoticonPlugin from "@/components/ui/lexicalEditor/plugins/EmoticonPlugin
 import LoadingSpinner from "@/components/ui/loaders/LoadingSpinner";
 import { useDispatch } from "react-redux";
 import { closeModal } from "@/components/ui/modals/modalSlice";
-import Projects from '../../../(public)/projects/page';
+// import Projects from '../../../(public)/projects/page';
 
-
-const ModifyPost = ({ post, setSelectedPost })=> {
+const ModifyPost = ({ post, setSelectedPost }) => {
   const dispatch = useDispatch();
-  const modifiedPost = JSON.parse(post.body)
-  const editorBody =JSON.stringify(modifiedPost);
- 
-  const toast = useToast();
-  const editorInstanceRef = useRef(null);
+  const modifiedPost = JSON.parse(post.body);
+  const editorBody = JSON.stringify(modifiedPost);
 
-  const textColor = useColorModeValue("gray.700", "gray.100");
-  
+  const editorInstanceRef = useRef(null);
 
   const [newEditorConfig] = useState({
     ...editorConfig,
@@ -73,16 +65,14 @@ const ModifyPost = ({ post, setSelectedPost })=> {
   });
 
   const toastSuccess = () => {
-    toast({
+    addToast({
       title: "Modifications applied.",
       description: "Check the article in the projects tab",
-      status: "success",
       duration: 3000,
       isClosable: true,
+      type: "success",
     });
   };
-
-
 
   const initialValues = {
     title: post.title || "", // Use post.title as the initial value for the title
@@ -101,13 +91,13 @@ const ModifyPost = ({ post, setSelectedPost })=> {
     if (values) {
       dispatch(updatePost({ postId: post.id, updatedData: values }));
       dispatch(fetchPosts());
-      setSelectedPost(null)
+      setSelectedPost(null);
     }
   };
 
   const onExit = () => {
     setSelectedPost(null);
-  }
+  };
 
   const handleSubmit = async (values, { setSubmitting, resetForm }) => {
     try {
@@ -127,9 +117,9 @@ const ModifyPost = ({ post, setSelectedPost })=> {
   }
 
   return (
-    <Box size="auto">
+    <div className="w-full">
       {/* <Text>{editorState}</Text> */}
-      <Box display='block' width={'100%'}>
+      <div className="block w-full">
         <Formik
           enableReinitialize={true}
           initialValues={initialValues}
@@ -147,172 +137,141 @@ const ModifyPost = ({ post, setSelectedPost })=> {
             errors,
           }) => (
             <Form>
-              <Box>
-              <Box width={'100%'}>
-                <MyTextInput label="Title" name="title" />
-              </Box>
-              <Box my={8}>
-                <LexicalComposer initialConfig={newEditorConfig}>
-                  <Box
-                    sx={{
-                      ".other:h2": {
-                        fontSize: "18px",
-                        color: textColor,
-                        marginBottom: "7px",
-                      },
+              <div>
+                <div className="w-full">
+                  <MyTextInput label="Title" name="title" />
+                </div>
+                <div className="my-8">
+                  <LexicalComposer initialConfig={newEditorConfig}>
+                    <div className="editor-container">
+                      <ToolbarPlugin />
+                      <div className="editor-inner">
+                        <RichTextPlugin
+                          contentEditable={
+                            <ContentEditable className="editor-input" />
+                          }
+                          ErrorBoundary={LexicalErrorBoundary}
+                        />
+                        <EditorBubbles editorInstanceRef={editorInstanceRef} />
+                        <OnChangePlugin
+                          onChange={(editorState, editor) => {
+                            editorState.read(() => {
+                              setFieldValue("editor", editorState);
+                            });
+                          }}
+                        />
+                        <HistoryPlugin />
+                        <TreeViewPlugin />
+                        <AutoEmbedPlugin />
+                        <AutoFocusPlugin />
+                        <CodeHighlightPlugin />
+                        <YouTubePlugin />
+                        <ImagesPlugin />
+                        <FigmaPlugin />
+                        <TwitterPlugin />
+                        <ListPlugin />
+                        <LinkPlugin />
+                        <AutoLinkPlugin />
+                        <EmoticonPlugin />
+                        <ListMaxIndentLevelPlugin maxDepth={7} />
+                        <MarkdownShortcutPlugin transformers={TRANSFORMERS} />
+                      </div>
+                    </div>
+                  </LexicalComposer>
+                </div>
+                <br />
+                <div>
+                  <FormLabel>Image</FormLabel>
+                  <InputGroup>
+                    <InputLeftElement>
+                      <Icon as={FiFile} />
+                    </InputLeftElement>
+                    <Input
+                      id="file"
+                      type="file"
+                      accept="image/*"
+                      onChange={(e) => {
+                        const file = e.target;
+                        setFieldValue("img", file.files[0]);
+                      }}
+                      name="img"
+                      label="Image"
+                      className="pl-10"
+                    />
+                  </InputGroup>
+                </div>
+                <div className="my-2">
+                  {initialValues.img && (
+                    <img
+                      src={post.imageUrl}
+                      alt="Preview"
+                      className="max-w-full max-h-[100px] w-auto h-auto object-cover block mx-auto border border-gray-300"
+                    />
+                  )}
+                </div>
+                <br />
+                <CheckboxContainer name="tags" label="Tags">
+                  <CheckboxControl name="tags" value="Design">
+                    Design
+                  </CheckboxControl>
+                  <CheckboxControl name="tags" value="Art">
+                    Art
+                  </CheckboxControl>
+                  <CheckboxControl name="tags" value="Video">
+                    Video
+                  </CheckboxControl>
+                  <CheckboxControl name="tags" value="Web">
+                    Web
+                  </CheckboxControl>
+                  <CheckboxControl name="tags" value="Digital Art">
+                    Digital Art
+                  </CheckboxControl>
+                  <CheckboxControl name="tags" value="3D">
+                    3D
+                  </CheckboxControl>
+                  <CheckboxControl name="tags" value="Architecture">
+                    Architecture
+                  </CheckboxControl>
+                  <CheckboxControl name="tags" value="Product Design">
+                    Product Design
+                  </CheckboxControl>
+                </CheckboxContainer>
+                <br />
+                <div className="flex flex-col gap-2">
+                  <Button
+                    onPress={() => {
+                      onExit();
                     }}
-                    className="editor-container"
+                    className="max-w-[300px] min-w-[150px] text-black"
+                    variant="light"
                   >
-                    <ToolbarPlugin />
-                    <Box className="editor-inner">
-                      <RichTextPlugin
-                        contentEditable={
-                          <ContentEditable
-                            className="editor-input"
-                            responsive-editor-input
-                          />
-                        }
-                        ErrorBoundary={LexicalErrorBoundary}
-                      />
-                      <EditorBubbles editorInstanceRef={editorInstanceRef} />
-                      <OnChangePlugin
-                        onChange={(editorState, editor) => {
-                          editorState.read(() => {
-                            setFieldValue("editor", editorState);
-                          });
-                        }}
-                      />
-                      <HistoryPlugin />
-                      <TreeViewPlugin />
-                      <AutoEmbedPlugin />
-                      <AutoFocusPlugin />
-                      <CodeHighlightPlugin />
-                      <YouTubePlugin />
-                      <ImagesPlugin />
-                      <FigmaPlugin />
-                      <TwitterPlugin />
-                      <ListPlugin />
-                      <LinkPlugin />
-                      <AutoLinkPlugin />
-                      <EmoticonPlugin />
-                      <ListMaxIndentLevelPlugin maxDepth={7} />
-                      <MarkdownShortcutPlugin transformers={TRANSFORMERS} />
-                    </Box>
-                  </Box>
-                </LexicalComposer>
-              </Box>
-              <br />
-              <Box>
-                <FormLabel>Image</FormLabel>
-                <InputGroup>
-                  <InputLeftElement>
-                    <Icon as={FiFile} />
-                  </InputLeftElement>
-                  <Input
-                    id="file"
-                    type="file"
-                    accept="image/*"
-                    onChange={(e) => {
-                      const file = e.target;
-                      setFieldValue("img", file.files[0]);
+                    Exit
+                  </Button>
+                  <Button
+                    onPress={() => {
+                      handleReset();
                     }}
-                    name="img"
-                    label="Image"
-                    sx={{
-                      "::file-selector-button": {
-                        height: 10,
-                        padding: 0,
-                        mr: 8,
-                        background: "none",
-                        border: "none",
-                        fontWeight: "bold",
-                      },
-                    }}
-                  />
-                </InputGroup>
-              </Box>
-              <Box my={2}>
-                {initialValues.img && (
-                  <Image
-                    src={post.imageUrl}
-                    alt="Preview"
-                    style={{
-                      maxWidth: "100%",
-                      maxHeight: "100px",
-                      width: "auto",
-                      height: "auto",
-                      objectFit: "cover",
-                      display: "block",
-                      margin: "0 auto",
-                      border: "1px solid #ddd",
-                    }}
-                  />
-                )}
-              </Box>
-              <br />
-              <CheckboxContainer name="tags" label="Tags">
-                <CheckboxControl name="tags" value="Design">
-                  Design
-                </CheckboxControl>
-                <CheckboxControl name="tags" value="Art">
-                  Art
-                </CheckboxControl>
-                <CheckboxControl name="tags" value="Video">
-                  Video
-                </CheckboxControl>
-                <CheckboxControl name="tags" value="Web">
-                  Web
-                </CheckboxControl>
-                <CheckboxControl name="tags" value="Digital Art">
-                  Digital Art
-                </CheckboxControl>
-                <CheckboxControl name="tags" value="3D">
-                  3D
-                </CheckboxControl>
-                <CheckboxControl name="tags" value="Architecture">
-                  Architecture
-                </CheckboxControl>
-                <CheckboxControl name="tags" value="Product Design">
-                  Product Design
-                </CheckboxControl>
-              </CheckboxContainer>
-              <br />
-              <Stack>
-              <Button
-                  onClick={() => {
-                    onExit();
-                  }}
-                  colorScheme="gray"
-                  maxW={300}
-                >
-                  Exit
-                </Button>
-                <Button
-                  onClick={() => {
-                    handleReset();
-                  }}
-                  colorScheme="gray"
-                  maxW={300}
-                >
-                  Reset
-                </Button>
-                <Button
-                  isLoading={isSubmitting}
-                  disable={!isValid || !dirty || isSubmitting}
-                  type="submit"
-                  bg="black"
-                  color="white"
-                  maxW={300}
-                >
-                  Modify
-                </Button>
-              </Stack>
-              </Box>
+                    className="max-w-[300px] min-w-[150px] text-black"
+                    variant="light"
+                  >
+                    Reset
+                  </Button>
+                  <Button
+                    isLoading={isSubmitting}
+                    isDisabled={!isValid || !dirty || isSubmitting}
+                    type="submit"
+                    className="max-w-[300px] min-w-[150px] text-white"
+                    variant="solid"
+                  >
+                    Modify
+                  </Button>
+                </div>
+              </div>
             </Form>
           )}
         </Formik>
-      </Box>
-    </Box>
+      </div>
+    </div>
   );
 };
 

@@ -4,6 +4,7 @@ import { Providers } from "@/app/providers";
 import ModalManager from "@/components/ui/modals/ModalManager";
 import CheckAuth from "./CheckAuth";
 import '../../styles/fonts.css';
+import "../globals.css";
 
 
 // LEXICAL STYLES 

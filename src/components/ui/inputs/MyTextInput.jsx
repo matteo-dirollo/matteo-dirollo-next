@@ -1,40 +1,30 @@
 import React from 'react';
 import { useField } from 'formik';
-import {
-  FormControl,
-  FormLabel,
-  Input,
-  FormErrorMessage,
-  useColorModeValue,
-} from '@chakra-ui/react';
+import { Input } from '@heroui/react';
 
-export default function MyTextInput({ errors, label, ...props }) {
+export default function MyTextInput({
+  label,
+  placeholder,
+  type = 'text',
+  isRequired = false,
+  description,
+  size,
+  ...props
+}) {
   const [field, meta] = useField(props);
   return (
-    <FormControl isInvalid={meta.touched && !!meta.error}>
-      <FormLabel
-        marginTop="12px"
-        color={useColorModeValue('gray.700', 'gray.100')}
-      >
-        {label}
-      </FormLabel>
+    <div className="mb-4 w-full flex flex-col">
       <Input
-        variant="filled"
-        sx={{
-          borderRadius: 0,
-          borderWidth: '1px',
-          // borderColor: 'gray.300',
-          _focus: {
-            borderColor: 'blackAlpha.700',
-            borderWidth: '2px', // Change the border weight for the :focus state
-          },
-        }}
+        label={label}
+        placeholder={placeholder}
+        type={type}
+        isRequired={isRequired}
+        description={description}
+        size={size}
+        errorMessage={meta.touched && meta.error ? meta.error : undefined}
         {...field}
         {...props}
       />
-      {meta.touched && meta.error ? (
-        <FormErrorMessage>{meta.error}</FormErrorMessage>
-      ) : null}
-    </FormControl>
+    </div>
   );
 }

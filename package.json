@@ -17,6 +17,7 @@
     "@emotion/styled": "^11.11.0",
     "@fontsource/epilogue": "^5.0.8",
     "@fontsource/hanken-grotesk": "^5.0.18",
+    "@heroicons/react": "^2.2.0",
     "@heroui/react": "^2.7.5",
     "@heroui/system": "^2.4.12",
     "@heroui/theme": "^2.4.12",

@@ -1,16 +1,14 @@
-"use client"
-import React from 'react';
+"use client";
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   fetchUsers,
   getCurrentUserFromState,
   getUserById,
 } from '../../../api/auth/authSlice';
-import { Avatar, Box, Flex, Link, Text } from '@chakra-ui/react';
-import { useEffect } from 'react';
 
 const CommentItem = ({ comment, handleDelete }) => {
-  const user = useSelector(state => getUserById(state, comment?.uid));
+  const user = useSelector((state) => getUserById(state, comment?.uid));
   const currentUser = getCurrentUserFromState();
   const isCurrentUserComment = currentUser && currentUser.uid === comment.uid;
   const dispatch = useDispatch();
@@ -20,36 +18,32 @@ const CommentItem = ({ comment, handleDelete }) => {
       dispatch(fetchUsers());
     }
   }, [dispatch, comment]);
-  
-  
+
   return (
-    <>
-      <Flex alignItems="center">
-        <Avatar
-          size="sm"
-          name={user ? user.displayName : ''}
+    <div className="flex items-center">
+      <div className="w-10 h-10 rounded-full overflow-hidden">
+        <img
+          className="w-full h-full object-cover"
           src={user ? user.photoURL : ''}
+          alt={user ? user.displayName : ''}
         />
-        <Box ml={2}>
-          <Text fontSize="sm" fontWeight="bold">
-            {user ? user.displayName : ''}
-          </Text>
-          <Text fontSize={'xs'}>{comment.comment}</Text>
-        </Box>
-      </Flex>
-      <Box ml={10}>
-        {isCurrentUserComment ? (
-          <Link
-            as="button"
-            type="submit"
+      </div>
+      <div className="ml-2">
+        <p className="text-sm font-bold">{user ? user.displayName : ''}</p>
+        <p className="text-xs">{comment.comment}</p>
+      </div>
+      <div className="ml-10">
+        {isCurrentUserComment && (
+          <button
+            type="button"
             onClick={() => handleDelete(comment.id)}
-            fontSize={'xs'}
+            className="text-xs text-blue-500 hover:underline"
           >
             Delete
-          </Link>
-        ) : null}
-      </Box>
-    </>
+          </button>
+        )}
+      </div>
+    </div>
   );
 };
 

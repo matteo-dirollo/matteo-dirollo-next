@@ -1,18 +1,10 @@
-'use client'
+'use client';
 import React, { useRef } from 'react';
 import {
-  Box,
+  addToast,
   Button,
-  Flex,
-  Stack,
-  useToast,
-  useColorModeValue,
   Input,
-  InputGroup,
-  InputLeftElement,
-  Icon,
-  FormLabel,
-} from '@chakra-ui/react';
+} from '@heroui/react';
 import { CheckboxContainer, CheckboxControl } from 'formik-chakra-ui';
 import { Form, Formik } from 'formik';
 import LexicalErrorBoundary from '@lexical/react/LexicalErrorBoundary';
@@ -56,18 +48,16 @@ import FigmaPlugin from '@/components/ui/lexicalEditor/plugins/FigmaPlugin';
 import TwitterPlugin from '@/components/ui/lexicalEditor/plugins/TwitterPlugin';
 
 const AddPostForm = () => {
-  const toast = useToast();
   const editorInstanceRef = useRef(null);
   const dispatch = useDispatch();
-  const textColor = useColorModeValue('gray.700', 'gray.100');
 
   const toastSuccess = () => {
-    toast({
+    addToast({
       title: 'Post added.',
       description: 'You can see it in the blog',
-      status: 'success',
       duration: 3000,
       isClosable: true,
+      type: "success"
     });
   };
 
@@ -105,7 +95,7 @@ const AddPostForm = () => {
   };
 
   return (
-    <Box maxW="full" overflow="hidden">
+    <div className="max-w-full overflow-hidden">
       <Formik
         enableReinitialize={true}
         initialValues={initialValues}
@@ -123,26 +113,22 @@ const AddPostForm = () => {
           errors,
         }) => (
           <Form>
-            <Box>
+            <div>
               <MyTextInput label="Title" name="title" />
-            </Box>
-            <Box my={8}>
+            </div>
+            <div className="my-8">
               <LexicalComposer initialConfig={editorConfig}>
-                <Box
-                  sx={{
-                    '.other:h2': {
-                      fontSize: '18px',
-                      color: textColor,
-                      marginBottom: '7px',
-                    },
-                  }}
+                <div
                   className="editor-container"
                 >
                   <ToolbarPlugin />
-                  <Box className="editor-inner">
+                  <div className="editor-inner">
                     <RichTextPlugin
                       contentEditable={
-                        <ContentEditable className="editor-input" responsive-editor-input />
+                        <ContentEditable 
+                        className="editor-input" 
+                        // responsive-editor-input 
+                        />
                       }
                       placeholder={<Placeholder />}
                       ErrorBoundary={LexicalErrorBoundary}
@@ -170,17 +156,17 @@ const AddPostForm = () => {
                     <EmoticonPlugin />
                     <ListMaxIndentLevelPlugin maxDepth={7} />
                     <MarkdownShortcutPlugin transformers={TRANSFORMERS} />
-                  </Box>
-                </Box>
+                  </div>
+                </div>
               </LexicalComposer>
-            </Box>
+            </div>
             <br />
-            <Box>
-              <FormLabel>Image</FormLabel>
-              <InputGroup>
-                <InputLeftElement>
-                  <Icon as={FiFile} />
-                </InputLeftElement>
+            <div>
+              <label className="block mb-2">Image</label>
+              <div className="relative">
+                <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                  <FiFile className="w-5 h-5 text-gray-500 dark:text-gray-400" />
+                </div>
                 <Input
                   id="file"
                   type="file"
@@ -191,19 +177,10 @@ const AddPostForm = () => {
                   }}
                   name="img"
                   label="Image"
-                  sx={{
-                    '::file-selector-button': {
-                      height: 10,
-                      padding: 0,
-                      mr: 8,
-                      background: 'none',
-                      border: 'none',
-                      fontWeight: 'bold',
-                    },
-                  }}
+                  className="pl-10"
                 />
-              </InputGroup>
-            </Box>
+              </div>
+            </div>
             <br />
             <CheckboxContainer name="tags" label="Tags">
               <CheckboxControl name="tags" value="Design">
@@ -232,31 +209,32 @@ const AddPostForm = () => {
               </CheckboxControl>
             </CheckboxContainer>
             <br />
-            <Stack>
+            <div className="flex full-width gap-2">
               <Button
-                onClick={() => {
+                onPress={() => {
                   handleReset();
                 }}
-                colorScheme="gray"
-                maxW={300}
+                variant="light"
+                className="max-w-[300px] min-w-[150px]"
+                color="default"
               >
                 Reset
               </Button>
               <Button
                 isLoading={isSubmitting}
-                disable={!isValid || !dirty || isSubmitting}
+                isDisabled={!isValid || !dirty || isSubmitting}
                 type="submit"
-                bg='black'
-                color="white"
-                maxW={300}
+                className="max-w-[300px] min-w-[150px] text-white"
+                color="primary"
+                variant="solid"
               >
                 Add
               </Button>
-            </Stack>
+            </div>
           </Form>
         )}
       </Formik>
-    </Box>
+    </div>
   );
 };
 

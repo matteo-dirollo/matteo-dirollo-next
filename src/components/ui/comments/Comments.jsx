@@ -1,6 +1,5 @@
 "use client";
 import React, { useEffect } from "react";
-import { Box, Heading } from "@chakra-ui/react";
 import { useDispatch, useSelector } from "react-redux";
 import CommentItem from "./CommentItem";
 import CommentForm from "./CommentForm";
@@ -28,23 +27,21 @@ const Comments = ({ article }) => {
 
   const renderComments = sortedComments.map((comment, index) => {
     return (
-      <Box key={index} mb={2}>
+      <div key={index} className="mb-2">
         <CommentItem comment={comment} handleDelete={handleDelete} />
-      </Box>
+      </div>
     );
   });
 
   return (
-    <Box>
+    <div>
       {(authenticated || comments.length > 0) && (
-        <Heading my={5} as="h2" size="md">
-          Comments
-        </Heading>
+        <h2 className="my-5 text-md font-bold">Comments</h2>
       )}
 
       {authenticated && <CommentForm articleId={article.id} />}
       {comments.length > 0 ? renderComments : null}
-    </Box>
+    </div>
   );
 };
 

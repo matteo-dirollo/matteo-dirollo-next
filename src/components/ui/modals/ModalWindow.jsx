@@ -1,49 +1,50 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Modal,
-  ModalOverlay,
   ModalContent,
   ModalHeader,
   ModalFooter,
   ModalBody,
-  ModalCloseButton,
-  useColorModeValue,
-} from "@chakra-ui/react";
+  Button,
+} from "@heroui/react";
 import { useDispatch } from "react-redux";
 import { closeModal } from "@/components/ui/modals/modalSlice";
 
 const ModalWindow = ({ children, header, modalFooter, size }) => {
   const dispatch = useDispatch();
 
+  const handleClose = () => {
+    dispatch(closeModal());
+  };
+
+  useEffect(() => {
+    // You might want to add logic here to handle modal opening animations or other effects
+    // when the modal is mounted.
+  }, []);
+
   return (
     <Modal
-      size={size ? size : "md"}
-      isCentered
-      isOpen={true}
-      onClose={() => {
-        dispatch(closeModal());
-      }}
+      isOpen={true} // The modal is always open when this component is rendered
+      onClose={handleClose}
+      size={size}
+      backdrop="blur"
     >
-      <ModalOverlay
-        bg="blackAlpha.300"
-        backdropFilter="blur(10px) hue-rotate(90deg)"
-      />
       <ModalContent>
-        {header && <ModalHeader>{header}</ModalHeader>}
-        <ModalCloseButton />
-        <ModalBody
-          borderTopRadius="md"
-          bg={useColorModeValue("gray.50", "gray.800")}
-        >
-          {children}
-        </ModalBody>
-        <ModalFooter
-          borderBottomRadius="md"
-          bg={useColorModeValue("gray.50", "gray.800")}
-        >
-          {modalFooter}
-        </ModalFooter>
+        {header && (
+          <ModalHeader className="flex flex-col gap-1">
+            {header}
+          </ModalHeader>
+        )}
+        <ModalBody>{children}</ModalBody>
+        {modalFooter && (
+          <ModalFooter>
+            {modalFooter}
+            <Button color="danger" variant="light" onPress={handleClose}>
+              Close
+            </Button>
+          </ModalFooter>
+        )}
       </ModalContent>
     </Modal>
   );
