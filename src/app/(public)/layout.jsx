@@ -19,7 +19,11 @@ import { GoogleTagManager } from '@next/third-parties/google'
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <GoogleTagManager gtmId={process.env.NEXT_PUBLIC_GOOGLE_TAG_MANAGER_ID} />
+            <head>
+        {/* Tradedoubler site verification */}
+        <!--Tradedoubler site verification 3424982-->
+        <GoogleTagManager gtmId={process.env.NEXT_PUBLIC_GOOGLE_TAG_MANAGER_ID} />
+      </head>
       <body>
         <Providers>
           <PublicNav />
