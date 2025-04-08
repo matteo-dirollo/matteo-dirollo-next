@@ -28,8 +28,8 @@ import { useEffect, useRef, useState } from "react"
 import * as React from "react"
 import { CAN_USE_DOM } from "../canUseDOM"
 
-import landscapeImage from "../images/landscape.jpg"
-import yellowFlowerImage from "../images/yellow-flower.jpg"
+const landscapeImage = "/images/landscape.jpg";
+const yellowFlowerImage = "/images/yellow-flower.jpg";
 import {
   $createImageNode,
   $isImageNode,
