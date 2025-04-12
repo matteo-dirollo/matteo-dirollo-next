@@ -20,21 +20,20 @@ import { GoogleTagManager } from "@next/third-parties/google";
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <Head>
-        {/* Injecting raw HTML comment */}
-        <meta charSet="UTF-8" />
+    <head>
+        {/* Injecting raw HTML comment via script workaround */}
         <script
           dangerouslySetInnerHTML={{
             __html: `<!--Tradedoubler site verification 3425221-->`,
           }}
         />
-        <GoogleTagManager
-          gtmId={process.env.NEXT_PUBLIC_GOOGLE_TAG_MANAGER_ID}
-        />
-      </Head>
+      </head>
       <body>
         <Providers>
           <PublicNav />
+          <GoogleTagManager
+          gtmId={process.env.NEXT_PUBLIC_GOOGLE_TAG_MANAGER_ID}
+        />
           <ModalManager />
           {children}
           <FooterNewsletter />
