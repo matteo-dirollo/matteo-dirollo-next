@@ -1,14 +1,15 @@
-'use client'
-import { collection, getDocs } from 'firebase/firestore';
-import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+// c:\Users\Matteo Di Rollo\Desktop\Coding\matteo-dirollo-next\src\app\(admin)\admin\users\page.jsx
+"use client";
+import { collection, getDocs } from "firebase/firestore";
+import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import {
   asyncActionError,
   asyncActionFinish,
-  asyncActionStart} from '@/api/asyncSlice'
-import { db } from '@/api/firebase-config'; 
-import { Box, Flex, List, ListItem, StackDivider, Text, VStack } from '@chakra-ui/react';
-import { Divider } from 'semantic-ui-react';
+  asyncActionStart,
+} from "@/api/asyncSlice";
+import { db } from "@/api/firebase-config";
+import { Divider } from "@heroui/react";
 
 const UsersInfo = () => {
   const [docs, setDocs] = useState([]);
@@ -18,87 +19,77 @@ const UsersInfo = () => {
     async function fetchUserMsg() {
       dispatch(asyncActionStart());
       const data = [];
-      await getDocs(collection(db, 'users'))
-        .then(querySnpashot => {
-          querySnpashot.forEach(doc => {
-            // console.log(doc.id, '=>', doc.data());
-            data.push(doc.data());
-          });
-          dispatch(asyncActionFinish());
-        })
-        .catch(error => {
-          dispatch(asyncActionError(error));
-          console.log('Error getting documents: ', error);
+      try {
+        const querySnapshot = await getDocs(collection(db, "users"));
+        querySnapshot.forEach((doc) => {
+          data.push({ id: doc.id, ...doc.data() });
         });
-      setDocs(data);
+        setDocs(data);
+        dispatch(asyncActionFinish());
+      } catch (error) {
+        dispatch(asyncActionError(error));
+        console.error("Error getting documents: ", error);
+      }
     }
+
     fetchUserMsg();
+
     const timeInterval = setTimeout(() => {
       fetchUserMsg();
     }, 300000);
+
     return () => {
       clearTimeout(timeInterval);
     };
-  }, [dispatch]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [dispatch]);
 
   const displayUsers = docs.map((user, index) => {
+    const key = user.id || index;
     return (
-      <React.Fragment key={index}>
-        <ListItem>
-          <Flex
-            alignItems="start"
-            flexWrap="wrap"
-            flexDirection="horizontal"
-            gap="6"
-          >
-            <Box p="5px" minW="max-content" minH="40px">
-              <Text mt="8px" color="gray.400" fontSize="sm">
-                {index + 1}
-              </Text>
-            </Box>
-            <Box p="5px" minW="90px" minH="40px">
-              <Text color="gray.400" fontSize="xs">
-                Displayname
-              </Text>
-              <Text fontSize="md">{user.displayName}</Text>
-            </Box>
-            <Box p="5px" minW="90px" minH="40px">
-              <Text color="gray.400" fontSize="xs">
-                Email
-              </Text>
-              <Text fontSize="md">{user.email}</Text>
-            </Box>
-            <Box p="5px" minW="90px" minH="40px">
-              <Text color="gray.400" fontSize="xs">
-                Created on
-              </Text>
-              <Text fontSize="md">{user.createdOn}</Text>
-            </Box>
-            <Box p="5px" minW="90px" minH="40px">
-              <Text color="gray.400" fontSize="xs">
-                uid
-              </Text>
-              <Text fontSize="md">{user.userId}</Text>
-            </Box>
-          </Flex>
-        </ListItem>
-        <Divider />
-      </React.Fragment>
+      <div key={key}>
+        <li className="py-4">
+          <div className="flex flex-wrap items-start gap-6">
+            <div className="p-[5px] min-w-[40px] min-h-[40px]">
+              <p className="mt-2 text-sm text-gray-400">{index + 1}</p>
+            </div>
+
+            <div className="p-[5px] min-w-[90px] min-h-[40px]">
+              <p className="text-xs text-gray-400">Displayname</p>
+              <p className="text-base">{user.displayName}</p>
+            </div>
+
+            <div className="p-[5px] min-w-[90px] min-h-[40px]">
+              <p className="text-xs text-gray-400">Email</p>
+              <p className="text-base">{user.email}</p>
+            </div>
+
+            <div className="p-[5px] min-w-[90px] min-h-[40px]">
+              <p className="text-xs text-gray-400">Created on</p>
+              <p className="text-base">
+                {user.createdOn?.toDate
+                  ? user.createdOn.toDate().toLocaleDateString()
+                  : String(user.createdOn)}
+              </p>
+            </div>
+
+            <div className="p-[5px] min-w-[90px] min-h-[40px]">
+              <p className="text-xs text-gray-400">uid</p>
+              <p className="text-base break-all">{user.userId}</p>
+            </div>
+          </div>
+        </li>
+
+        {index < docs.length - 1 && <Divider />}
+      </div>
     );
   });
 
   return (
-    <>
-    <Text fontSize='sm' as='b' color="gray.600" >All users</Text>
-    <VStack
-      divider={<StackDivider borderColor="gray.200" />}
-      spacing={4}
-      align="stretch"
-    >
-      <List p={10}>{displayUsers}</List>
-    </VStack>
-    <Text fontSize='sm' as='b' color="gray.600" >Online</Text>
-    </>
+    <div className="p-4 md:p-6 lg:p-8">
+      <p className="text-sm font-bold text-gray-600 mb-4">All users</p>
+      <ul className="space-y-0">{displayUsers}</ul>
+      <p className="text-sm font-bold text-gray-600 mt-8">Online</p>
+    </div>
   );
 };
 
