@@ -55,7 +55,7 @@ const FooterNewsletter = () => {
   };
 
   return (
-    <div className="bg-gray-50 dark:bg-gray-900 text-gray-700 dark:text-gray-200">
+    <div className="bg-gray-50 dark:bg-gray-900 text-gray-700 dark:text-gray-200 p-10">
       <div className="container mx-auto max-w-6xl py-10">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
           <div className="space-y-6">
@@ -64,23 +64,27 @@ const FooterNewsletter = () => {
             </div>
             <p className="text-sm">© 2022 All rights reserved</p>
             <div className="flex space-x-6">
-              <button
+              <Button
+                isOnlyIcon
+                variant='ghost'
                 aria-label="github"
                 className="text-black dark:text-white hover:text-blackAlpha-300 dark:hover:text-blackAlpha-200 rounded-full"
               >
                 <BsGithub size="28px" />
-              </button>
+              </Button>
               <a
                 rel="me"
                 href="https://masto.ai/@matteodirollo"
                 target="_blank"
               >
-                <button
+                <Button
+                  isOnlyIcon
+                  variant='ghost'
                   aria-label="Mastodon"
                   className="text-black dark:text-white hover:text-blackAlpha-300 dark:hover:text-blackAlpha-200 rounded-full"
                 >
                   <FaMastodon size="28px" />
-                </button>
+                </Button>
               </a>
             </div>
           </div>
