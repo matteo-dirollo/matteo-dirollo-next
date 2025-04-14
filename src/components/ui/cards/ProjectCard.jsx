@@ -29,10 +29,18 @@ const ProjectCard = ({ post }) => {
         {/* Text content container */}
         <div className="p-3">
           {/* Apply hover styles conditionally based on this card's state */}
-          <p className={`text-sm text-purple-600 font-semibold transition-colors duration-150 ${isHovering ? 'text-purple-300' : ''}`}>
+          <p
+            className={`text-sm text-purple-600 font-semibold transition-colors duration-150 ${
+              isHovering ? "text-purple-300" : ""
+            }`}
+          >
             {_.first(post.category)}
           </p>
-          <h2 className={`text-xl text-gray-700 dark:text-gray-100 font-medium mt-1 transition-colors duration-150 ${isHovering ? 'text-gray-500' : ''}`}>
+          <h2
+            className={`text-xl text-gray-700 dark:text-gray-100 font-medium mt-1 transition-colors duration-150 ${
+              isHovering ? "text-gray-500" : ""
+            }`}
+          >
             {post.title}
           </h2>
           <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">

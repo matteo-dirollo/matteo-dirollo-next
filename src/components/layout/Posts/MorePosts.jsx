@@ -31,9 +31,8 @@ const MorePosts = ({ article }) => {
             {card.title}
           </p>
           <Image
-          isZoomed
-          alt={card.title}
-
+            isZoomed
+            alt={card.title}
             id="card-image"
             className="h-[250px] bg-cover bg-center aspect-square w-full max-w-[250px]"
             src={card.imageUrl}
