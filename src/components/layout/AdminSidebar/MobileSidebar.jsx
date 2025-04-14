@@ -1,32 +1,30 @@
-'use client'
-import { Box, Flex, IconButton, useColorModeValue } from '@chakra-ui/react';
+'use client';
 import React from 'react';
-import { FiMenu } from 'react-icons/fi';
+import { Button } from '@heroui/react'; // Import HeroUI Button
+import { FiMenu } from 'react-icons/fi'; // Keep the FiMenu icon
 import EmmeLogo from '../../../../public/EmmeLogo';
 
 const MobileSidebar = ({ onOpen, ...rest }) => {
   return (
-    <Flex
-      ml={{ base: 0, md: 60 }}
-      px={{ base: 4, md: 24 }}
-      height="20"
-      alignItems="center"
-      bg={useColorModeValue('white', 'gray.900')}
-      borderBottomWidth="1px"
-      borderBottomColor={useColorModeValue('gray.200', 'gray.700')}
-      justifyContent="flex-start"
+    <div
+      className="flex items-center justify-start px-4 md:px-24 h-20 border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900"
       {...rest}
     >
-      <IconButton
-        variant="outline"
-        onClick={onOpen}
+      <Button
+        isIconOnly
         aria-label="open menu"
-        icon={<FiMenu />}
-      />
-      <Box p={5}>
+        color="default"
+        variant="ghost"
+        size="md"
+        radius="full"
+        onPress={onOpen}
+      >
+        <FiMenu className="w-6 h-6 text-gray-600 dark:text-gray-300" />
+      </Button>
+      <div className="p-5">
         <EmmeLogo width={30} height={30} />
-      </Box>
-    </Flex>
+      </div>
+    </div>
   );
 };
 

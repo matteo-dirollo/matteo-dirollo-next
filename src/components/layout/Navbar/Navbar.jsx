@@ -1,129 +1,95 @@
-"use client";
-import React from "react";
-import {
-  Box,
-  Flex,
-  Text,
-  IconButton,
-  Button,
-  Stack,
-  Collapse,
-  useColorModeValue,
-  useBreakpointValue,
-  useDisclosure,
-} from "@chakra-ui/react";
-import Link from "next/link";
-import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
-import DesktopNav from "./DesktopNav";
-import MobileNav from "./MobileNav";
-import { useDispatch, useSelector } from "react-redux";
-import { openModal } from "../../ui/modals/modalSlice";
-import SignOut from "@/api/auth/ui/SignOut";
-
-import { ColorModeSwitcher } from "@/components/ui/ColorModeSwitcher";
-import EmmeLogo from "../../../../public/EmmeLogo";
+'use client';
+import React from 'react';
+import { Button } from '@heroui/react'; // Import HeroUI Button
+import Link from 'next/link';
+import { CiMenuBurger } from 'react-icons/ci'; // Import menu icon
+import { IoIosCloseCircleOutline } from 'react-icons/io'; // Import close icon
+import { useDispatch, useSelector } from 'react-redux';
+import { openModal } from '../../ui/modals/modalSlice';
+import SignOut from '@/api/auth/ui/SignOut';
+import { ColorModeSwitcher } from '@/components/ui/ColorModeSwitcher';
+import EmmeLogo from '../../../../public/EmmeLogo';
+import DesktopNav from './DesktopNav';
+import MobileNav from './MobileNav';
 
 const Navbar = () => {
   const { authenticated } = useSelector((state) => state.auth);
-  const { isOpen, onToggle } = useDisclosure();
+  const [isOpen, setIsOpen] = React.useState(false);
   const dispatch = useDispatch();
 
-  return (
-    <Box p={3} paddingBottom={0}>
-      <Flex
-        bg={useColorModeValue("white", "gray.800")}
-        color={useColorModeValue("gray.600", "white")}
-        minH={"60px"}
-        py={{ base: 2 }}
-        px={{ base: 4 }}
-        borderBottom={1}
-        borderStyle={"solid"}
-        borderColor={useColorModeValue("gray.200", "gray.900")}
-        align={"center"}
-      >
-        <Flex
-          flex={{ base: 1, md: "auto" }}
-          ml={{ base: -2 }}
-          display={{ base: "flex", md: "none" }}
-        >
-          <IconButton
-            onClick={onToggle}
-            icon={
-              isOpen ? <CloseIcon w={3} h={3} /> : <HamburgerIcon w={5} h={5} />
-            }
-            variant={"ghost"}
-            aria-label={"Toggle Navigation"}
-          />
-        </Flex>
-        <Flex
-          flex={{ base: 1 }}
-          justify={{ base: "center", md: "start" }}
-          minW="fit-content"
-        >
-          <Text
-            textAlign={useBreakpointValue({ base: "center", md: "left" })}
-            fontFamily={"heading"}
-            color={useColorModeValue("gray.800", "white")}
-          >
-            <Link href="/">
-           
-                <EmmeLogo width={"60"} height={"60"} />
-              
-            </Link>
-          </Text>
+  const handleToggle = () => {
+    setIsOpen(!isOpen);
+  };
 
-          <Flex display={{ base: "none", md: "flex" }} ml={10}>
+  return (
+    <div className="p-3 pb-0">
+      <div className="flex items-center justify-between bg-white dark:bg-gray-800 text-gray-600 dark:text-white min-h-[60px] py-2 px-4 border-b border-gray-200 dark:border-gray-900">
+        {/* Mobile Menu Button */}
+        <div className="flex md:hidden">
+          <Button
+            isIconOnly
+            aria-label="Toggle Navigation"
+            color="default"
+            variant="ghost"
+            size="md"
+            radius="full"
+            onPress={handleToggle}
+          >
+            {isOpen ? (
+              <IoIosCloseCircleOutline className="h-6 w-6 text-gray-600 dark:text-gray-200" />
+            ) : (
+              <CiMenuBurger className="h-6 w-6 text-gray-600 dark:text-gray-200" />
+            )}
+          </Button>
+        </div>
+
+        {/* Logo and Desktop Navigation */}
+        <div className="flex flex-1 items-center justify-center md:justify-between gap-10">
+          <Link href="/" className="flex items-center">
+            <EmmeLogo width="60" height="60" />
+          </Link>
+          <div className="hidden md:flex">
             <DesktopNav />
-          </Flex>
-        </Flex>
-        <Stack
-          flex={{ base: 1, md: 0 }}
-          justify={"flex-end"}
-          direction={"row"}
-          spacing={[2, 6, 6]}
-        >
-          <ColorModeSwitcher justifySelf="flex-end" display='none' />
+          </div>
+        </div>
+
+        {/* Authentication Buttons */}
+        <div className="flex flex-row gap-4">
+          <ColorModeSwitcher className="hidden" display='none' />
           {authenticated ? (
             <SignOut />
           ) : (
-            <Button
-              id="login-button"
-              size={["sm", "md"]}
-              fontSize={"sm"}
-              fontWeight={400}
-              variant={"unstyled"}
-              _hover={{ outline: "none", boxShadow: "none", fontWeight:'medium' }}
-              onClick={() => {
-                dispatch(openModal({ modalType: "SignIn" }));
-              }}
-            >
-              Sign In
-            </Button>
+            <>
+              <Button
+                id="login-button"
+                size="md"
+                fontSize="sm"
+                fontWeight="normal"
+                variant="light"
+                onPress={() => dispatch(openModal({ modalType: 'SignIn' }))}
+              >
+                Sign In
+              </Button>
+              <Button
+                size="md"
+                fontSize="sm"
+                fontWeight="normal"
+                color="primary"
+                onPress={() => dispatch(openModal({ modalType: 'SignUp' }))}
+              >
+                Sign Up
+              </Button>
+            </>
           )}
-          {authenticated ? null : (
-            <Button
-              fontSize={"sm"}
-              fontWeight={400}
-              color={"white"}
-              sx={{ bg: "black" }}
-              size={["sm", "md"]}
-              variant="solid"
-              onClick={() => {
-                dispatch(openModal({ modalType: "SignUp" }));
-              }}
-              _hover={{
-                bg: "#4e4e4e",
-              }}
-            >
-              Sign Up
-            </Button>
-          )}
-        </Stack>
-      </Flex>
-      <Collapse in={isOpen} animateOpacity>
-        <MobileNav onClick={onToggle} />
-      </Collapse>
-    </Box>
+        </div>
+      </div>
+
+      {isOpen && (
+        <div className="md:hidden p-4">
+          <MobileNav onClick={handleToggle} />
+        </div>
+      )}
+    </div>
   );
 };
 

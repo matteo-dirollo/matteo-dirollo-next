@@ -1,44 +1,27 @@
-'use client'
-import { Box, Flex } from '@chakra-ui/react';
+'use client';
 import Link from 'next/link';
 import React from 'react';
-import { Icon } from 'semantic-ui-react';
 
-const AdminItem = ({ icon, children, link, onClose, ...rest }) => {
+const AdminItem = ({ icon: Icon, children, link, onClose, ...rest }) => {
   return (
     <Link
       href={link}
-      style={{ textDecoration: 'none' }}
       onClick={onClose}
-      _focus={{ boxShadow: 'none' }}
+      className="no-underline focus:outline-none"
     >
-      <Flex
-        align="center"
-        p="4"
-        mx="4"
-        borderRadius="lg"
-        role="group"
-        cursor="pointer"
-        _hover={{
-          bg: 'cyan.400',
-          color: 'white',
-        }}
+      <div
+        className="flex items-center p-4 mx-4 rounded-lg cursor-pointer group hover:bg-cyan-400 hover:text-white"
         {...rest}
       >
-        {icon && (
-          <Box  mr="4">
+        {Icon && (
+          <div className="mr-4">
             <Icon
-             
-              fontSize="16"
-              _grouphover={{
-                color: 'white',
-              }}
-              as={icon}
+              className="w-5 h-5 group-hover:text-white"
             />
-          </Box>
+          </div>
         )}
-        {children}
-      </Flex>
+        <span>{children}</span>
+      </div>
     </Link>
   );
 };

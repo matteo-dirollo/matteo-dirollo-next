@@ -1,68 +1,55 @@
-'use client'
-import React from "react";
-import {
-  Stack,
-  Flex,
-  Text,
-  Icon,
-  Collapse,
-  useColorModeValue,
-  useDisclosure,
-} from "@chakra-ui/react";
-import Link from "next/link";
-import { ChevronDownIcon } from "@chakra-ui/icons";
+'use client';
+import React from 'react';
+import { Accordion, AccordionItem } from '@heroui/react'; // Import HeroUI Accordion
+import Link from 'next/link';
+import { GoChevronDown } from 'react-icons/go'; // Import GoChevronDown icon
 
-const MobileNavItem = ({ label, children, href }, onClick) => {
-  const { isOpen, onToggle } = useDisclosure();
+const MobileNavItem = ({ label, children, href, onClick }) => {
   return (
-    <Stack spacing={4} onClick={children && onToggle}>
-      <Flex
-        py={2}
-        as={Link}
-        href={href ?? "#"}
-        justify={"space-between"}
-        align={"center"}
-        _hover={{
-          textDecoration: "none",
-        }}
+    <div className="space-y-4">
+      <div
+        className="flex py-2 justify-between items-center"
+        onClick={children && onClick}
       >
-        <Text
-          fontWeight={600}
-          color={useColorModeValue("gray.600", "gray.200")}
+        <Link
+          href={href ?? '#'}
+          className="font-semibold text-gray-600 dark:text-gray-200 hover:underline"
         >
           {label}
-        </Text>
+        </Link>
         {children && (
-          <Icon
-            as={ChevronDownIcon}
-            transition={"all .25s ease-in-out"}
-            transform={isOpen ? "rotate(180deg)" : ""}
-            w={6}
-            h={6}
-          />
+          <GoChevronDown className="w-6 h-6 text-gray-600 dark:text-gray-200 transition-transform duration-300" />
         )}
-      </Flex>
+      </div>
 
-      <Collapse in={isOpen} animateOpacity style={{ marginTop: "0!important" }}>
-        <Stack
-          mt={2}
-          pl={4}
-          borderLeft={1}
-          borderStyle={"solid"}
-          borderColor={useColorModeValue("gray.200", "gray.700")}
-          align={"start"}
+      {children && (
+        <Accordion
+          variant="light"
+          selectionMode="single"
+          className="pl-4 border-l border-gray-200 dark:border-gray-700"
+          showDivider={false}
         >
-          {children &&
-            children.map((child) => (
-              <Link onClick={onClick} href={child.href} key={child.label} passHref>
-              
-                  {child.label}
-              
+          <AccordionItem
+            title=""
+            classNames={{
+              content: 'space-y-2',
+            }}
+            hideIndicator
+          >
+            {children.map((child) => (
+              <Link
+                onClick={onClick}
+                href={child.href}
+                key={child.label}
+                className="block py-1 text-gray-600 dark:text-gray-300 hover:text-gray-800 dark:hover:text-white"
+              >
+                {child.label}
               </Link>
             ))}
-        </Stack>
-      </Collapse>
-    </Stack>
+          </AccordionItem>
+        </Accordion>
+      )}
+    </div>
   );
 };
 

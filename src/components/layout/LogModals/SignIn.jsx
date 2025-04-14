@@ -1,18 +1,9 @@
-'use client'
+'use client';
 import React from 'react';
 import { Form, Formik } from 'formik';
 import * as Yup from 'yup';
 import MyTextInput from '@/components/ui/inputs/MyTextInput';
-import {
-  Button,
-  Flex,
-  Stack,
-  Text,
-  Box,
-  Link,
-  useColorModeValue,
-  Divider,
-} from '@chakra-ui/react';
+import { Button, Divider } from '@heroui/react'; // Import HeroUI components
 import { useDispatch } from 'react-redux';
 import { openModal, closeModal } from '@/components/ui/modals/modalSlice';
 import SocialLogin from '@/components/ui/socialLogin/SocialLogin';
@@ -33,10 +24,9 @@ export default function SignIn() {
       .required('Required')
       .email('Invalid email'),
     password: Yup.string()
-      .min(8, 'passwords must be at least 8 characters long')
+      .min(8, 'Passwords must be at least 8 characters long')
       .max(30, 'Too long!')
       .required('Required')
-      //  '^(?=.*\\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$',
       .matches(
         '^(?=.*\\d)(?=.*[a-z]).{8,}$',
         'Must contain at least 8 characters and one number'
@@ -51,29 +41,15 @@ export default function SignIn() {
     } catch (error) {
       setSubmitting(false);
       setErrors({ auth: 'Wrong email or password' });
-      console.log(error)
+      console.log(error);
     }
   };
 
   return (
     <ModalWindow>
-      <Flex
-        align={'center'}
-        justify={'center'}
-        bg={useColorModeValue('gray.50', 'gray.800')}
-        id='login-modal'
-      >
-        <Stack spacing={6} mx={'auto'} maxW={'lg'} px={6}>
-          {/* <Stack align={'center'}>
-            <Heading fontSize={'4xl'} textAlign={'center'}>
-              Hi there !
-            </Heading>
-            <Text fontSize={'sm'} color={'gray.600'} textAlign="center">
-              Login to get full access or register <br /> if you haven't done it
-              yet ✌️
-            </Text>
-          </Stack> */}
-          <Box rounded={'lg'} p={10} pb={5}>
+      <div className="flex items-center justify-center bg-gray-50 dark:bg-gray-800" id="login-modal">
+        <div className="space-y-6 mx-auto max-w-lg px-6">
+          <div className="rounded-lg p-10 pb-5 bg-white dark:bg-gray-900">
             <Formik
               initialValues={initialValues}
               validationSchema={validationSchema}
@@ -85,7 +61,7 @@ export default function SignIn() {
                     label="Email"
                     name="email"
                     placeholder="example@xzy.com"
-                    id='email'
+                    id="email"
                   />
 
                   <MyTextInput
@@ -93,51 +69,49 @@ export default function SignIn() {
                     name="password"
                     placeholder="Password"
                     type="password"
-                    id='password'
+                    id="password"
                   />
                   {errors.auth && (
-                    <Text color="red.300" fontSize="sm">
-                      {errors.auth}
-                    </Text>
+                    <p className="text-red-500 text-sm">{errors.auth}</p>
                   )}
                   <br />
 
-                  <Stack>
+                  <div className="space-y-4">
                     <Button
                       isLoading={isSubmitting}
-                      disable={!isValid || !dirty || isSubmitting}
+                      isDisabled={!isValid || !dirty || isSubmitting}
                       type="submit"
-                      bg='black'
-                      color="white"
-                      width="100%"
-                      _hover={{color:'black', bg:'blackAlpha.200'}}
-                      id='submit-button'
+                      color="default"
+                      variant="solid"
+                      size="lg"
+                      className="w-full bg-black text-white hover:bg-gray-800"
+                      id="submit-button"
                     >
                       Sign In
                     </Button>
-                    <Divider my="1em" orientation="horizontal" />
+                    <Divider />
                     <SocialLogin />
-                  </Stack>
+                  </div>
                 </Form>
               )}
             </Formik>
-            <Stack pt={6}>
-              <Text align={'center'}>
+            <div className="pt-6">
+              <p className="text-center">
                 Not registered?{' '}
-                <Link
+                <span
                   onClick={() => {
                     dispatch(closeModal());
                     dispatch(openModal({ modalType: 'SignUp' }));
                   }}
-                  color={'blue.400'}
+                  className="text-blue-500 cursor-pointer"
                 >
                   Sign Up
-                </Link>
-              </Text>
-            </Stack>
-          </Box>
-        </Stack>
-      </Flex>
+                </span>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
     </ModalWindow>
   );
 }
