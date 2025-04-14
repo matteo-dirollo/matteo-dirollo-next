@@ -1,13 +1,22 @@
 "use client";
-import { Heading, useColorModeValue } from "@chakra-ui/react";
 import React from "react";
 
-const CustomHeading = ({ children, my, as, size, lineHeight, fontSize }) => {
-  const textColor = useColorModeValue("gray.700", "gray.100");
+const CustomHeading = ({ children, my, as: Tag = "h1", size, lineHeight, fontSize }) => {
+  const textColor = "text-gray-700 dark:text-gray-100"; // Tailwind CSS for light and dark mode
+
+  const sizeClasses = {
+    sm: "text-sm",
+    md: "text-lg",
+    lg: "text-2xl",
+    xl: "text-4xl",
+  };
+
   return (
-    <Heading my={my} fontSize={fontSize} color={textColor} as={as} size={size} lineHeight={lineHeight}>
+    <Tag
+      className={`${textColor} ${sizeClasses[size] || ""} ${lineHeight || ""} ${fontSize || ""} my-${my || "4"}`}
+    >
       {children}
-    </Heading>
+    </Tag>
   );
 };
 

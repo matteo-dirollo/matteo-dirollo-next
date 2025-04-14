@@ -1,23 +1,32 @@
-import React from 'react';
-import {  useColorModeValue, IconButton } from '@chakra-ui/react';
-import { FaMoon, FaSun } from 'react-icons/fa';
+import React, { useState } from "react";
+import { FaMoon, FaSun } from "react-icons/fa";
+import { Button } from "@heroui/react";
 
-export const ColorModeSwitcher = props => {
-  const toggleColorMode = () => {'light'};
-  const text = useColorModeValue('dark', 'light');
-  const SwitchIcon = useColorModeValue(FaMoon, FaSun);
+export const ColorModeSwitcher = (props) => {
+  const [isDarkMode, setIsDarkMode] = useState(false);
+
+  const toggleColorMode = () => {
+    setIsDarkMode(!isDarkMode);
+    if (isDarkMode) {
+      document.documentElement.classList.remove("dark");
+    } else {
+      document.documentElement.classList.add("dark");
+    }
+  };
+
+  const text = isDarkMode ? "light" : "dark";
+  const SwitchIcon = isDarkMode ? FaSun : FaMoon;
 
   return (
-    <IconButton
-      size="md"
-      fontSize="lg"
-      aria-label={`Switch to ${text} mode`}
+    <Button
       variant="ghost"
-      color="current"
-      marginLeft="2"
-      onClick={toggleColorMode}
-      icon={<SwitchIcon />}
+      size="sm"
+      className="p-2 ml-2 text-current rounded-full"
+      aria-label={`Switch to ${text} mode`}
+      onPress={toggleColorMode}
       {...props}
-    />
+    >
+      <SwitchIcon className="text-lg" />
+    </Button>
   );
 };

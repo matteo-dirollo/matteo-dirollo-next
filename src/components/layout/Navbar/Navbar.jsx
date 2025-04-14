@@ -44,7 +44,7 @@ const Navbar = () => {
         </div>
 
         {/* Logo and Desktop Navigation */}
-        <div className="flex flex-1 items-center justify-center md:justify-between gap-10">
+        <div id='' className="flex flex-1 items-center gap-10">
           <Link href="/" className="flex items-center">
             <EmmeLogo width="60" height="60" />
           </Link>
@@ -84,6 +84,7 @@ const Navbar = () => {
         </div>
       </div>
 
+      {/* Mobile Navigation */}
       {isOpen && (
         <div className="md:hidden p-4">
           <MobileNav onClick={handleToggle} />

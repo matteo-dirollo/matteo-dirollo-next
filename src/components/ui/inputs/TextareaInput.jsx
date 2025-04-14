@@ -1,41 +1,23 @@
-import React from 'react';
-import { useField } from 'formik';
-import {
-  FormControl,
-  FormLabel,
-  FormErrorMessage,
-  Textarea,
-  useColorModeValue,
-} from '@chakra-ui/react';
+"use client";
+import React from "react";
+import { useField } from "formik";
+import { Form, Textarea } from "@heroui/react";
 
-export default function TextareaInput({ errors, label, ...props }) {
+export default function TextareaInput({ label, ...props }) {
   const [field, meta] = useField(props);
+
   return (
-    <FormControl isInvalid={meta.touched && !!meta.error}>
-      <FormLabel
-        color={useColorModeValue('gray.700', 'gray.100')}
-        marginTop="12px"
-      >
-        {label}
-      </FormLabel>
+    <Form className="w-full flex flex-col gap-3">
       <Textarea
-        variant="filled"
-        sx={{
-          borderRadius: 0,
-          borderWidth: '1px',
-          // borderColor: 'gray.300',
-          _focus: {
-            borderColor: 'blackAlpha.700',
-            borderWidth: '2px', // Change the border weight for the :focus state
-          },
-        }}
-        // placeholder="Text here..."
+        label={label}
+        labelPlacement="outside"
+        placeholder="Enter your text here..."
+        className="max-w-full"
+        isInvalid={meta.touched && !!meta.error}
+        errorMessage={meta.touched && meta.error ? meta.error : undefined}
         {...field}
         {...props}
       />
-      {meta.touched && meta.error ? (
-        <FormErrorMessage>{meta.error}</FormErrorMessage>
-      ) : null}
-    </FormControl>
+    </Form>
   );
 }

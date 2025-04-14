@@ -1,107 +1,95 @@
-'use client'
-import {
-  Box,
-  HStack,
-  IconButton,
-  useColorModeValue,
-} from '@chakra-ui/react';
-import React from 'react';
-import ModalWindow from '../modals/ModalWindow';
-import { MdFacebook } from 'react-icons/md';
-import { AiFillLinkedin, AiFillTwitterCircle } from 'react-icons/ai';
-import { BsMastodon } from 'react-icons/bs';
-import { usePathname } from 'next/navigation';
-import ReadOnlyInputWithCopyButton from '../inputs/ReadOnlyInputWithCopyButton';
+"use client";
+import React from "react";
+import { Button } from "@heroui/react"; // Import HeroUI Button
+import { MdFacebook } from "react-icons/md";
+import { AiFillLinkedin, AiFillTwitterCircle } from "react-icons/ai";
+import { BsMastodon } from "react-icons/bs";
+import { usePathname } from "next/navigation";
+import ModalWindow from "../modals/ModalWindow";
+import ReadOnlyInputWithCopyButton from "../inputs/ReadOnlyInputWithCopyButton";
 
 const ShareOnSocials = () => {
   const slug = usePathname();
-  const buttonColor = useColorModeValue('teal.500', 'teal.300');
-  const buttonHoverColor = useColorModeValue('teal.600', 'teal.400');
   const copyURL = `https://matteo-dirollo.com${slug}`;
-
 
   const handleFacebookShare = () => {
     const url = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
       copyURL
     )}`;
-    window.open(url, '_blank');
+    window.open(url, "_blank");
   };
 
   const handleTwitterShare = () => {
     const url = `https://twitter.com/intent/tweet?url=${encodeURIComponent(
       copyURL
     )}`;
-    window.open(url, '_blank');
+    window.open(url, "_blank");
   };
 
   const handleMastodonShare = () => {
-    const url = `https://share.naturalnews.com/link/${encodeURIComponent(copyURL)}`;
-    window.open(url, '_blank');
+    const url = `https://share.naturalnews.com/link/${encodeURIComponent(
+      copyURL
+    )}`;
+    window.open(url, "_blank");
   };
 
   const handleLinkedInShare = () => {
     const url = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(
       copyURL
     )}`;
-    window.open(url, '_blank');
+    window.open(url, "_blank");
   };
 
   return (
     <ModalWindow>
-      <Box mt={20} mb={5}>
+      <div className="mt-20 mb-5">
         <ReadOnlyInputWithCopyButton value={copyURL} />
-      </Box>
-      <HStack>
-        <Box>
-          <IconButton
-            aria-label="facebook"
-            variant="ghost"
-            size="sm"
-            isRound={true}
-            color={buttonColor}
-            _hover={{ color: `${buttonHoverColor}` }}
-            onClick={handleFacebookShare}
-            icon={<MdFacebook size="28px" />}
-          />
-        </Box>
-        {/* SHARING BUTTONS */}
-        <Box>
-          <IconButton
-            aria-label="twitter"
-            variant="ghost"
-            size="sm"
-            isRound={true}
-            color={buttonColor}
-            _hover={{ color: `${buttonHoverColor}` }}
-            onClick={handleTwitterShare}
-            icon={<AiFillTwitterCircle size="28px" />}
-          />
-        </Box>
-        <Box>
-          <IconButton
-            aria-label="mastodon"
-            variant="ghost"
-            size="sm"
-            isRound={true}
-            color={buttonColor}
-            _hover={{ color: `${buttonHoverColor}` }}
-            onClick={handleMastodonShare}
-            icon={<BsMastodon size="28px" />}
-          />
-        </Box>
-        <Box>
-          <IconButton
-            aria-label="linkedin"
-            variant="ghost"
-            size="sm"
-            isRound={true}
-            color={buttonColor}
-            _hover={{ color: `${buttonHoverColor}` }}
-            onClick={handleLinkedInShare}
-            icon={<AiFillLinkedin size="28px" />}
-          />
-        </Box>
-      </HStack>
+      </div>
+      <div className="flex gap-4">
+        {/* Facebook Share Button */}
+        <Button
+          variant="ghost"
+          size="sm"
+          className="rounded-full text-teal-500 hover:text-teal-600 p-2"
+          aria-label="facebook"
+          onPress={handleFacebookShare}
+        >
+          <MdFacebook size="20" />
+        </Button>
+
+        {/* Twitter Share Button */}
+        <Button
+          variant="ghost"
+          size="sm"
+          className="rounded-full text-teal-500 hover:text-teal-600 p-2"
+          aria-label="twitter"
+          onPress={handleTwitterShare}
+        >
+          <AiFillTwitterCircle size="20" />
+        </Button>
+
+        {/* Mastodon Share Button */}
+        <Button
+          variant="ghost"
+          size="sm"
+          className="rounded-full text-teal-500 hover:text-teal-600 p-2"
+          aria-label="mastodon"
+          onPress={handleMastodonShare}
+        >
+          <BsMastodon size="20" />
+        </Button>
+
+        {/* LinkedIn Share Button */}
+        <Button
+          variant="ghost"
+          size="sm"
+          className="rounded-full text-teal-500 hover:text-teal-600 p-2"
+          aria-label="linkedin"
+          onPress={handleLinkedInShare}
+        >
+          <AiFillLinkedin size="20" />
+        </Button>
+      </div>
     </ModalWindow>
   );
 };
