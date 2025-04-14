@@ -1,16 +1,6 @@
 'use client'
 import React from 'react';
-import {
-  Flex,
-  Box,
-  Heading,
-  Text,
-  IconButton,
-  Button,
-  HStack,
-  useColorModeValue,
-  useToast,
-} from '@chakra-ui/react';
+import { Button, addToast } from '@heroui/react';
 import { Form, Formik } from 'formik';
 import * as Yup from 'yup';
 
@@ -22,22 +12,7 @@ import MyTextInput from '../../../components/ui/inputs/MyTextInput';
 import TextareaInput from '../../../components/ui/inputs/TextareaInput';
 import { db } from '../../../api/firebase-config.js';
 
-
 const ContactForm = () => {
-  const toast = useToast();
-  const textColor = useColorModeValue('black', 'white');
-  const emailToColor = useColorModeValue('blackAlpha.100', 'whiteAlpha.100');
-  const buttonColor = useColorModeValue('black', 'blackAlpha.200');
-  const buttonHoverColor = useColorModeValue('blackAlpha.200', 'white');
-  const tastSuccess = () => {
-    toast({
-      title: 'Messsage sent.',
-      description: 'Your message has been sent',
-      status: 'success',
-      duration: 3000,
-      isClosable: true,
-    });
-  };
   const initialValues = {
     name: '',
     surname: '',
@@ -59,6 +34,7 @@ const ContactForm = () => {
       time: Timestamp.now(),
     });
   };
+
   const validationSchema = Yup.object({
     name: Yup.string().min(3, 'Too short!').required('Required'),
     surname: Yup.string().min(3, 'Too short!').required('Required'),
@@ -73,87 +49,61 @@ const ContactForm = () => {
     try {
       await collectData(values);
       resetForm();
-      tastSuccess();
+      addToast({
+        title: 'Message sent',
+        description: 'Your message has been sent successfully!',
+        status: 'success',
+        duration: 3000,
+      });
     } catch (error) {
-      toast({
-        title: 'An Error occurred.',
-        description: 'Something went wrong, try later.',
+      addToast({
+        title: 'Error',
+        description: 'Something went wrong. Please try again later.',
         status: 'error',
         duration: 3000,
-        isClosable: true,
       });
       throw error;
     } finally {
       setSubmitting(false);
     }
   };
+
   return (
-    <Flex
-      my={20}
-      justifyContent="center"
-      flexDirection={['column', 'column', 'row']}
-    >
-      <Box mx={10} minW={[250, 300, 500]} maxW={700}>
-        <Heading color={textColor}>{'Let\'s work together !'}</Heading>
-        <Text mt={{ sm: 3, md: 3, lg: 5 }} maxW={700} color={textColor}>
-          {'Have a project in mind? Let\'s collaborate and bring it to life! From logos and websites to infographics and animations, I can create captivating designs tailored to your needs. Get in touch today and let\'s make something amazing together!'}
-        </Text>
+    <div className="flex flex-col md:flex-row justify-center my-20">
+      <div className="mx-10 min-w-[250px] md:min-w-[300px] lg:min-w-[500px] max-w-[700px]">
+        <h1 className="text-black text-2xl font-bold">{'Let\'s work together!'}</h1>
+        <p className="mt-5 text-black">
+          {'Do you have a project in mind? Let\'s collaborate and bring it to life! From logos and websites to infographics and animations, I can create captivating designs tailored to your needs. Get in touch today and let\'s make something amazing together!'}
+        </p>
 
         <Button
-          my={{ base: 5, sm: 5, md: 8, lg: 10 }}
-          size="md"
-          height="48px"
-          width="auto"
-          variant="ghost"
-          color={textColor}
-          _hover={{ backgroundColor: emailToColor }}
-          border={'2px solid #000000'}
-          leftIcon={<MdEmail color="black" size="20px" />}
-          onClick={handleClick}
+          color="danger"
+          startContent={<MdEmail />}
+          variant="bordered"
+          className="mt-5 md:mt-10 px-4 py-2 border-2 border-black text-black hover:bg-gray-200 flex items-center"
+          onPress={handleClick}
         >
           matteo.dirollo@icloud.com
         </Button>
-        <HStack
-          mt={{ lg: 10, md: 10 }}
-          spacing={5}
-          px={5}
-          alignItems="flex-start"
-        >
-          <IconButton
-            aria-label="github"
-            variant="ghost"
-            size="sm"
-            isRound={true}
-            color={buttonColor}
-            _hover={{ color: `${buttonHoverColor}` }}
-            icon={<BsGithub size="28px" />}
-          />
-          <IconButton
-            aria-label="Mastodon"
-            variant="ghost"
-            size="sm"
-            isRound={true}
-            color={buttonColor}
-            _hover={{ color: `${buttonHoverColor}` }}
-            icon={<FaMastodon size="28px" />}
-          />
-        </HStack>
-      </Box>
 
-      <Flex
-        flexDirection="column"
-        justifySelf={'center'}
-        spacing={5}
-        minW={[180, 250, 500]}
-        m={[10, 10, 0]}
-      >
+        <div className="flex mt-10 space-x-5">
+          <Button isIconOnly aria-label="Github" color="danger">
+            <BsGithub size="28px" />
+          </Button>
+          <Button isIconOnly aria-label="Mastodon" color="danger">
+            <FaMastodon size="28px" />
+          </Button>
+        </div>
+      </div>
+
+      <div className="flex flex-col justify-center mx-10 md:mx-0 mt-10 md:mt-0">
         <Formik
           initialValues={initialValues}
           validationSchema={validationSchema}
           onSubmit={handleSubmit}
         >
           {({ isSubmitting, isValid, dirty, errors }) => (
-            <Form>
+            <form className="space-y-5">
               <MyTextInput label="Name" name="name" />
               <MyTextInput label="Last Name" name="surname" />
               <MyTextInput
@@ -164,30 +114,22 @@ const ContactForm = () => {
               <TextareaInput label="Message" name="message" />
 
               {errors.auth && (
-                <Text color="red.300" fontSize="sm">
-                  {errors.auth}
-                </Text>
+                <p className="text-red-500 text-sm">{errors.auth}</p>
               )}
 
               <Button
                 isLoading={isSubmitting}
-                disable={!isValid || !dirty || isSubmitting}
+                disabled={!isValid || !dirty || isSubmitting}
                 type="submit"
-                color='white'
-                _hover={{color:'black', bg:'blackAlpha.200'}}
-                bg="black"
-                minW={200}
-                p={5}
-                py={7}
-                my={6}
+                className="bg-black text-white hover:bg-gray-800 px-5 py-3 mt-6"
               >
                 Send
               </Button>
-            </Form>
+            </form>
           )}
         </Formik>
-      </Flex>
-    </Flex>
+      </div>
+    </div>
   );
 };
 

@@ -4,6 +4,8 @@ import React, { useEffect, useMemo, useState } from "react";
 import { useSelector } from "react-redux";
 import { selectAllPosts } from "@/app/(public)/projects/postsSlice";
 import _ from "lodash";
+import { Image } from "@heroui/react";
+import { NextImage } from "next/image";
 
 const MorePosts = ({ article }) => {
   const posts = useSelector(selectAllPosts);
@@ -28,10 +30,13 @@ const MorePosts = ({ article }) => {
           <p className="mb-2 text-sm text-gray-700 dark:text-gray-100 font-bold leading-tight">
             {card.title}
           </p>
-          <div
+          <Image
+          isZoomed
+          alt={card.title}
+
             id="card-image"
             className="h-[250px] bg-cover bg-center aspect-square w-full max-w-[250px]"
-            style={{ backgroundImage: `url(${card.imageUrl})` }}
+            src={card.imageUrl}
           />
         </Link>
       </div>

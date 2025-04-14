@@ -1,14 +1,7 @@
 import { store } from "@/lib/store";
 import { fetchSinglePost, fetchPosts } from "../postsSlice";
 import ArticleHeading from "@/components/ui/text/headings/ArticleHeading";
-import {
-  Container,
-  Box,
-  Center,
-  Divider,
-  Spacer,
-  HStack,
-} from "@/styles/ChakraImports";
+import { Spacer, Divider } from "@heroui/react";
 import Subtitle from "@/components/layout/Posts/Subtitle";
 import PlainEditor from "@/components/ui/lexicalEditor/PlainEditor";
 import Tags from "@/components/layout/Posts/Tags";
@@ -50,7 +43,6 @@ export async function generateMetadata({ params }) {
   ).toLocaleDateString();
   modifiedArticle.body = JSON.parse(article.body);
 
-  // console.log(article.body)
   return {
     title: article.title,
     description: truncatedArticleDescription,
@@ -131,47 +123,32 @@ export default async function Article({ params }) {
   ).toLocaleDateString();
   modifiedArticle.body = JSON.parse(article.body);
   return (
-    <div>
-      <Container
-        my={10}
-        align="stretch"
-        maxW={["fit-content", "80%"]}
-        style={{ overflowX: "hidden" }}
-      >
-        <Box
-          as="article"
-          key={modifiedArticle.id}
-          maxW={"1000px"}
-          margin={"auto"}
-        >
+    <div className="flex flex-col items-center my-10">
+      <div className="w-full max-w-[80%] overflow-hidden">
+        <article className="max-w-[1000px] mx-auto">
           <ArticleHeading title={modifiedArticle.title} />
           <Subtitle article={modifiedArticle} />
-          <Center>
-            <Box
-              w="100%"
-              maxW={"1000px"}
-              minH={"500"}
-              sx={{
+          <div className="flex justify-center">
+            <div
+              className="w-full max-w-[1000px] min-h-[500px] mt-5 mb-5"
+              style={{
                 backgroundImage: `url(${modifiedArticle.imageUrl})`,
                 backgroundPosition: "center",
                 backgroundSize: "cover",
               }}
-              mt={5}
-              mb={5}
             />
-          </Center>
+          </div>
           <PlainEditor stateInstance={modifiedArticle.body} />
-        </Box>
-        <Divider my={10} />
-        <HStack>
-          {/* Share button */}
+        </article>
+        <Divider className="my-10" />
+        <div className="flex items-center">
           <Spacer />
           <Tags article={modifiedArticle} />
-        </HStack>
+        </div>
         <Comments article={modifiedArticle} />
         <br />
-        <MorePosts width="100%" article={modifiedArticle} />
-      </Container>
+        <MorePosts className="w-full" article={modifiedArticle} />
+      </div>
     </div>
   );
 }

@@ -1,6 +1,5 @@
 import "../globals.css";
 import "../../styles/fonts.css";
-import Head from "next/head";
 
 // LEXICAL STYLES
 import "@/components/ui/lexicalEditor/ui/Button.css";

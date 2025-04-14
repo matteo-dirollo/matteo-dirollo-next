@@ -1,10 +1,10 @@
 'use client'
 import React from 'react';
-import { Button } from '@chakra-ui/react';
 import { useDispatch } from 'react-redux';
 import { socialLogin } from '@/api/auth/authSlice';
 import { FaFacebook, FaGoogle } from 'react-icons/fa';
 import { closeModal } from '@/components/ui/modals/modalSlice';
+import { Button } from '@heroui/react';
 
 const SocialLogin = () => {
   const dispatch = useDispatch();
@@ -15,19 +15,22 @@ const SocialLogin = () => {
   return (
     <>
       <Button
-        onClick={() => handleSocialLogin('google')}
-        leftIcon={<FaGoogle />}
-        colorScheme="red"
+        onPress={() => handleSocialLogin('google')}
+        startContent={<FaGoogle />}
+        className='mt-2 bg-red-400'
         minW="100%"
+        variant="solid"
+        width="100%"
         size="md"
       >
         Login with Google
       </Button>
       <Button
-        onClick={() => handleSocialLogin('facebook')}
-        leftIcon={<FaFacebook />}
-        marginTop="0.4em"
-        colorScheme="facebook"
+        onPress={() => handleSocialLogin('facebook')}
+        startContent={<FaFacebook />}
+        className='mt-2 bg-blue-400'
+        minW="100%"
+        variant="solid"
         width="100%"
         size="md"
       >
