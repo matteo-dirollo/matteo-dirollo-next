@@ -44,7 +44,7 @@ const Navbar = () => {
         </div>
 
         {/* Logo and Desktop Navigation */}
-        <div id='' className="flex flex-1 items-center gap-10">
+        <div id="left-navbar" className="flex flex-1 items-center gap-10 justify-center md:justify-start">
           <Link href="/" className="flex items-center">
             <EmmeLogo width="60" height="60" />
           </Link>
