@@ -1,13 +1,13 @@
 "use client";
 import React from "react";
 import { useField } from "formik";
-import { Form, Textarea } from "@heroui/react";
+import { Textarea } from "@heroui/react";
 
 export default function TextareaInput({ label, ...props }) {
   const [field, meta] = useField(props);
 
   return (
-    <Form className="w-full flex flex-col gap-3">
+    <div className="w-full flex flex-col gap-3">
       <Textarea
         label={label}
         labelPlacement="outside"
@@ -18,6 +18,6 @@ export default function TextareaInput({ label, ...props }) {
         {...field}
         {...props}
       />
-    </Form>
+    </div>
   );
 }

@@ -1,7 +1,7 @@
 'use client'
 import React from 'react';
 import { Button, addToast } from '@heroui/react';
-import { Form, Formik } from 'formik';
+import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 
 import { MdEmail } from 'react-icons/md';
@@ -24,7 +24,7 @@ const ContactForm = () => {
     window.location.href = 'mailto:matteo.dirollo@icloud.com';
   };
 
-  const collectData = async values => {
+  const collectData = async (values) => {
     const contactsPageCollectionRef = collection(db, 'Contact_Form');
     await addDoc(contactsPageCollectionRef, {
       name: values.name,
@@ -70,7 +70,8 @@ const ContactForm = () => {
 
   return (
     <div className="flex flex-col md:flex-row justify-center my-20">
-      <div className="mx-10 min-w-[250px] md:min-w-[300px] lg:min-w-[500px] max-w-[700px]">
+      {/* Left Column */}
+      <div className="mx-5 md:mx-10 min-w-[250px] md:min-w-[300px] lg:min-w-[400px] max-w-[600px]">
         <h1 className="text-black text-2xl font-bold">{'Let\'s work together!'}</h1>
         <p className="mt-5 text-black">
           {'Do you have a project in mind? Let\'s collaborate and bring it to life! From logos and websites to infographics and animations, I can create captivating designs tailored to your needs. Get in touch today and let\'s make something amazing together!'}
@@ -87,23 +88,36 @@ const ContactForm = () => {
         </Button>
 
         <div className="flex mt-10 space-x-5">
-          <Button isIconOnly aria-label="Github" color="danger">
-            <BsGithub size="28px" />
+          <Button
+            isIconOnly
+            aria-label="Github"
+            color="default"
+            variant="ghost"
+            className="hover:bg-gray-200 focus:bg-gray-300"
+          >
+            <BsGithub size="28px" className="text-black" />
           </Button>
-          <Button isIconOnly aria-label="Mastodon" color="danger">
-            <FaMastodon size="28px" />
+          <Button
+            isIconOnly
+            aria-label="Mastodon"
+            color="default"
+            variant="ghost"
+            className="hover:bg-gray-200 focus:bg-gray-300"
+          >
+            <FaMastodon size="28px" className="text-black" />
           </Button>
         </div>
       </div>
 
-      <div className="flex flex-col justify-center mx-10 md:mx-0 mt-10 md:mt-0">
+      {/* Right Column */}
+      <div className="flex flex-col justify-center mx-5 md:mx-10 mt-10 md:mt-0 w-full max-w-[700px]">
         <Formik
           initialValues={initialValues}
           validationSchema={validationSchema}
           onSubmit={handleSubmit}
         >
           {({ isSubmitting, isValid, dirty, errors }) => (
-            <form className="space-y-5">
+            <Form className="space-y-5">
               <MyTextInput label="Name" name="name" />
               <MyTextInput label="Last Name" name="surname" />
               <MyTextInput
@@ -125,7 +139,7 @@ const ContactForm = () => {
               >
                 Send
               </Button>
-            </form>
+            </Form>
           )}
         </Formik>
       </div>
